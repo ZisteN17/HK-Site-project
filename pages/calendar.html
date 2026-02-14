@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Календарь — ХК КГАСУ</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Шапка с навигацией -->
+    <header class="page-header">
+        <a href="../index.html" class="back-link">← Главная</a>
+        <h1 class="page-title">Календарь и результаты</h1>
+    </header>
+
+    <main class="content-page calendar-page">
+        <div class="content-container">
+
+            <!-- Выбор сезона -->
+            <div class="season-selector">
+                <label for="seasonSelect">Выберите сезон:</label>
+                <select id="seasonSelect">
+                    <option value="2025-2026">Сезон 2025/2026</option>
+                    <option value="2024-2025">Сезон 2024/2025</option>
+                    <option value="2023-2024">Сезон 2023/2024</option>
+                </select>
+            </div>
+
+            <!-- Турнирная таблица -->
+            <section class="standings-section">
+                <h2>Турнирная таблица</h2>
+                <div class="standings-table-container">
+                    <table class="standings-table">
+                        <thead>
+                            <tr>
+                                <th>Место</th>
+                                <th>Команда</th>
+                                <th>И</th>
+                                <th>В</th>
+                                <th>П</th>
+                                <th>Ш</th>
+                                <th>О</th>
+                            </tr>
+                        </thead>
+                        <tbody id="standingsTableBody">
+                            <!-- Данные будут загружаться из Supabase -->
+                            <tr>
+                                <td>1</td>
+                                <td class="team-name">ХК КГАСУ</td>
+                                <td>10</td>
+                                <td>8</td>
+                                <td>2</td>
+                                <td>40:15</td>
+                                <td>24</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Предстоящие игры -->
+            <section class="upcoming-games-section">
+                <h2>Предстоящие игры</h2>
+                <div class="games-list" id="upcomingGames">
+                    <!-- Карточка предстоящей игры -->
+                    <div class="game-card upcoming">
+                        <div class="game-date">15 февраля 2026, 18:00</div>
+                        <div class="game-teams">
+                            <div class="team home-team">
+                                <img src="../images/logo.jpeg" alt="ХК КГАСУ" class="team-logo-small">
+                                <span class="team-name">ХК КГАСУ</span>
+                            </div>
+                            <div class="vs">VS</div>
+                            <div class="team away-team">
+                                <img src="../images/opponents/opponent-placeholder.png" alt="Соперник" class="team-logo-small">
+                                <span class="team-name">Соперник</span>
+                            </div>
+                        </div>
+                        <div class="game-location">Место: Ледовая арена КГАСУ</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- История матчей -->
+            <section class="past-games-section">
+                <h2>Сыгранные матчи</h2>
+                <div class="games-list" id="pastGames">
+                    <!-- Карточка сыгранного матча -->
+                    <div class="game-card past">
+                        <div class="game-date">10 февраля 2026</div>
+                        <div class="game-teams">
+                            <div class="team home-team">
+                                <img src="../images/logo.jpeg" alt="ХК КГАСУ" class="team-logo-small">
+                                <span class="team-name">ХК КГАСУ</span>
+                            </div>
+                            <div class="game-score">
+                                <span class="score">5 : 3</span>
+                                <span class="result win">Победа</span>
+                            </div>
+                            <div class="team away-team">
+                                <img src="../images/opponents/opponent-placeholder.png" alt="Соперник" class="team-logo-small">
+                                <span class="team-name">Соперник</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="game-card past">
+                        <div class="game-date">5 февраля 2026</div>
+                        <div class="game-teams">
+                            <div class="team home-team">
+                                <img src="../images/opponents/opponent-placeholder.png" alt="Соперник" class="team-logo-small">
+                                <span class="team-name">Соперник</span>
+                            </div>
+                            <div class="game-score">
+                                <span class="score">2 : 4</span>
+                                <span class="result loss">Поражение</span>
+                            </div>
+                            <div class="team away-team">
+                                <img src="../images/logo.jpeg" alt="ХК КГАСУ" class="team-logo-small">
+                                <span class="team-name">ХК КГАСУ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/calendar.js"></script>
+</body>
+</html>

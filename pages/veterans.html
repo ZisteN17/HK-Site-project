@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ветераны — ХК КГАСУ</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Шапка с навигацией -->
+    <header class="page-header">
+        <a href="../index.html" class="back-link">← Главная</a>
+        <h1 class="page-title">Ветераны</h1>
+    </header>
+
+    <main class="content-page">
+        <div class="content-container">
+            <!-- Эмблема на фоне -->
+            <div class="background-logo"></div>
+
+            <!-- Сетка ветеранов (3 в ряд) -->
+            <section class="players-grid" id="veteransGrid">
+                <!-- Карточки ветеранов будут загружаться из JS/Supabase -->
+                <!-- Пример карточки: -->
+                <div class="player-card veteran-card" data-player-id="1">
+                    <div class="player-photo">
+                        <img src="../images/veterans/veteran-placeholder.jpg" alt="Ветеран 1">
+                    </div>
+                    <div class="player-info">
+                        <h3 class="player-name">Имя Фамилия</h3>
+                        <p class="player-years">Годы в команде: 2015-2020</p>
+                        <p class="player-position">Позиция</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Модальное окно для биографии ветерана -->
+    <div id="veteranModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-player-info">
+                <img id="modalVeteranPhoto" src="" alt="Фото ветерана" class="modal-photo">
+                <div class="modal-details">
+                    <h2 id="modalVeteranName">Имя ветерана</h2>
+                    <p class="modal-years"><strong>Годы в команде:</strong> <span id="modalVeteranYears"></span></p>
+                    <p class="modal-position"><strong>Позиция:</strong> <span id="modalVeteranPosition"></span></p>
+                    <div class="modal-bio">
+                        <h3>Биография</h3>
+                        <p id="modalVeteranBio">Биография ветерана...</p>
+                    </div>
+                    <div class="modal-achievements">
+                        <h3>Достижения в команде</h3>
+                        <p id="modalVeteranAchievements">Достижения...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/veterans.js"></script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Основной состав — ХК КГАСУ</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Шапка с навигацией -->
+    <header class="page-header">
+        <a href="../index.html" class="back-link">← Главная</a>
+        <h1 class="page-title">Основной состав</h1>
+    </header>
+
+    <main class="content-page">
+        <div class="content-container">
+            <!-- Эмблема на фоне -->
+            <div class="background-logo"></div>
+
+            <!-- Сетка игроков (3 в ряд) -->
+            <section class="players-grid" id="playersGrid">
+                <!-- Карточки игроков будут загружаться из JS/Supabase -->
+                <!-- Пример карточки для демонстрации структуры: -->
+                <div class="player-card" data-player-id="1">
+                    <div class="player-photo">
+                        <img src="../images/players/player-placeholder.jpg" alt="Игрок 1">
+                    </div>
+                    <div class="player-info">
+                        <h3 class="player-name">Имя Фамилия</h3>
+                        <p class="player-number">#00</p>
+                        <p class="player-position">Позиция</p>
+                    </div>
+                </div>
+
+                <!-- Ещё примеры для демонстрации сетки 3х3 -->
+                <div class="player-card" data-player-id="2">
+                    <div class="player-photo">
+                        <img src="../images/players/player-placeholder.jpg" alt="Игрок 2">
+                    </div>
+                    <div class="player-info">
+                        <h3 class="player-name">Имя Фамилия</h3>
+                        <p class="player-number">#00</p>
+                        <p class="player-position">Позиция</p>
+                    </div>
+                </div>
+
+                <div class="player-card" data-player-id="3">
+                    <div class="player-photo">
+                        <img src="../images/players/player-placeholder.jpg" alt="Игрок 3">
+                    </div>
+                    <div class="player-info">
+                        <h3 class="player-name">Имя Фамилия</h3>
+                        <p class="player-number">#00</p>
+                        <p class="player-position">Позиция</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Модальное окно для биографии игрока -->
+    <div id="playerModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-player-info">
+                <img id="modalPlayerPhoto" src="" alt="Фото игрока" class="modal-photo">
+                <div class="modal-details">
+                    <h2 id="modalPlayerName">Имя игрока</h2>
+                    <p class="modal-number">#<span id="modalPlayerNumber">00</span></p>
+                    <p class="modal-position"><strong>Позиция:</strong> <span id="modalPlayerPosition"></span></p>
+                    <div class="modal-bio">
+                        <h3>Биография</h3>
+                        <p id="modalPlayerBio">Биография игрока...</p>
+                    </div>
+                    <div class="modal-stats">
+                        <h3>Характеристики</h3>
+                        <p><strong>Рост:</strong> <span id="modalPlayerHeight"></span> см</p>
+                        <p><strong>Вес:</strong> <span id="modalPlayerWeight"></span> кг</p>
+                        <p><strong>Возраст:</strong> <span id="modalPlayerAge"></span> лет</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/roster.js"></script>
+</body>
+</html>
