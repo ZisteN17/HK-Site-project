@@ -16,42 +16,157 @@
     <main class="content-page calendar-page">
         <div class="content-container">
 
-            <!-- Выбор сезона -->
-            <div class="season-selector">
-                <label for="seasonSelect">Выберите сезон:</label>
-                <select id="seasonSelect">
-                    <option value="2025-2026">Сезон 2025/2026</option>
-                    <option value="2024-2025">Сезон 2024/2025</option>
-                    <option value="2023-2024">Сезон 2023/2024</option>
-                </select>
-            </div>
-
             <!-- Турнирная таблица -->
             <section class="standings-section">
-                <h2>Турнирная таблица</h2>
+                <h2>Турнирная таблица — Дивизион АБ ПЛХЛ 2025/2026</h2>
+                <p class="standings-subtitle">Регулярный чемпионат</p>
                 <div class="standings-table-container">
                     <table class="standings-table">
                         <thead>
                             <tr>
-                                <th>Место</th>
-                                <th>Команда</th>
+                                <th>#</th>
+                                <th></th>
+                                <th class="team-col">Команда</th>
                                 <th>И</th>
                                 <th>В</th>
+                                <th>Н</th>
                                 <th>П</th>
                                 <th>Ш</th>
                                 <th>О</th>
                             </tr>
                         </thead>
-                        <tbody id="standingsTableBody">
-                            <!-- Данные будут загружаться из Supabase -->
+                        <tbody>
                             <tr>
                                 <td>1</td>
-                                <td class="team-name">ХК КГАСУ</td>
-                                <td>10</td>
-                                <td>8</td>
+                                <td><img src="../images/opponents/gagarin.jpg" alt="" class="table-team-logo"></td>
+                                <td class="team-name">Гагарин</td>
+                                <td>16</td>
+                                <td>12</td>
+                                <td>1</td>
+                                <td>3</td>
+                                <td>58-21</td>
+                                <td class="points-cell">25</td>
+                            </tr>
+                            <tr>
                                 <td>2</td>
-                                <td>40:15</td>
-                                <td>24</td>
+                                <td><img src="../images/opponents/strela-dion.jpg" alt="" class="table-team-logo"></td>
+                                <td class="team-name">Стрела - Дион</td>
+                                <td>17</td>
+                                <td>11</td>
+                                <td>2</td>
+                                <td>4</td>
+                                <td>64-32</td>
+                                <td class="points-cell">24</td>
+                            </tr>
+                            <tr class="highlight-team">
+                                <td>3</td>
+                                <td><img src="../images/opponents/kgasu.jpg" alt="" class="table-team-logo"></td>
+                                <td class="team-name">КГАСУ</td>
+                                <td>15</td>
+                                <td>11</td>
+                                <td>1</td>
+                                <td>3</td>
+                                <td>72-36</td>
+                                <td class="points-cell">23</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td><img src="../images/opponents/pestrecy.jpg" alt="" class="table-team-logo"></td>
+                                <td class="team-name">Пестрецы</td>
+                                <td>17</td>
+                                <td>9</td>
+                                <td>3</td>
+                                <td>5</td>
+                                <td>45-43</td>
+                                <td class="points-cell">21</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td><img src="../images/opponents/kai.jpg" alt="" class="table-team-logo"></td>
+                                <td class="team-name">КАИ</td>
+                                <td>17</td>
+                                <td>8</td>
+                                <td>4</td>
+                                <td>5</td>
+                                <td>87-44</td>
+                                <td class="points-cell">20</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td><img src="../images/opponents/yadran-ab.jpg" alt="" class="table-team-logo"></td>
+                                <td class="team-name">Ядран - AB</td>
+                                <td>15</td>
+                                <td>9</td>
+                                <td>1</td>
+                                <td>5</td>
+                                <td>68-50</td>
+                                <td class="points-cell">19</td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td><img src="../images/opponents/sigma.jpg" alt="" class="table-team-logo"></td>
+                                <td class="team-name">Сигма</td>
+                                <td>16</td>
+                                <td>8</td>
+                                <td>1</td>
+                                <td>7</td>
+                                <td>47-36</td>
+                                <td class="points-cell">17</td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td><img src="../images/opponents/yulbarsy.jpg" alt="" class="table-team-logo"></td>
+                                <td class="team-name">Казанские Юлбарсы</td>
+                                <td>16</td>
+                                <td>7</td>
+                                <td>3</td>
+                                <td>6</td>
+                                <td>75-49</td>
+                                <td class="points-cell">17</td>
+                            </tr>
+                            <tr>
+                                <td>9</td>
+                                <td><img src="../images/opponents/ak-bure.jpg" alt="" class="table-team-logo"></td>
+                                <td class="team-name">Ак Буре</td>
+                                <td>16</td>
+                                <td>5</td>
+                                <td>0</td>
+                                <td>11</td>
+                                <td>38-59</td>
+                                <td class="points-cell">10</td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td><img src="../images/opponents/zilant.jpg" alt="" class="table-team-logo"></td>
+                                <td class="team-name">Зилант</td>
+                                <td>17</td>
+                                <td>4</td>
+                                <td>2</td>
+                                <td>11</td>
+                                <td>42-66</td>
+                                <td class="points-cell">10</td>
+                            </tr>
+                            <tr>
+                                <td>11</td>
+                                <td><img src="../images/opponents/timerhan.jpg" alt="" class="table-team-logo"></td>
+                                <td class="team-name">Тимерхан</td>
+                                <td>16</td>
+                                <td>4</td>
+                                <td>0</td>
+                                <td>12</td>
+                                <td>29-58</td>
+                                <td class="points-cell">8</td>
+                            </tr>
+                            <tr>
+                                <td>12</td>
+                                <td><img src="../images/opponents/armeec.jpg" alt="" class="table-team-logo"></td>
+                                <td class="team-name">Армеец</td>
+                                <td>16</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>16</td>
+                                <td>19-150</td>
+                                <td class="points-cell">0</td>
                             </tr>
                         </tbody>
                     </table>
@@ -61,72 +176,396 @@
             <!-- Предстоящие игры -->
             <section class="upcoming-games-section">
                 <h2>Предстоящие игры</h2>
-                <div class="games-list" id="upcomingGames">
-                    <!-- Карточка предстоящей игры -->
+                <div class="games-list">
+
                     <div class="game-card upcoming">
-                        <div class="game-date">15 февраля 2026, 18:00</div>
+                        <div class="game-date">18 февраля 2026, 20:15</div>
+                        <div class="game-teams">
+                            <div class="team away-team">
+                                <img src="../images/opponents/timerhan.jpg" alt="Тимерхан" class="team-logo-small">
+                                <span class="team-name">Тимерхан</span>
+                            </div>
+                            <div class="vs">VS</div>
+                            <div class="team home-team">
+                                <img src="../images/logo.jpeg" alt="КГАСУ" class="team-logo-small">
+                                <span class="team-name">КГАСУ</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="game-card upcoming">
+                        <div class="game-date">26 февраля 2026, 22:00</div>
                         <div class="game-teams">
                             <div class="team home-team">
-                                <img src="../images/logo.jpeg" alt="ХК КГАСУ" class="team-logo-small">
-                                <span class="team-name">ХК КГАСУ</span>
+                                <img src="../images/logo.jpeg" alt="КГАСУ" class="team-logo-small">
+                                <span class="team-name">КГАСУ</span>
                             </div>
                             <div class="vs">VS</div>
                             <div class="team away-team">
-                                <img src="../images/opponents/opponent-placeholder.png" alt="Соперник" class="team-logo-small">
-                                <span class="team-name">Соперник</span>
+                                <img src="../images/opponents/gagarin.jpg" alt="Гагарин" class="team-logo-small">
+                                <span class="team-name">Гагарин</span>
                             </div>
                         </div>
-                        <div class="game-location">Место: Ледовая арена КГАСУ</div>
                     </div>
+
+                    <div class="game-card upcoming">
+                        <div class="game-date">2 марта 2026, 21:30</div>
+                        <div class="game-teams">
+                            <div class="team home-team">
+                                <img src="../images/logo.jpeg" alt="КГАСУ" class="team-logo-small">
+                                <span class="team-name">КГАСУ</span>
+                            </div>
+                            <div class="vs">VS</div>
+                            <div class="team away-team">
+                                <img src="../images/opponents/yulbarsy.jpg" alt="Казанские Юлбарсы" class="team-logo-small">
+                                <span class="team-name">Каз. Юлбарсы</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="game-card upcoming">
+                        <div class="game-date">4 марта 2026, 21:30</div>
+                        <div class="game-teams">
+                            <div class="team away-team">
+                                <img src="../images/opponents/kai.jpg" alt="КАИ" class="team-logo-small">
+                                <span class="team-name">КАИ</span>
+                            </div>
+                            <div class="vs">VS</div>
+                            <div class="team home-team">
+                                <img src="../images/logo.jpeg" alt="КГАСУ" class="team-logo-small">
+                                <span class="team-name">КГАСУ</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="game-card upcoming">
+                        <div class="game-date">12 марта 2026, 21:30</div>
+                        <div class="game-teams">
+                            <div class="team home-team">
+                                <img src="../images/logo.jpeg" alt="КГАСУ" class="team-logo-small">
+                                <span class="team-name">КГАСУ</span>
+                            </div>
+                            <div class="vs">VS</div>
+                            <div class="team away-team">
+                                <img src="../images/opponents/strela-dion.jpg" alt="Стрела - Дион" class="team-logo-small">
+                                <span class="team-name">Стрела - Дион</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="game-card upcoming">
+                        <div class="game-date">16 марта 2026, 20:00</div>
+                        <div class="game-teams">
+                            <div class="team away-team">
+                                <img src="../images/opponents/armeec.jpg" alt="Армеец" class="team-logo-small">
+                                <span class="team-name">Армеец</span>
+                            </div>
+                            <div class="vs">VS</div>
+                            <div class="team home-team">
+                                <img src="../images/logo.jpeg" alt="КГАСУ" class="team-logo-small">
+                                <span class="team-name">КГАСУ</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="game-card upcoming">
+                        <div class="game-date">20 марта 2026, 21:15</div>
+                        <div class="game-teams">
+                            <div class="team away-team">
+                                <img src="../images/opponents/yadran-ab.jpg" alt="Ядран - AB" class="team-logo-small">
+                                <span class="team-name">Ядран - AB</span>
+                            </div>
+                            <div class="vs">VS</div>
+                            <div class="team home-team">
+                                <img src="../images/logo.jpeg" alt="КГАСУ" class="team-logo-small">
+                                <span class="team-name">КГАСУ</span>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </section>
 
-            <!-- История матчей -->
+            <!-- Сыгранные матчи -->
             <section class="past-games-section">
                 <h2>Сыгранные матчи</h2>
-                <div class="games-list" id="pastGames">
-                    <!-- Карточка сыгранного матча -->
-                    <div class="game-card past">
+                <div class="games-list">
+
+                    <div class="game-card past win-card">
                         <div class="game-date">10 февраля 2026</div>
                         <div class="game-teams">
-                            <div class="team home-team">
-                                <img src="../images/logo.jpeg" alt="ХК КГАСУ" class="team-logo-small">
-                                <span class="team-name">ХК КГАСУ</span>
+                            <div class="team away-team">
+                                <img src="../images/opponents/sigma.jpg" alt="Сигма" class="team-logo-small">
+                                <span class="team-name">Сигма</span>
                             </div>
                             <div class="game-score">
-                                <span class="score">5 : 3</span>
+                                <span class="score">1 : 2</span>
                                 <span class="result win">Победа</span>
                             </div>
-                            <div class="team away-team">
-                                <img src="../images/opponents/opponent-placeholder.png" alt="Соперник" class="team-logo-small">
-                                <span class="team-name">Соперник</span>
+                            <div class="team home-team">
+                                <img src="../images/logo.jpeg" alt="КГАСУ" class="team-logo-small">
+                                <span class="team-name">КГАСУ</span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="game-card past">
-                        <div class="game-date">5 февраля 2026</div>
+                    <div class="game-card past win-card">
+                        <div class="game-date">28 января 2026</div>
                         <div class="game-teams">
                             <div class="team home-team">
-                                <img src="../images/opponents/opponent-placeholder.png" alt="Соперник" class="team-logo-small">
-                                <span class="team-name">Соперник</span>
+                                <img src="../images/logo.jpeg" alt="КГАСУ" class="team-logo-small">
+                                <span class="team-name">КГАСУ</span>
                             </div>
                             <div class="game-score">
-                                <span class="score">2 : 4</span>
-                                <span class="result loss">Поражение</span>
+                                <span class="score">8 : 4</span>
+                                <span class="result win">Победа</span>
                             </div>
                             <div class="team away-team">
-                                <img src="../images/logo.jpeg" alt="ХК КГАСУ" class="team-logo-small">
-                                <span class="team-name">ХК КГАСУ</span>
+                                <img src="../images/opponents/ak-bure.jpg" alt="Ак Буре" class="team-logo-small">
+                                <span class="team-name">Ак Буре</span>
                             </div>
                         </div>
                     </div>
+
+                    <div class="game-card past win-card">
+                        <div class="game-date">24 января 2026</div>
+                        <div class="game-teams">
+                            <div class="team home-team">
+                                <img src="../images/logo.jpeg" alt="КГАСУ" class="team-logo-small">
+                                <span class="team-name">КГАСУ</span>
+                            </div>
+                            <div class="game-score">
+                                <span class="score">4 : 3</span>
+                                <span class="result win">Победа</span>
+                            </div>
+                            <div class="team away-team">
+                                <img src="../images/opponents/zilant.jpg" alt="Зилант" class="team-logo-small">
+                                <span class="team-name">Зилант</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="game-card past win-card">
+                        <div class="game-date">15 января 2026</div>
+                        <div class="game-teams">
+                            <div class="team away-team">
+                                <img src="../images/opponents/pestrecy.jpg" alt="Пестрецы" class="team-logo-small">
+                                <span class="team-name">Пестрецы</span>
+                            </div>
+                            <div class="game-score">
+                                <span class="score">3 : 5</span>
+                                <span class="result win">Победа</span>
+                            </div>
+                            <div class="team home-team">
+                                <img src="../images/logo.jpeg" alt="КГАСУ" class="team-logo-small">
+                                <span class="team-name">КГАСУ</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="game-card past win-card">
+                        <div class="game-date">18 декабря 2025</div>
+                        <div class="game-teams">
+                            <div class="team home-team">
+                                <img src="../images/logo.jpeg" alt="КГАСУ" class="team-logo-small">
+                                <span class="team-name">КГАСУ</span>
+                            </div>
+                            <div class="game-score">
+                                <span class="score">17 : 2</span>
+                                <span class="result win">Победа</span>
+                            </div>
+                            <div class="team away-team">
+                                <img src="../images/opponents/armeec.jpg" alt="Армеец" class="team-logo-small">
+                                <span class="team-name">Армеец</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="game-card past loss-card">
+                        <div class="game-date">9 декабря 2025</div>
+                        <div class="game-teams">
+                            <div class="team away-team">
+                                <img src="../images/opponents/strela-dion.jpg" alt="Стрела - Дион" class="team-logo-small">
+                                <span class="team-name">Стрела - Дион</span>
+                            </div>
+                            <div class="game-score">
+                                <span class="score">4 : 3</span>
+                                <span class="result loss">Поражение</span>
+                            </div>
+                            <div class="team home-team">
+                                <img src="../images/logo.jpeg" alt="КГАСУ" class="team-logo-small">
+                                <span class="team-name">КГАСУ</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="game-card past win-card">
+                        <div class="game-date">4 декабря 2025</div>
+                        <div class="game-teams">
+                            <div class="team home-team">
+                                <img src="../images/logo.jpeg" alt="КГАСУ" class="team-logo-small">
+                                <span class="team-name">КГАСУ</span>
+                            </div>
+                            <div class="game-score">
+                                <span class="score">2 : 1</span>
+                                <span class="result win">Победа</span>
+                            </div>
+                            <div class="team away-team">
+                                <img src="../images/opponents/kai.jpg" alt="КАИ" class="team-logo-small">
+                                <span class="team-name">КАИ</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="game-card past loss-card">
+                        <div class="game-date">26 ноября 2025</div>
+                        <div class="game-teams">
+                            <div class="team away-team">
+                                <img src="../images/opponents/yulbarsy.jpg" alt="Казанские Юлбарсы" class="team-logo-small">
+                                <span class="team-name">Каз. Юлбарсы</span>
+                            </div>
+                            <div class="game-score">
+                                <span class="score">6 : 2</span>
+                                <span class="result loss">Поражение</span>
+                            </div>
+                            <div class="team home-team">
+                                <img src="../images/logo.jpeg" alt="КГАСУ" class="team-logo-small">
+                                <span class="team-name">КГАСУ</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="game-card past loss-card">
+                        <div class="game-date">23 ноября 2025</div>
+                        <div class="game-teams">
+                            <div class="team away-team">
+                                <img src="../images/opponents/gagarin.jpg" alt="Гагарин" class="team-logo-small">
+                                <span class="team-name">Гагарин</span>
+                            </div>
+                            <div class="game-score">
+                                <span class="score">2 : 1</span>
+                                <span class="result loss">Поражение</span>
+                            </div>
+                            <div class="team home-team">
+                                <img src="../images/logo.jpeg" alt="КГАСУ" class="team-logo-small">
+                                <span class="team-name">КГАСУ</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="game-card past win-card">
+                        <div class="game-date">20 ноября 2025</div>
+                        <div class="game-teams">
+                            <div class="team home-team">
+                                <img src="../images/logo.jpeg" alt="КГАСУ" class="team-logo-small">
+                                <span class="team-name">КГАСУ</span>
+                            </div>
+                            <div class="game-score">
+                                <span class="score">5 : 2</span>
+                                <span class="result win">Победа</span>
+                            </div>
+                            <div class="team away-team">
+                                <img src="../images/opponents/timerhan.jpg" alt="Тимерхан" class="team-logo-small">
+                                <span class="team-name">Тимерхан</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="game-card past draw-card">
+                        <div class="game-date">14 ноября 2025</div>
+                        <div class="game-teams">
+                            <div class="team away-team">
+                                <img src="../images/opponents/yadran-ab.jpg" alt="Ядран - AB" class="team-logo-small">
+                                <span class="team-name">Ядран - AB</span>
+                            </div>
+                            <div class="game-score">
+                                <span class="score">3 : 3</span>
+                                <span class="result draw">Ничья</span>
+                            </div>
+                            <div class="team home-team">
+                                <img src="../images/logo.jpeg" alt="КГАСУ" class="team-logo-small">
+                                <span class="team-name">КГАСУ</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="game-card past win-card">
+                        <div class="game-date">4 ноября 2025</div>
+                        <div class="game-teams">
+                            <div class="team home-team">
+                                <img src="../images/logo.jpeg" alt="КГАСУ" class="team-logo-small">
+                                <span class="team-name">КГАСУ</span>
+                            </div>
+                            <div class="game-score">
+                                <span class="score">1 : 0</span>
+                                <span class="result win">Победа</span>
+                            </div>
+                            <div class="team away-team">
+                                <img src="../images/opponents/sigma.jpg" alt="Сигма" class="team-logo-small">
+                                <span class="team-name">Сигма</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="game-card past win-card">
+                        <div class="game-date">22 октября 2025</div>
+                        <div class="game-teams">
+                            <div class="team away-team">
+                                <img src="../images/opponents/zilant.jpg" alt="Зилант" class="team-logo-small">
+                                <span class="team-name">Зилант</span>
+                            </div>
+                            <div class="game-score">
+                                <span class="score">0 : 4</span>
+                                <span class="result win">Победа</span>
+                            </div>
+                            <div class="team home-team">
+                                <img src="../images/logo.jpeg" alt="КГАСУ" class="team-logo-small">
+                                <span class="team-name">КГАСУ</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="game-card past win-card">
+                        <div class="game-date">16 октября 2025</div>
+                        <div class="game-teams">
+                            <div class="team home-team">
+                                <img src="../images/logo.jpeg" alt="КГАСУ" class="team-logo-small">
+                                <span class="team-name">КГАСУ</span>
+                            </div>
+                            <div class="game-score">
+                                <span class="score">7 : 3</span>
+                                <span class="result win">Победа</span>
+                            </div>
+                            <div class="team away-team">
+                                <img src="../images/opponents/pestrecy.jpg" alt="Пестрецы" class="team-logo-small">
+                                <span class="team-name">Пестрецы</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="game-card past win-card">
+                        <div class="game-date">12 октября 2025</div>
+                        <div class="game-teams">
+                            <div class="team away-team">
+                                <img src="../images/opponents/ak-bure.jpg" alt="Ак Буре" class="team-logo-small">
+                                <span class="team-name">Ак Буре</span>
+                            </div>
+                            <div class="game-score">
+                                <span class="score">2 : 8</span>
+                                <span class="result win">Победа</span>
+                            </div>
+                            <div class="team home-team">
+                                <img src="../images/logo.jpeg" alt="КГАСУ" class="team-logo-small">
+                                <span class="team-name">КГАСУ</span>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </section>
         </div>
     </main>
 
     <script src="../js/main.js"></script>
-    <script src="../js/calendar.js"></script>
 </body>
 </html>
