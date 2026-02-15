@@ -9,7 +9,7 @@
 <body>
     <!-- Шапка с навигацией -->
     <header class="page-header">
-        <a href="../index.html" class="back-link">← Главная</a>
+        <a href="../index.html" class="back-link">&larr; Главная</a>
         <h1 class="page-title">Основной состав</h1>
     </header>
 
@@ -18,43 +18,9 @@
             <!-- Эмблема на фоне -->
             <div class="background-logo"></div>
 
-            <!-- Сетка игроков (3 в ряд) -->
+            <!-- Сетка игроков (загружается из JS) -->
             <section class="players-grid" id="playersGrid">
-                <!-- Карточки игроков будут загружаться из JS/Supabase -->
-                <!-- Пример карточки для демонстрации структуры: -->
-                <div class="player-card" data-player-id="1">
-                    <div class="player-photo">
-                        <img src="../images/players/player-placeholder.jpg" alt="Игрок 1">
-                    </div>
-                    <div class="player-info">
-                        <h3 class="player-name">Имя Фамилия</h3>
-                        <p class="player-number">#00</p>
-                        <p class="player-position">Позиция</p>
-                    </div>
-                </div>
-
-                <!-- Ещё примеры для демонстрации сетки 3х3 -->
-                <div class="player-card" data-player-id="2">
-                    <div class="player-photo">
-                        <img src="../images/players/player-placeholder.jpg" alt="Игрок 2">
-                    </div>
-                    <div class="player-info">
-                        <h3 class="player-name">Имя Фамилия</h3>
-                        <p class="player-number">#00</p>
-                        <p class="player-position">Позиция</p>
-                    </div>
-                </div>
-
-                <div class="player-card" data-player-id="3">
-                    <div class="player-photo">
-                        <img src="../images/players/player-placeholder.jpg" alt="Игрок 3">
-                    </div>
-                    <div class="player-info">
-                        <h3 class="player-name">Имя Фамилия</h3>
-                        <p class="player-number">#00</p>
-                        <p class="player-position">Позиция</p>
-                    </div>
-                </div>
+                <!-- Карточки игроков загружаются динамически из roster.js -->
             </section>
         </div>
     </main>
@@ -70,8 +36,8 @@
                     <p class="modal-number">#<span id="modalPlayerNumber">00</span></p>
                     <p class="modal-position"><strong>Позиция:</strong> <span id="modalPlayerPosition"></span></p>
                     <div class="modal-bio">
-                        <h3>Биография</h3>
-                        <p id="modalPlayerBio">Биография игрока...</p>
+                        <h3>О игроке</h3>
+                        <p id="modalPlayerBio">Информация об игроке...</p>
                     </div>
                     <div class="modal-stats">
                         <h3>Характеристики</h3>
