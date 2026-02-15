@@ -369,15 +369,19 @@ function loadPlayers() {
     playersGrid.innerHTML = '';
 
     // Группируем по позициям
-    const positions = ['Вратарь', 'Защитник', 'Нападающий'];
-    positions.forEach(position => {
-        const positionPlayers = playersData.filter(p => p.position === position);
+    const positions = [
+        { key: 'Вратарь', plural: 'Вратари' },
+        { key: 'Защитник', plural: 'Защитники' },
+        { key: 'Нападающий', plural: 'Нападающие' }
+    ];
+    positions.forEach(({ key, plural }) => {
+        const positionPlayers = playersData.filter(p => p.position === key);
         if (positionPlayers.length === 0) return;
 
         // Заголовок группы
         const header = document.createElement('div');
         header.className = 'position-header';
-        header.innerHTML = `<h2>${position}и <span class="position-count">(${positionPlayers.length})</span></h2>`;
+        header.innerHTML = `<h2>${plural} <span class="position-count">(${positionPlayers.length})</span></h2>`;
         playersGrid.appendChild(header);
 
         // Карточки игроков

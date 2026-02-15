@@ -465,23 +465,25 @@ body {
     color: var(--dark-gray);
 }
 
-.about-images {
+.about-gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin: 2rem 0;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin: 2rem 0 3rem;
 }
 
 .about-photo {
-    width: 100%;
+    width: 60%;
     height: auto;
+    margin: 0 auto;
     border-radius: 10px;
-    box-shadow: 0 4px 15px var(--shadow);
+    display: block;
+    border: 3px solid var(--primary-red);
     transition: transform 0.3s ease;
 }
 
 .about-photo:hover {
-    transform: scale(1.05);
+    transform: scale(1.03);
 }
 
 .achievements {
@@ -985,14 +987,6 @@ body {
     height: 50px;
 }
 
-.social-link-card.vk .social-icon {
-    background-color: #0077FF;
-}
-
-.social-link-card.vk .social-icon svg {
-    fill: white;
-}
-
 .social-link-card.telegram .social-icon {
     background-color: #0088CC;
 }
@@ -1006,14 +1000,6 @@ body {
 }
 
 .social-link-card.instagram .social-icon svg {
-    fill: white;
-}
-
-.social-link-card.youtube .social-icon {
-    background-color: #FF0000;
-}
-
-.social-link-card.youtube .social-icon svg {
     fill: white;
 }
 
@@ -1044,6 +1030,13 @@ body {
 .join-team-section p {
     font-size: 1.1rem;
     margin-bottom: 2rem;
+}
+
+.manager-buttons {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .join-team-button {
