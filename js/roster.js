@@ -390,6 +390,25 @@ function loadPlayers() {
             playersGrid.appendChild(playerCard);
         });
     });
+
+    // Тренерский штаб
+    const coachHeader = document.createElement('div');
+    coachHeader.className = 'position-header';
+    coachHeader.innerHTML = `<h2>Тренерский штаб</h2>`;
+    playersGrid.appendChild(coachHeader);
+
+    const coachCard = document.createElement('div');
+    coachCard.className = 'player-card coach-card';
+    coachCard.innerHTML = `
+        <div class="player-photo">
+            <img src="../images/players/player-placeholder.jpg" alt="Тренер">
+        </div>
+        <div class="player-info">
+            <h3 class="player-name">Вадим Вакивович</h3>
+            <p class="player-position">Тренер</p>
+        </div>
+    `;
+    playersGrid.appendChild(coachCard);
 }
 
 function createPlayerCard(player) {
