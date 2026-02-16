@@ -451,10 +451,16 @@ body {
    СТРАНИЦА "О КОМАНДЕ"
    ============================ */
 .about-section {
-    background-color: rgba(255, 255, 255, 0.85);
+    background-color: var(--primary-white);
     border-radius: 15px;
     padding: 3rem;
     box-shadow: 0 8px 20px var(--shadow);
+    background-image: url('../images/logo.jpeg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 400px;
+    background-blend-mode: lighten;
+    background-color: rgba(255, 255, 255, 0.92);
 }
 
 .about-content h2 {
