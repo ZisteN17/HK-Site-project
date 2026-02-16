@@ -873,6 +873,65 @@ body {
     color: var(--primary-black);
 }
 
+/* Статистика сезона */
+.season-stats-section {
+    margin-bottom: 3rem;
+}
+
+.season-stats-section h2 {
+    font-size: 2rem;
+    color: var(--primary-red);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.season-stats {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.stat-card {
+    background: var(--primary-black);
+    color: var(--primary-white);
+    border-radius: 12px;
+    padding: 1.5rem 2.5rem;
+    text-align: center;
+    min-width: 140px;
+    box-shadow: 0 4px 15px var(--shadow);
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-value {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--primary-red);
+    line-height: 1.2;
+}
+
+.stat-value.positive {
+    color: #28a745;
+}
+
+.stat-value.negative {
+    color: var(--primary-red);
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.95rem;
+    color: var(--medium-gray);
+    margin-top: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
 /* Игры */
 .upcoming-games-section,
 .past-games-section {
@@ -1184,6 +1243,19 @@ body {
     .standings-table td {
         padding: 0.5rem;
         font-size: 0.9rem;
+    }
+
+    .season-stats {
+        gap: 0.8rem;
+    }
+
+    .stat-card {
+        padding: 1rem 1.5rem;
+        min-width: 100px;
+    }
+
+    .stat-value {
+        font-size: 1.8rem;
     }
 
     /* Адаптация двух эмблем для мобильных */

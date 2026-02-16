@@ -1,6 +1,6 @@
 // Расписание игр КГАСУ — Дивизион АБ ПЛХЛ 2025/2026
 // Данные спарсены с plhl.ru (tournamentId=15651, teamId=1304107)
-// Для обновления: заменить массив KGASU_GAMES актуальными данными
+// Для обновления: используйте admin.html
 
 const TEAM_LOGOS = {
     'КГАСУ': 'logo.jpeg',
@@ -41,6 +41,44 @@ const KGASU_GAMES = [
     { date: '2026-03-16T20:00', home: 'Армеец', away: 'КГАСУ', homeScore: null, awayScore: null },
     { date: '2026-03-20T21:15', home: 'Ядран - AB', away: 'КГАСУ', homeScore: null, awayScore: null }
 ];
+
+const STANDINGS = [
+    { pos: 1, team: 'Стрела - Дион', games: 18, wins: 12, draws: 2, losses: 4, goals: '71-32', points: 26 },
+    { pos: 2, team: 'Гагарин', games: 16, wins: 12, draws: 1, losses: 3, goals: '58-21', points: 25 },
+    { pos: 3, team: 'КГАСУ', games: 15, wins: 11, draws: 1, losses: 3, goals: '72-36', points: 23 },
+    { pos: 4, team: 'Пестрецы', games: 17, wins: 9, draws: 3, losses: 5, goals: '45-43', points: 21 },
+    { pos: 5, team: 'КАИ', games: 17, wins: 8, draws: 4, losses: 5, goals: '87-44', points: 20 },
+    { pos: 6, team: 'Ядран - AB', games: 15, wins: 9, draws: 1, losses: 5, goals: '68-50', points: 19 },
+    { pos: 7, team: 'Казанские Юлбарсы', games: 16, wins: 7, draws: 3, losses: 6, goals: '75-49', points: 17 },
+    { pos: 8, team: 'Сигма', games: 16, wins: 8, draws: 1, losses: 7, goals: '47-36', points: 17 },
+    { pos: 9, team: 'Ак Буре', games: 16, wins: 5, draws: 0, losses: 11, goals: '38-59', points: 10 },
+    { pos: 10, team: 'Зилант', games: 18, wins: 4, draws: 2, losses: 12, goals: '42-73', points: 10 },
+    { pos: 11, team: 'Тимерхан', games: 16, wins: 4, draws: 0, losses: 12, goals: '29-58', points: 8 },
+    { pos: 12, team: 'Армеец', games: 16, wins: 0, draws: 0, losses: 16, goals: '19-150', points: 0 }
+];
+
+// Отрисовка турнирной таблицы из данных STANDINGS
+function renderStandings() {
+    const tbody = document.querySelector('.standings-table tbody');
+    if (!tbody) return;
+
+    const imagesPath = getImagesPath();
+    tbody.innerHTML = STANDINGS.map(s => {
+        const logo = TEAM_LOGOS[s.team] || '';
+        const isKgasu = s.team === 'КГАСУ';
+        return `<tr${isKgasu ? ' class="highlight-team"' : ''}>
+            <td>${s.pos}</td>
+            <td><img src="${imagesPath}${logo}" alt="" class="table-team-logo"></td>
+            <td class="team-name">${s.team}</td>
+            <td>${s.games}</td>
+            <td>${s.wins}</td>
+            <td>${s.draws}</td>
+            <td>${s.losses}</td>
+            <td>${s.goals}</td>
+            <td class="points-cell">${s.points}</td>
+        </tr>`;
+    }).join('');
+}
 
 // Определяем путь к изображениям (главная или подстраница)
 function getImagesPath() {
@@ -100,5 +138,53 @@ function updateNextGameBlock() {
     `;
 }
 
+// Подсчёт голов КГАСУ за сезон из сыгранных матчей
+function renderSeasonStats() {
+    const container = document.getElementById('season-stats');
+    if (!container) return;
+
+    let scored = 0;
+    let conceded = 0;
+    let played = 0;
+
+    KGASU_GAMES.forEach(g => {
+        if (g.homeScore === null) return;
+        played++;
+        if (g.home === 'КГАСУ') {
+            scored += g.homeScore;
+            conceded += g.awayScore;
+        } else {
+            scored += g.awayScore;
+            conceded += g.homeScore;
+        }
+    });
+
+    const diff = scored - conceded;
+    const diffStr = diff > 0 ? `+${diff}` : `${diff}`;
+
+    container.innerHTML = `
+        <div class="stat-card">
+            <span class="stat-value">${scored}</span>
+            <span class="stat-label">Забито</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-value">${conceded}</span>
+            <span class="stat-label">Пропущено</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-value ${diff > 0 ? 'positive' : diff < 0 ? 'negative' : ''}">${diffStr}</span>
+            <span class="stat-label">Разница</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-value">${played}</span>
+            <span class="stat-label">Матчей</span>
+        </div>
+    `;
+}
+
 // Запуск при загрузке страницы
-document.addEventListener('DOMContentLoaded', updateNextGameBlock);
+document.addEventListener('DOMContentLoaded', function() {
+    updateNextGameBlock();
+    renderStandings();
+    renderSeasonStats();
+});

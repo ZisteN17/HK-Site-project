@@ -70,6 +70,74 @@
         .instructions h3 { margin-bottom: 0.5rem; }
         .instructions ol { padding-left: 1.5rem; }
 
+        .section-title {
+            max-width: 700px; margin: 2.5rem auto 1rem;
+            font-size: 1.3rem; color: #333;
+            border-bottom: 2px solid #DC143C; padding-bottom: 0.5rem;
+        }
+
+        .standings-editor {
+            max-width: 700px; margin: 0 auto;
+            background: white; border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            overflow-x: auto;
+        }
+        .standings-editor table {
+            width: 100%; border-collapse: collapse;
+        }
+        .standings-editor th {
+            background: #333; color: white;
+            padding: 0.6rem 0.4rem; font-size: 0.85rem;
+            text-align: center;
+        }
+        .standings-editor th:nth-child(2) { text-align: left; }
+        .standings-editor td {
+            padding: 0.4rem; text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+        .standings-editor td:nth-child(2) {
+            text-align: left; font-weight: 600; font-size: 0.9rem;
+        }
+        .standings-editor tr.highlight { background: #fff0f0; }
+        .standings-editor input {
+            width: 45px; height: 30px;
+            text-align: center; font-size: 0.95rem; font-weight: 600;
+            border: 2px solid #ddd; border-radius: 4px;
+            outline: none;
+        }
+        .standings-editor input.goals-input { width: 70px; }
+        .standings-editor input:focus { border-color: #DC143C; }
+        .standings-editor .auto-calc {
+            font-weight: 700; color: #DC143C; font-size: 0.95rem;
+        }
+
+        .paste-block {
+            max-width: 700px; margin: 1rem auto;
+            background: #e8f5e9; border-radius: 10px;
+            padding: 1.2rem; text-align: center;
+        }
+        .paste-block p {
+            font-size: 0.9rem; color: #333; margin-bottom: 0.8rem;
+        }
+        .paste-block textarea {
+            width: 100%; height: 120px; font-family: monospace;
+            font-size: 0.85rem; border: 2px solid #ccc; border-radius: 6px;
+            padding: 0.8rem; resize: vertical; outline: none;
+        }
+        .paste-block textarea:focus { border-color: #28a745; }
+        .paste-block .btn-paste {
+            margin-top: 0.8rem; padding: 0.5rem 1.5rem;
+            background: #28a745; color: white; border: none;
+            border-radius: 6px; font-weight: 600; font-size: 0.95rem;
+            cursor: pointer; transition: background 0.2s;
+        }
+        .paste-block .btn-paste:hover { background: #1e7e34; }
+        .parse-result {
+            margin-top: 0.5rem; font-size: 0.85rem; font-weight: 600;
+        }
+        .parse-result.success { color: #28a745; }
+        .parse-result.error { color: #DC143C; }
+
         @keyframes fadeInUp {
             from { opacity: 0; transform: translate(-50%, 10px); }
             to { opacity: 1; transform: translate(-50%, 0); }
@@ -82,18 +150,26 @@
 
     <div class="games-list" id="gamesList"></div>
 
+    <h2 class="section-title">Турнирная таблица</h2>
+    <div class="paste-block">
+        <p>Скопируйте таблицу с сайта ПЛХЛ (выделите мышкой → Ctrl+C) и вставьте сюда:</p>
+        <textarea id="pasteArea" placeholder="Вставьте таблицу сюда (Ctrl+V)..."></textarea>
+        <br>
+        <button class="btn-paste" onclick="parseTable()">Заполнить таблицу</button>
+        <div class="parse-result" id="parseResult"></div>
+    </div>
+    <div class="standings-editor" id="standingsEditor"></div>
+
     <div class="actions">
-        <button class="btn btn-primary" onclick="copyUpdatedFile()">Скопировать обновлённый файл</button>
+        <button class="btn btn-primary" onclick="saveFile()">Сохранить schedule.js</button>
     </div>
 
     <div class="instructions">
-        <h3>Как обновить сайт после матча:</h3>
+        <h3>Как обновить сайт после тура:</h3>
         <ol>
-            <li>Найдите нужный матч в списке выше</li>
-            <li>Введите счёт в два поля (хозяева — гости)</li>
-            <li>Нажмите <strong>«Скопировать обновлённый файл»</strong></li>
-            <li>Откройте файл <code>js/schedule.js</code> в любом текстовом редакторе</li>
-            <li>Выделите всё (Ctrl+A), вставьте скопированное (Ctrl+V), сохраните</li>
+            <li>Введите счёт сыгранного матча в разделе «Расписание»</li>
+            <li>Скопируйте таблицу с plhl.ru и вставьте в поле (или поправьте вручную)</li>
+            <li>Нажмите <strong>«Сохранить schedule.js»</strong> — сохраните файл в папку <code>js/</code> проекта</li>
             <li>Закоммитьте и запушьте изменения в GitHub</li>
         </ol>
     </div>
@@ -134,6 +210,180 @@
             });
         }
 
+        function renderStandingsEditor() {
+            const editor = document.getElementById('standingsEditor');
+            let html = `<table>
+                <thead><tr>
+                    <th>#</th><th>Команда</th><th>И</th><th>В</th><th>Н</th><th>П</th><th>Ш</th><th>О</th>
+                </tr></thead><tbody>`;
+
+            STANDINGS.forEach((s, i) => {
+                const isKgasu = s.team === 'КГАСУ';
+                const games = s.wins + s.draws + s.losses;
+                const points = s.wins * 2 + s.draws;
+                html += `<tr${isKgasu ? ' class="highlight"' : ''}>
+                    <td>${s.pos}</td>
+                    <td>${s.team}</td>
+                    <td class="auto-calc" id="st-games-${i}">${games}</td>
+                    <td><input type="number" min="0" id="st-wins-${i}" value="${s.wins}" oninput="recalcRow(${i})"></td>
+                    <td><input type="number" min="0" id="st-draws-${i}" value="${s.draws}" oninput="recalcRow(${i})"></td>
+                    <td><input type="number" min="0" id="st-losses-${i}" value="${s.losses}" oninput="recalcRow(${i})"></td>
+                    <td><input type="text" class="goals-input" id="st-goals-${i}" value="${s.goals}" placeholder="0-0"></td>
+                    <td class="auto-calc" id="st-points-${i}">${points}</td>
+                </tr>`;
+            });
+
+            html += '</tbody></table>';
+            editor.innerHTML = html;
+        }
+
+        // Известные команды и их алиасы для гибкого распознавания
+        const TEAM_ALIASES = {
+            'КГАСУ': ['КГАСУ', 'кгасу'],
+            'Гагарин': ['Гагарин', 'гагарин'],
+            'Стрела - Дион': ['Стрела - Дион', 'Стрела-Дион', 'Стрела', 'стрела'],
+            'Пестрецы': ['Пестрецы', 'пестрецы'],
+            'КАИ': ['КАИ', 'каи'],
+            'Ядран - AB': ['Ядран - AB', 'Ядран-AB', 'Ядран - АБ', 'Ядран-АБ', 'Ядран', 'ядран'],
+            'Сигма': ['Сигма', 'сигма'],
+            'Казанские Юлбарсы': ['Казанские Юлбарсы', 'Каз. Юлбарсы', 'Юлбарсы', 'юлбарсы'],
+            'Ак Буре': ['Ак Буре', 'Ак-Буре', 'ак буре'],
+            'Зилант': ['Зилант', 'зилант'],
+            'Тимерхан': ['Тимерхан', 'тимерхан'],
+            'Армеец': ['Армеец', 'армеец']
+        };
+
+        function findTeamName(text) {
+            text = text.trim();
+            for (const [team, aliases] of Object.entries(TEAM_ALIASES)) {
+                for (const alias of aliases) {
+                    if (text === alias || text.includes(alias)) return team;
+                }
+            }
+            return null;
+        }
+
+        function parseTable() {
+            const raw = document.getElementById('pasteArea').value.trim();
+            const result = document.getElementById('parseResult');
+            if (!raw) {
+                result.className = 'parse-result error';
+                result.textContent = 'Поле пустое — вставьте таблицу';
+                return;
+            }
+
+            const lines = raw.split('\n').filter(l => l.trim());
+            let matched = 0;
+
+            for (const line of lines) {
+                // Разделяем по табуляции или 2+ пробелам
+                const cells = line.split(/\t|  +/).map(c => c.trim()).filter(c => c);
+
+                // Ищем название команды
+                let teamName = null;
+                for (const cell of cells) {
+                    teamName = findTeamName(cell);
+                    if (teamName) break;
+                }
+                if (!teamName) continue;
+
+                // Находим индекс команды в STANDINGS
+                const idx = STANDINGS.findIndex(s => s.team === teamName);
+                if (idx === -1) continue;
+
+                // Собираем все числа из строки (кроме позиции)
+                const numbers = [];
+                const goalsPattern = /^\d+[-:]\d+$/;
+                let goals = null;
+
+                for (const cell of cells) {
+                    if (findTeamName(cell)) continue; // пропускаем название команды
+                    if (goalsPattern.test(cell)) {
+                        goals = cell.replace(':', '-');
+                    } else if (/^\d+$/.test(cell)) {
+                        numbers.push(parseInt(cell));
+                    }
+                }
+
+                // Ожидаемый формат чисел: [позиция, игры, победы, ничьи, поражения, очки]
+                // или [игры, победы, ничьи, поражения, очки]
+                // Нам нужны: победы, ничьи, поражения, шайбы
+                if (numbers.length >= 5) {
+                    let wins, draws, losses;
+                    // Если первое число похоже на позицию (1-12), пропускаем его и игры
+                    if (numbers[0] <= 12 && numbers.length >= 6) {
+                        // [pos, games, wins, draws, losses, points]
+                        wins = numbers[2];
+                        draws = numbers[3];
+                        losses = numbers[4];
+                    } else {
+                        // [games, wins, draws, losses, points]
+                        wins = numbers[1];
+                        draws = numbers[2];
+                        losses = numbers[3];
+                    }
+
+                    document.getElementById(`st-wins-${idx}`).value = wins;
+                    document.getElementById(`st-draws-${idx}`).value = draws;
+                    document.getElementById(`st-losses-${idx}`).value = losses;
+                    if (goals) {
+                        document.getElementById(`st-goals-${idx}`).value = goals;
+                    }
+                    recalcRow(idx);
+                    matched++;
+                }
+            }
+
+            if (matched > 0) {
+                result.className = 'parse-result success';
+                result.textContent = `Распознано ${matched} из ${STANDINGS.length} команд`;
+                document.getElementById('pasteArea').value = '';
+            } else {
+                result.className = 'parse-result error';
+                result.textContent = 'Не удалось распознать данные. Попробуйте скопировать таблицу заново.';
+            }
+        }
+
+        function recalcRow(i) {
+            const wins = parseInt(document.getElementById(`st-wins-${i}`).value) || 0;
+            const draws = parseInt(document.getElementById(`st-draws-${i}`).value) || 0;
+            const losses = parseInt(document.getElementById(`st-losses-${i}`).value) || 0;
+            document.getElementById(`st-games-${i}`).textContent = wins + draws + losses;
+            document.getElementById(`st-points-${i}`).textContent = wins * 2 + draws;
+        }
+
+        function getUpdatedStandings() {
+            const rows = STANDINGS.map((s, i) => {
+                const wins = parseInt(document.getElementById(`st-wins-${i}`).value) || 0;
+                const draws = parseInt(document.getElementById(`st-draws-${i}`).value) || 0;
+                const losses = parseInt(document.getElementById(`st-losses-${i}`).value) || 0;
+                return {
+                    pos: 0,
+                    team: s.team,
+                    games: wins + draws + losses,
+                    wins,
+                    draws,
+                    losses,
+                    goals: document.getElementById(`st-goals-${i}`).value || '0-0',
+                    points: wins * 2 + draws
+                };
+            });
+            // Сортировка по очкам (убывание), при равенстве — по разнице шайб
+            rows.sort((a, b) => {
+                if (b.points !== a.points) return b.points - a.points;
+                const diffA = parseGoalDiff(a.goals);
+                const diffB = parseGoalDiff(b.goals);
+                return diffB - diffA;
+            });
+            rows.forEach((r, i) => r.pos = i + 1);
+            return rows;
+        }
+
+        function parseGoalDiff(goals) {
+            const parts = goals.split('-');
+            return (parseInt(parts[0]) || 0) - (parseInt(parts[1]) || 0);
+        }
+
         function getUpdatedGamesArray() {
             return KGASU_GAMES.map((game, i) => {
                 const homeInput = document.getElementById(`home-${i}`).value;
@@ -145,93 +395,182 @@
         }
 
         function generateFileContent() {
-            const games = getUpdatedGamesArray();
-            const gamesStr = games.map(g => {
-                const hs = g.homeScore !== null ? g.homeScore : 'null';
-                const as = g.awayScore !== null ? g.awayScore : 'null';
-                return `    { date: '${g.date}', home: '${g.home}', away: '${g.away}', homeScore: ${hs}, awayScore: ${as} }`;
+            var BT = String.fromCharCode(96); // backtick
+            var DL = '$'; // dollar sign for template expressions
+
+            var games = getUpdatedGamesArray();
+            var gamesStr = games.map(function(g) {
+                var hs = g.homeScore !== null ? g.homeScore : 'null';
+                var as = g.awayScore !== null ? g.awayScore : 'null';
+                return "    { date: '" + g.date + "', home: '" + g.home + "', away: '" + g.away + "', homeScore: " + hs + ", awayScore: " + as + " }";
             }).join(',\n');
 
-            return `// Расписание игр КГАСУ — Дивизион АБ ПЛХЛ 2025/2026
-// Данные спарсены с plhl.ru (tournamentId=15651, teamId=1304107)
-// Для обновления: заменить массив KGASU_GAMES актуальными данными
+            var standings = getUpdatedStandings();
+            var standingsStr = standings.map(function(s) {
+                return "    { pos: " + s.pos + ", team: '" + s.team + "', games: " + s.games + ", wins: " + s.wins + ", draws: " + s.draws + ", losses: " + s.losses + ", goals: '" + s.goals + "', points: " + s.points + " }";
+            }).join(',\n');
 
-const TEAM_LOGOS = {
-    'КГАСУ': 'logo.jpeg',
-    'Гагарин': 'opponents/gagarin.jpg',
-    'Стрела - Дион': 'opponents/strela-dion.jpg',
-    'Пестрецы': 'opponents/pestrecy.jpg',
-    'КАИ': 'opponents/kai.jpg',
-    'Ядран - AB': 'opponents/yadran-ab.jpg',
-    'Сигма': 'opponents/sigma.jpg',
-    'Казанские Юлбарсы': 'opponents/yulbarsy.jpg',
-    'Ак Буре': 'opponents/ak-bure.jpg',
-    'Зилант': 'opponents/zilant.jpg',
-    'Тимерхан': 'opponents/timerhan.jpg',
-    'Армеец': 'opponents/armeec.jpg'
-};
+            var parts = [];
+            parts.push("// Расписание игр КГАСУ — Дивизион АБ ПЛХЛ 2025/2026");
+            parts.push("// Данные спарсены с plhl.ru (tournamentId=15651, teamId=1304107)");
+            parts.push("// Для обновления: используйте admin.html");
+            parts.push("");
+            parts.push("const TEAM_LOGOS = {");
+            parts.push("    'КГАСУ': 'logo.jpeg',");
+            parts.push("    'Гагарин': 'opponents/gagarin.jpg',");
+            parts.push("    'Стрела - Дион': 'opponents/strela-dion.jpg',");
+            parts.push("    'Пестрецы': 'opponents/pestrecy.jpg',");
+            parts.push("    'КАИ': 'opponents/kai.jpg',");
+            parts.push("    'Ядран - AB': 'opponents/yadran-ab.jpg',");
+            parts.push("    'Сигма': 'opponents/sigma.jpg',");
+            parts.push("    'Казанские Юлбарсы': 'opponents/yulbarsy.jpg',");
+            parts.push("    'Ак Буре': 'opponents/ak-bure.jpg',");
+            parts.push("    'Зилант': 'opponents/zilant.jpg',");
+            parts.push("    'Тимерхан': 'opponents/timerhan.jpg',");
+            parts.push("    'Армеец': 'opponents/armeec.jpg'");
+            parts.push("};");
+            parts.push("");
+            parts.push("const KGASU_GAMES = [");
+            parts.push(gamesStr);
+            parts.push("];");
+            parts.push("");
+            parts.push("const STANDINGS = [");
+            parts.push(standingsStr);
+            parts.push("];");
+            parts.push("");
+            parts.push("// Отрисовка турнирной таблицы из данных STANDINGS");
+            parts.push("function renderStandings() {");
+            parts.push("    const tbody = document.querySelector('.standings-table tbody');");
+            parts.push("    if (!tbody) return;");
+            parts.push("");
+            parts.push("    const imagesPath = getImagesPath();");
+            parts.push("    tbody.innerHTML = STANDINGS.map(s => {");
+            parts.push("        const logo = TEAM_LOGOS[s.team] || '';");
+            parts.push("        const isKgasu = s.team === 'КГАСУ';");
+            parts.push("        return " + BT + "<tr" + DL + "{isKgasu ? ' class=\"highlight-team\"' : ''}>");
+            parts.push("            <td>" + DL + "{s.pos}</td>");
+            parts.push("            <td><img src=\"" + DL + "{imagesPath}" + DL + "{logo}\" alt=\"\" class=\"table-team-logo\"></td>");
+            parts.push("            <td class=\"team-name\">" + DL + "{s.team}</td>");
+            parts.push("            <td>" + DL + "{s.games}</td>");
+            parts.push("            <td>" + DL + "{s.wins}</td>");
+            parts.push("            <td>" + DL + "{s.draws}</td>");
+            parts.push("            <td>" + DL + "{s.losses}</td>");
+            parts.push("            <td>" + DL + "{s.goals}</td>");
+            parts.push("            <td class=\"points-cell\">" + DL + "{s.points}</td>");
+            parts.push("        </tr>" + BT + ";");
+            parts.push("    }).join('');");
+            parts.push("}");
+            parts.push("");
+            parts.push("// Определяем путь к изображениям (главная или подстраница)");
+            parts.push("function getImagesPath() {");
+            parts.push("    const isSubpage = window.location.pathname.includes('/pages/');");
+            parts.push("    return isSubpage ? '../images/' : 'images/';");
+            parts.push("}");
+            parts.push("");
+            parts.push("// Форматирование даты: \"18 февраля 2026, 20:15\"");
+            parts.push("function formatGameDate(dateStr) {");
+            parts.push("    const date = new Date(dateStr);");
+            parts.push("    const months = [");
+            parts.push("        'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',");
+            parts.push("        'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'");
+            parts.push("    ];");
+            parts.push("    const day = date.getDate();");
+            parts.push("    const month = months[date.getMonth()];");
+            parts.push("    const year = date.getFullYear();");
+            parts.push("    const hours = String(date.getHours()).padStart(2, '0');");
+            parts.push("    const minutes = String(date.getMinutes()).padStart(2, '0');");
+            parts.push("    return " + BT + DL + "{day} " + DL + "{month} " + DL + "{year}, " + DL + "{hours}:" + DL + "{minutes}" + BT + ";");
+            parts.push("}");
+            parts.push("");
+            parts.push("// Найти ближайшую будущую игру");
+            parts.push("function getNextGame() {");
+            parts.push("    const now = new Date();");
+            parts.push("    const futureGames = KGASU_GAMES.filter(g => new Date(g.date) > now && g.homeScore === null);");
+            parts.push("    return futureGames.length > 0 ? futureGames[0] : null;");
+            parts.push("}");
+            parts.push("");
+            parts.push("// Обновить блок \"Следующий матч\" на главной");
+            parts.push("function updateNextGameBlock() {");
+            parts.push("    const dateEl = document.querySelector('.next-game-date');");
+            parts.push("    const teamsEl = document.querySelector('.next-game-teams');");
+            parts.push("    if (!dateEl || !teamsEl) return;");
+            parts.push("");
+            parts.push("    const game = getNextGame();");
+            parts.push("    if (!game) {");
+            parts.push("        dateEl.textContent = 'Сезон завершён';");
+            parts.push("        teamsEl.innerHTML = '<span class=\"team-name\">Все матчи сыграны</span>';");
+            parts.push("        return;");
+            parts.push("    }");
+            parts.push("");
+            parts.push("    const imagesPath = getImagesPath();");
+            parts.push("    const opponent = game.home === 'КГАСУ' ? game.away : game.home;");
+            parts.push("    const opponentLogo = TEAM_LOGOS[opponent] || '';");
+            parts.push("    const kgasuLogo = TEAM_LOGOS['КГАСУ'];");
+            parts.push("");
+            parts.push("    dateEl.textContent = formatGameDate(game.date);");
+            parts.push("");
+            parts.push("    // Порядок: хозяева слева, гости справа");
+            parts.push("    teamsEl.innerHTML = " + BT);
+            parts.push("        <img src=\"" + DL + "{imagesPath}" + DL + "{TEAM_LOGOS[game.home]}\" alt=\"" + DL + "{game.home}\" class=\"next-game-logo\">");
+            parts.push("        <span class=\"team-name" + DL + "{game.home !== 'КГАСУ' ? ' opponent' : ''}\">" + DL + "{game.home}</span>");
+            parts.push("        <span class=\"vs\">VS</span>");
+            parts.push("        <span class=\"team-name" + DL + "{game.away !== 'КГАСУ' ? ' opponent' : ''}\">" + DL + "{game.away}</span>");
+            parts.push("        <img src=\"" + DL + "{imagesPath}" + DL + "{TEAM_LOGOS[game.away]}\" alt=\"" + DL + "{game.away}\" class=\"next-game-logo\">");
+            parts.push("    " + BT + ";");
+            parts.push("}");
+            parts.push("");
+            parts.push("// Подсчёт голов КГАСУ за сезон из сыгранных матчей");
+            parts.push("function renderSeasonStats() {");
+            parts.push("    const container = document.getElementById('season-stats');");
+            parts.push("    if (!container) return;");
+            parts.push("");
+            parts.push("    let scored = 0;");
+            parts.push("    let conceded = 0;");
+            parts.push("    let played = 0;");
+            parts.push("");
+            parts.push("    KGASU_GAMES.forEach(g => {");
+            parts.push("        if (g.homeScore === null) return;");
+            parts.push("        played++;");
+            parts.push("        if (g.home === 'КГАСУ') {");
+            parts.push("            scored += g.homeScore;");
+            parts.push("            conceded += g.awayScore;");
+            parts.push("        } else {");
+            parts.push("            scored += g.awayScore;");
+            parts.push("            conceded += g.homeScore;");
+            parts.push("        }");
+            parts.push("    });");
+            parts.push("");
+            parts.push("    const diff = scored - conceded;");
+            parts.push("    const diffStr = diff > 0 ? " + BT + "+" + DL + "{diff}" + BT + " : " + BT + DL + "{diff}" + BT + ";");
+            parts.push("");
+            parts.push("    container.innerHTML = " + BT);
+            parts.push("        <div class=\"stat-card\">");
+            parts.push("            <span class=\"stat-value\">" + DL + "{scored}</span>");
+            parts.push("            <span class=\"stat-label\">Забито</span>");
+            parts.push("        </div>");
+            parts.push("        <div class=\"stat-card\">");
+            parts.push("            <span class=\"stat-value\">" + DL + "{conceded}</span>");
+            parts.push("            <span class=\"stat-label\">Пропущено</span>");
+            parts.push("        </div>");
+            parts.push("        <div class=\"stat-card\">");
+            parts.push("            <span class=\"stat-value " + DL + "{diff > 0 ? 'positive' : diff < 0 ? 'negative' : ''}\">" + DL + "{diffStr}</span>");
+            parts.push("            <span class=\"stat-label\">Разница</span>");
+            parts.push("        </div>");
+            parts.push("        <div class=\"stat-card\">");
+            parts.push("            <span class=\"stat-value\">" + DL + "{played}</span>");
+            parts.push("            <span class=\"stat-label\">Матчей</span>");
+            parts.push("        </div>");
+            parts.push("    " + BT + ";");
+            parts.push("}");
+            parts.push("");
+            parts.push("// Запуск при загрузке страницы");
+            parts.push("document.addEventListener('DOMContentLoaded', function() {");
+            parts.push("    updateNextGameBlock();");
+            parts.push("    renderStandings();");
+            parts.push("    renderSeasonStats();");
+            parts.push("});");
 
-const KGASU_GAMES = [
-${gamesStr}
-];
-
-// Определяем путь к изображениям (главная или подстраница)
-function getImagesPath() {
-    const isSubpage = window.location.pathname.includes('/pages/');
-    return isSubpage ? '../images/' : 'images/';
-}
-
-// Форматирование даты: "18 февраля 2026, 20:15"
-function formatGameDate(dateStr) {
-    const date = new Date(dateStr);
-    const months = [
-        'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
-        'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'
-    ];
-    const day = date.getDate();
-    const month = months[date.getMonth()];
-    const year = date.getFullYear();
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    return \`\${day} \${month} \${year}, \${hours}:\${minutes}\`;
-}
-
-// Найти ближайшую будущую игру
-function getNextGame() {
-    const now = new Date();
-    const futureGames = KGASU_GAMES.filter(g => new Date(g.date) > now && g.homeScore === null);
-    return futureGames.length > 0 ? futureGames[0] : null;
-}
-
-// Обновить блок "Следующий матч" на главной
-function updateNextGameBlock() {
-    const dateEl = document.querySelector('.next-game-date');
-    const teamsEl = document.querySelector('.next-game-teams');
-    if (!dateEl || !teamsEl) return;
-
-    const game = getNextGame();
-    if (!game) {
-        dateEl.textContent = 'Сезон завершён';
-        teamsEl.innerHTML = '<span class="team-name">Все матчи сыграны</span>';
-        return;
-    }
-
-    const imagesPath = getImagesPath();
-
-    dateEl.textContent = formatGameDate(game.date);
-
-    teamsEl.innerHTML = \`
-        <img src="\${imagesPath}\${TEAM_LOGOS[game.home]}" alt="\${game.home}" class="next-game-logo">
-        <span class="team-name\${game.home !== 'КГАСУ' ? ' opponent' : ''}">\${game.home}</span>
-        <span class="vs">VS</span>
-        <span class="team-name\${game.away !== 'КГАСУ' ? ' opponent' : ''}">\${game.away}</span>
-        <img src="\${imagesPath}\${TEAM_LOGOS[game.away]}" alt="\${game.away}" class="next-game-logo">
-    \`;
-}
-
-// Запуск при загрузке страницы
-document.addEventListener('DOMContentLoaded', updateNextGameBlock);
-`;
+            return parts.join('\n');
         }
 
         function showToast(text) {
@@ -241,23 +580,33 @@ document.addEventListener('DOMContentLoaded', updateNextGameBlock);
             setTimeout(() => toast.classList.remove('show'), 3000);
         }
 
-        function copyUpdatedFile() {
+        function saveFile() {
             const content = generateFileContent();
-            navigator.clipboard.writeText(content).then(() => {
-                showToast('Скопировано! Вставьте в js/schedule.js');
-            }).catch(() => {
-                // Fallback
-                const textarea = document.createElement('textarea');
-                textarea.value = content;
-                document.body.appendChild(textarea);
-                textarea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textarea);
-                showToast('Скопировано! Вставьте в js/schedule.js');
-            });
+            const blob = new Blob([content], { type: 'application/javascript' });
+
+            // Современный File System Access API (Chrome/Edge) — сохраняет прямо в папку
+            if (window.showSaveFilePicker) {
+                showSaveFilePicker({
+                    suggestedName: 'schedule.js',
+                    types: [{ description: 'JavaScript', accept: { 'application/javascript': ['.js'] } }]
+                }).then(handle => handle.createWritable())
+                  .then(writable => writable.write(blob).then(() => writable.close()))
+                  .then(() => showToast('Файл сохранён!'))
+                  .catch(() => {});
+            } else {
+                // Fallback — скачивание файла
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'schedule.js';
+                a.click();
+                URL.revokeObjectURL(url);
+                showToast('Файл скачан! Переместите его в папку js/');
+            }
         }
 
         renderGames();
+        renderStandingsEditor();
     </script>
 </body>
 </html>
