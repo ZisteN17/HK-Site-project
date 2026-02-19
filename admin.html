@@ -43,6 +43,20 @@
         .status-badge.future { background: #e3f2fd; color: #1976d2; }
         .status-badge.played-badge { background: #e8f5e9; color: #388e3c; }
 
+        .token-block {
+            max-width: 700px; margin: 0 auto 1.5rem;
+            background: #e8f0fe; border-radius: 10px; padding: 1.2rem 1.5rem;
+            font-size: 0.9rem;
+        }
+        .token-block label { font-weight: 600; display: block; margin-bottom: 0.5rem; }
+        .token-block input {
+            width: 100%; padding: 0.5rem 0.8rem; border: 2px solid #ccc;
+            border-radius: 6px; font-size: 0.95rem; outline: none; font-family: monospace;
+        }
+        .token-block input:focus { border-color: #4285f4; }
+        .token-block small { color: #555; display: block; margin-top: 0.4rem; }
+        .token-block a { color: #1a73e8; }
+
         .actions { text-align: center; margin-top: 2rem; }
         .btn {
             padding: 0.8rem 2rem; font-size: 1.1rem; font-weight: 600;
@@ -51,6 +65,9 @@
         }
         .btn-primary { background: #DC143C; color: white; margin-right: 1rem; }
         .btn-primary:hover { background: #a01029; }
+        .btn-publish { background: #28a745; color: white; }
+        .btn-publish:hover { background: #1e7e34; }
+        .btn-publish:disabled { background: #999; cursor: not-allowed; }
         .btn-secondary { background: #333; color: white; }
         .btn-secondary:hover { background: #555; }
 
@@ -146,7 +163,16 @@
 </head>
 <body>
     <h1>Управление расписанием ХК КГАСУ</h1>
-    <p class="subtitle">Введите счёт после матча и нажмите «Сохранить»</p>
+    <p class="subtitle">Введите счёт после матча и нажмите «Опубликовать на сайте»</p>
+
+    <div class="token-block">
+        <label>GitHub токен (вводится один раз):</label>
+        <input type="password" id="githubToken" placeholder="ghp_xxxxxxxxxxxxxxxx" oninput="saveToken()">
+        <small>
+            Получить токен: <a href="https://github.com/settings/tokens/new?scopes=repo&description=HK+KGASU+Admin" target="_blank">github.com/settings/tokens</a>
+            → Generate new token (classic) → поставить галку <strong>repo</strong> → Generate → скопировать
+        </small>
+    </div>
 
     <div class="games-list" id="gamesList"></div>
 
@@ -161,16 +187,17 @@
     <div class="standings-editor" id="standingsEditor"></div>
 
     <div class="actions">
-        <button class="btn btn-primary" onclick="saveFile()">Сохранить schedule.js</button>
+        <button class="btn btn-publish" onclick="publishToSite()">Опубликовать на сайте</button>
+        <button class="btn btn-primary" onclick="saveFile()">Скачать schedule.js</button>
     </div>
 
     <div class="instructions">
         <h3>Как обновить сайт после тура:</h3>
         <ol>
-            <li>Введите счёт сыгранного матча в разделе «Расписание»</li>
-            <li>Скопируйте таблицу с plhl.ru и вставьте в поле (или поправьте вручную)</li>
-            <li>Нажмите <strong>«Сохранить schedule.js»</strong> — сохраните файл в папку <code>js/</code> проекта</li>
-            <li>Закоммитьте и запушьте изменения в GitHub</li>
+            <li>Введите GitHub токен в поле выше (только в первый раз)</li>
+            <li>Введите счёт сыгранного матча</li>
+            <li>Обновите турнирную таблицу (вставьте с plhl.ru или вручную)</li>
+            <li>Нажмите <strong>«Опубликовать на сайте»</strong> — сайт обновится автоматически!</li>
         </ol>
     </div>
 
@@ -602,6 +629,73 @@
                 a.click();
                 URL.revokeObjectURL(url);
                 showToast('Файл скачан! Переместите его в папку js/');
+            }
+        }
+
+        // Сохранение токена в localStorage
+        function saveToken() {
+            const token = document.getElementById('githubToken').value;
+            if (token) localStorage.setItem('gh_token', token);
+        }
+
+        // Загрузка токена при открытии
+        window.addEventListener('load', function() {
+            const saved = localStorage.getItem('gh_token');
+            if (saved) document.getElementById('githubToken').value = saved;
+        });
+
+        async function publishToSite() {
+            const token = document.getElementById('githubToken').value.trim();
+            if (!token) {
+                showToast('Введите GitHub токен!');
+                return;
+            }
+
+            const btn = document.querySelector('.btn-publish');
+            btn.disabled = true;
+            btn.textContent = 'Публикация...';
+
+            try {
+                const owner = 'ZisteN17';
+                const repo = 'HK-Site-project';
+                const path = 'js/schedule.js';
+                const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+
+                // Получаем текущий SHA файла
+                const getResp = await fetch(apiUrl, {
+                    headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
+                });
+                if (!getResp.ok) throw new Error('Ошибка доступа. Проверьте токен.');
+                const fileData = await getResp.json();
+                const sha = fileData.sha;
+
+                // Генерируем новый контент и кодируем в base64
+                const content = generateFileContent();
+                const encoded = btoa(unescape(encodeURIComponent(content)));
+
+                // Обновляем файл через API
+                const putResp = await fetch(apiUrl, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: 'Обновление расписания и турнирной таблицы',
+                        content: encoded,
+                        sha: sha
+                    })
+                });
+
+                if (!putResp.ok) throw new Error('Ошибка при сохранении файла.');
+
+                showToast('Сайт обновлён! Изменения появятся через ~1 минуту.');
+            } catch (e) {
+                showToast('Ошибка: ' + e.message);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Опубликовать на сайте';
             }
         }
 
