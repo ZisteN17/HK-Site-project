@@ -33,7 +33,7 @@ const KGASU_GAMES = [
     { date: '2026-01-24T20:30', home: 'КГАСУ', away: 'Зилант', homeScore: 4, awayScore: 3 },
     { date: '2026-01-28T22:30', home: 'КГАСУ', away: 'Ак Буре', homeScore: 8, awayScore: 4 },
     { date: '2026-02-10T22:00', home: 'Сигма', away: 'КГАСУ', homeScore: 1, awayScore: 2 },
-    { date: '2026-02-18T20:15', home: 'Тимерхан', away: 'КГАСУ', homeScore: null, awayScore: null },
+    { date: '2026-02-18T20:15', home: 'Тимерхан', away: 'КГАСУ', homeScore: 4, awayScore: 6 },
     { date: '2026-02-26T22:00', home: 'КГАСУ', away: 'Гагарин', homeScore: null, awayScore: null },
     { date: '2026-03-02T21:30', home: 'КГАСУ', away: 'Казанские Юлбарсы', homeScore: null, awayScore: null },
     { date: '2026-03-04T21:30', home: 'КАИ', away: 'КГАСУ', homeScore: null, awayScore: null },
@@ -44,17 +44,17 @@ const KGASU_GAMES = [
 
 const STANDINGS = [
     { pos: 1, team: 'Стрела - Дион', games: 18, wins: 12, draws: 2, losses: 4, goals: '71-32', points: 26 },
-    { pos: 2, team: 'Гагарин', games: 16, wins: 12, draws: 1, losses: 3, goals: '58-21', points: 25 },
-    { pos: 3, team: 'КГАСУ', games: 15, wins: 11, draws: 1, losses: 3, goals: '72-36', points: 23 },
-    { pos: 4, team: 'Пестрецы', games: 17, wins: 9, draws: 3, losses: 5, goals: '45-43', points: 21 },
-    { pos: 5, team: 'КАИ', games: 17, wins: 8, draws: 4, losses: 5, goals: '87-44', points: 20 },
-    { pos: 6, team: 'Ядран - AB', games: 15, wins: 9, draws: 1, losses: 5, goals: '68-50', points: 19 },
-    { pos: 7, team: 'Казанские Юлбарсы', games: 16, wins: 7, draws: 3, losses: 6, goals: '75-49', points: 17 },
-    { pos: 8, team: 'Сигма', games: 16, wins: 8, draws: 1, losses: 7, goals: '47-36', points: 17 },
-    { pos: 9, team: 'Ак Буре', games: 16, wins: 5, draws: 0, losses: 11, goals: '38-59', points: 10 },
+    { pos: 2, team: 'Гагарин', games: 17, wins: 12, draws: 2, losses: 3, goals: '58-21', points: 26 },
+    { pos: 3, team: 'КГАСУ', games: 16, wins: 12, draws: 1, losses: 3, goals: '72-36', points: 25 },
+    { pos: 4, team: 'Пестрецы', games: 18, wins: 10, draws: 3, losses: 5, goals: '45-43', points: 23 },
+    { pos: 5, team: 'Ядран - AB', games: 16, wins: 10, draws: 1, losses: 5, goals: '68-50', points: 21 },
+    { pos: 6, team: 'КАИ', games: 18, wins: 8, draws: 4, losses: 6, goals: '87-44', points: 20 },
+    { pos: 7, team: 'Сигма', games: 17, wins: 9, draws: 1, losses: 7, goals: '47-36', points: 19 },
+    { pos: 8, team: 'Казанские Юлбарсы', games: 17, wins: 7, draws: 3, losses: 7, goals: '75-49', points: 17 },
+    { pos: 9, team: 'Ак Буре', games: 17, wins: 5, draws: 1, losses: 11, goals: '38-59', points: 11 },
     { pos: 10, team: 'Зилант', games: 18, wins: 4, draws: 2, losses: 12, goals: '42-73', points: 10 },
-    { pos: 11, team: 'Тимерхан', games: 16, wins: 4, draws: 0, losses: 12, goals: '29-58', points: 8 },
-    { pos: 12, team: 'Армеец', games: 16, wins: 0, draws: 0, losses: 16, goals: '19-150', points: 0 }
+    { pos: 11, team: 'Тимерхан', games: 17, wins: 4, draws: 0, losses: 13, goals: '29-58', points: 8 },
+    { pos: 12, team: 'Армеец', games: 17, wins: 0, draws: 0, losses: 17, goals: '19-150', points: 0 }
 ];
 
 // Отрисовка турнирной таблицы из данных STANDINGS
