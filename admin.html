@@ -320,13 +320,13 @@
 
                 // Собираем все числа из строки (кроме позиции)
                 const numbers = [];
-                const goalsPattern = /^\d+[-:]\d+$/;
+                const goalsPattern = /^\d+\s*[-–—:]\s*\d+$/;
                 let goals = null;
 
                 for (const cell of cells) {
                     if (findTeamName(cell)) continue; // пропускаем название команды
                     if (goalsPattern.test(cell)) {
-                        goals = cell.replace(':', '-');
+                        goals = cell.replace(/\s*[-–—:]\s*/, '-');
                     } else if (/^\d+$/.test(cell)) {
                         numbers.push(parseInt(cell));
                     }
