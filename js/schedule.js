@@ -43,17 +43,17 @@ const KGASU_GAMES = [
 ];
 
 const STANDINGS = [
-    { pos: 1, team: 'Стрела - Дион', games: 18, wins: 12, draws: 2, losses: 4, goals: '71-32', points: 26 },
-    { pos: 2, team: 'Гагарин', games: 17, wins: 12, draws: 2, losses: 3, goals: '58-21', points: 26 },
-    { pos: 3, team: 'КГАСУ', games: 16, wins: 12, draws: 1, losses: 3, goals: '72-36', points: 25 },
+    { pos: 1, team: 'Гагарин', games: 17, wins: 12, draws: 2, losses: 3, goals: '61-24', points: 26 },
+    { pos: 2, team: 'Стрела - Дион', games: 18, wins: 12, draws: 2, losses: 4, goals: '71-32', points: 26 },
+    { pos: 3, team: 'КГАСУ', games: 16, wins: 12, draws: 1, losses: 3, goals: '78-40', points: 25 },
     { pos: 4, team: 'Пестрецы', games: 18, wins: 10, draws: 3, losses: 5, goals: '45-43', points: 23 },
-    { pos: 5, team: 'Ядран - AB', games: 16, wins: 10, draws: 1, losses: 5, goals: '68-50', points: 21 },
-    { pos: 6, team: 'КАИ', games: 18, wins: 8, draws: 4, losses: 6, goals: '87-44', points: 20 },
-    { pos: 7, team: 'Сигма', games: 17, wins: 9, draws: 1, losses: 7, goals: '47-36', points: 19 },
-    { pos: 8, team: 'Казанские Юлбарсы', games: 17, wins: 7, draws: 3, losses: 7, goals: '75-49', points: 17 },
-    { pos: 9, team: 'Ак Буре', games: 17, wins: 5, draws: 1, losses: 11, goals: '38-59', points: 11 },
+    { pos: 5, team: 'Ядран - AB', games: 16, wins: 10, draws: 1, losses: 5, goals: '71-51', points: 21 },
+    { pos: 6, team: 'КАИ', games: 18, wins: 8, draws: 4, losses: 6, goals: '88-47', points: 20 },
+    { pos: 7, team: 'Сигма', games: 17, wins: 9, draws: 1, losses: 7, goals: '55-38', points: 19 },
+    { pos: 8, team: 'Казанские Юлбарсы', games: 17, wins: 7, draws: 3, losses: 7, goals: '77-57', points: 17 },
+    { pos: 9, team: 'Ак Буре', games: 17, wins: 5, draws: 1, losses: 11, goals: '41-62', points: 11 },
     { pos: 10, team: 'Зилант', games: 18, wins: 4, draws: 2, losses: 12, goals: '42-73', points: 10 },
-    { pos: 11, team: 'Тимерхан', games: 17, wins: 4, draws: 0, losses: 13, goals: '29-58', points: 8 },
+    { pos: 11, team: 'Тимерхан', games: 17, wins: 4, draws: 0, losses: 13, goals: '33-64', points: 8 },
     { pos: 12, team: 'Армеец', games: 17, wins: 0, draws: 0, losses: 17, goals: '19-150', points: 0 }
 ];
 
