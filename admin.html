@@ -332,22 +332,28 @@
                     }
                 }
 
-                // Ожидаемый формат чисел: [позиция, игры, победы, ничьи, поражения, очки]
-                // или [игры, победы, ничьи, поражения, очки]
-                // Нам нужны: победы, ничьи, поражения, шайбы
+                // Формат ПЛХЛ: [позиция, игры, победы, ничьи, поражения, забито, пропущено, очки]
+                // или без позиции: [игры, победы, ничьи, поражения, забито, пропущено, очки]
+                // Шайбы могут быть одной ячейкой "78-40" (goalsPattern) или двумя числами
                 if (numbers.length >= 5) {
                     let wins, draws, losses;
                     // Если первое число похоже на позицию (1-12), пропускаем его и игры
                     if (numbers[0] <= 12 && numbers.length >= 6) {
-                        // [pos, games, wins, draws, losses, points]
+                        // [pos, games, wins, draws, losses, gf, ga, points]
                         wins = numbers[2];
                         draws = numbers[3];
                         losses = numbers[4];
+                        if (!goals && numbers.length >= 8) {
+                            goals = `${numbers[5]}-${numbers[6]}`;
+                        }
                     } else {
-                        // [games, wins, draws, losses, points]
+                        // [games, wins, draws, losses, gf, ga, points]
                         wins = numbers[1];
                         draws = numbers[2];
                         losses = numbers[3];
+                        if (!goals && numbers.length >= 7) {
+                            goals = `${numbers[4]}-${numbers[5]}`;
+                        }
                     }
 
                     document.getElementById(`st-wins-${idx}`).value = wins;
