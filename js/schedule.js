@@ -122,9 +122,6 @@ function updateNextGameBlock() {
     }
 
     const imagesPath = getImagesPath();
-    const opponent = game.home === 'КГАСУ' ? game.away : game.home;
-    const opponentLogo = TEAM_LOGOS[opponent] || '';
-    const kgasuLogo = TEAM_LOGOS['КГАСУ'];
 
     dateEl.textContent = formatGameDate(game.date);
 
@@ -182,9 +179,79 @@ function renderSeasonStats() {
     `;
 }
 
+// Предстоящие игры на странице календаря
+function renderUpcomingGames() {
+    const container = document.getElementById('upcomingGamesList');
+    if (!container) return;
+
+    const imagesPath = getImagesPath();
+    const upcoming = KGASU_GAMES.filter(g => g.homeScore === null);
+
+    container.innerHTML = upcoming.map(g => {
+        const homeLogo = TEAM_LOGOS[g.home] || '';
+        const awayLogo = TEAM_LOGOS[g.away] || '';
+        return `
+            <div class="game-card upcoming">
+                <div class="game-date">${formatGameDate(g.date)}</div>
+                <div class="game-teams">
+                    <div class="team home-team">
+                        <img src="${imagesPath}${homeLogo}" alt="${g.home}" class="team-logo-small">
+                        <span class="team-name">${g.home}</span>
+                    </div>
+                    <div class="vs">VS</div>
+                    <div class="team away-team">
+                        <img src="${imagesPath}${awayLogo}" alt="${g.away}" class="team-logo-small">
+                        <span class="team-name">${g.away}</span>
+                    </div>
+                </div>
+            </div>`;
+    }).join('');
+}
+
+// Сыгранные игры на странице календаря
+function renderPastGames() {
+    const container = document.getElementById('pastGamesList');
+    if (!container) return;
+
+    const imagesPath = getImagesPath();
+    const played = KGASU_GAMES.filter(g => g.homeScore !== null).slice().reverse();
+
+    container.innerHTML = played.map(g => {
+        const kgasuScore = g.home === 'КГАСУ' ? g.homeScore : g.awayScore;
+        const oppScore = g.home === 'КГАСУ' ? g.awayScore : g.homeScore;
+        let resultClass, resultText;
+        if (kgasuScore > oppScore) { resultClass = 'win'; resultText = 'Победа'; }
+        else if (kgasuScore < oppScore) { resultClass = 'loss'; resultText = 'Поражение'; }
+        else { resultClass = 'draw'; resultText = 'Ничья'; }
+
+        const homeLogo = TEAM_LOGOS[g.home] || '';
+        const awayLogo = TEAM_LOGOS[g.away] || '';
+        return `
+            <div class="game-card past ${resultClass}-card">
+                <div class="game-date">${formatGameDate(g.date)}</div>
+                <div class="game-teams">
+                    <div class="team home-team">
+                        <img src="${imagesPath}${homeLogo}" alt="${g.home}" class="team-logo-small">
+                        <span class="team-name">${g.home}</span>
+                    </div>
+                    <div class="game-score">
+                        <span class="score">${g.homeScore} : ${g.awayScore}</span>
+                        <span class="result ${resultClass}">${resultText}</span>
+                    </div>
+                    <div class="team away-team">
+                        <img src="${imagesPath}${awayLogo}" alt="${g.away}" class="team-logo-small">
+                        <span class="team-name">${g.away}</span>
+                    </div>
+                </div>
+            </div>`;
+    }).join('');
+}
+
 // Запуск при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
     updateNextGameBlock();
     renderStandings();
     renderSeasonStats();
+    renderUpcomingGames();
+    renderPastGames();
 });
