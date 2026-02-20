@@ -78,6 +78,8 @@
             z-index: 100;
         }
         .toast.show { display: block; animation: fadeInUp 0.3s; }
+        .toast.error { background: #b71c1c; }
+        .toast.success { background: #1b5e20; }
 
         .instructions {
             max-width: 700px; margin: 2rem auto 0;
@@ -155,6 +157,17 @@
         .parse-result.success { color: #28a745; }
         .parse-result.error { color: #DC143C; }
 
+        .debug-log {
+            max-width: 700px; margin: 1rem auto 0;
+            background: #1a1a1a; color: #ccc;
+            border-radius: 10px; padding: 1rem 1.5rem;
+            font-family: monospace; font-size: 0.85rem;
+            line-height: 1.7; display: none;
+        }
+        .debug-log.visible { display: block; }
+        .debug-log .log-ok { color: #69db7c; }
+        .debug-log .log-err { color: #ff6b6b; font-weight: bold; }
+
         @keyframes fadeInUp {
             from { opacity: 0; transform: translate(-50%, 10px); }
             to { opacity: 1; transform: translate(-50%, 0); }
@@ -190,6 +203,8 @@
         <button class="btn btn-publish" onclick="publishToSite()">Опубликовать на сайте</button>
         <button class="btn btn-primary" onclick="saveFile()">Скачать schedule.js</button>
     </div>
+
+    <div class="debug-log" id="debugLog"></div>
 
     <div class="instructions">
         <h3>Как обновить сайт после тура:</h3>
@@ -671,11 +686,23 @@
             return parts.join('\n');
         }
 
-        function showToast(text) {
+        function debugLog(text, type = '') {
+            const log = document.getElementById('debugLog');
+            log.classList.add('visible');
+            const line = document.createElement('div');
+            line.className = type === 'err' ? 'log-err' : (type === 'ok' ? 'log-ok' : '');
+            const time = new Date().toLocaleTimeString('ru-RU');
+            line.textContent = `[${time}] ${text}`;
+            log.appendChild(line);
+        }
+
+        function showToast(text, type = '') {
             const toast = document.getElementById('toast');
             toast.textContent = text;
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 3000);
+            toast.className = 'toast show' + (type ? ' ' + type : '');
+            clearTimeout(toast._timer);
+            const duration = type === 'error' ? 6000 : 3000;
+            toast._timer = setTimeout(() => toast.classList.remove('show'), duration);
         }
 
         function saveFile() {
@@ -718,7 +745,7 @@
         async function publishToSite() {
             const token = document.getElementById('githubToken').value.trim();
             if (!token) {
-                showToast('Введите GitHub токен!');
+                showToast('Введите GitHub токен!', 'error');
                 return;
             }
 
@@ -726,23 +753,43 @@
             btn.disabled = true;
             btn.textContent = 'Публикация...';
 
+            // Очищаем лог
+            const logEl = document.getElementById('debugLog');
+            logEl.innerHTML = '';
+            logEl.classList.remove('visible');
+
             try {
                 const owner = 'ZisteN17';
                 const repo = 'HK-Site-project';
                 const path = 'js/schedule.js';
                 const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
 
+                debugLog('Шаг 1: подключаемся к GitHub...');
+
                 // Получаем текущий SHA файла
                 const getResp = await fetch(apiUrl, {
                     headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
                 });
-                if (!getResp.ok) throw new Error('Ошибка доступа. Проверьте токен.');
+
+                debugLog(`Шаг 1 ответ: HTTP ${getResp.status}`, getResp.ok ? 'ok' : 'err');
+
+                if (!getResp.ok) {
+                    const errBody = await getResp.json().catch(() => ({}));
+                    debugLog(`Детали ошибки: ${errBody.message || JSON.stringify(errBody)}`, 'err');
+                    if (getResp.status === 401) throw new Error('Токен недействителен или истёк (401). Создайте новый на github.com/settings/tokens');
+                    if (getResp.status === 403) throw new Error('Нет прав доступа (403). Токен должен иметь scope: repo.');
+                    if (getResp.status === 404) throw new Error('Репозиторий или файл не найден (404).');
+                    throw new Error(`GitHub API: ${getResp.status} — ${errBody.message || 'неизвестно'}`);
+                }
+
                 const fileData = await getResp.json();
                 const sha = fileData.sha;
+                debugLog(`Шаг 2: файл найден, SHA = ${sha.substring(0, 8)}...`, 'ok');
 
                 // Генерируем новый контент и кодируем в base64
                 const content = generateFileContent();
                 const encoded = btoa(unescape(encodeURIComponent(content)));
+                debugLog(`Шаг 3: новый контент готов (${content.length} байт)`, 'ok');
 
                 // Обновляем файл через API
                 const putResp = await fetch(apiUrl, {
@@ -759,11 +806,23 @@
                     })
                 });
 
-                if (!putResp.ok) throw new Error('Ошибка при сохранении файла.');
+                debugLog(`Шаг 4 ответ: HTTP ${putResp.status}`, putResp.ok ? 'ok' : 'err');
 
-                showToast('Сайт обновлён! Изменения появятся через ~1 минуту.');
+                if (!putResp.ok) {
+                    const errBody = await putResp.json().catch(() => ({}));
+                    debugLog(`Детали ошибки: ${errBody.message || JSON.stringify(errBody)}`, 'err');
+                    if (putResp.status === 401) throw new Error('Токен недействителен при записи (401).');
+                    if (putResp.status === 403) throw new Error('Нет прав на запись (403). Нужен scope: repo (не public_repo).');
+                    if (putResp.status === 409) throw new Error('Конфликт SHA (409). Попробуйте ещё раз.');
+                    if (putResp.status === 422) throw new Error(`Ошибка валидации (422): ${errBody.message || ''}`);
+                    throw new Error(`Ошибка записи: ${putResp.status} — ${errBody.message || 'неизвестно'}`);
+                }
+
+                debugLog('Готово! Файл обновлён на GitHub.', 'ok');
+                showToast('Сайт обновлён! Изменения появятся через ~1 минуту.', 'success');
             } catch (e) {
-                showToast('Ошибка: ' + e.message);
+                debugLog('ОШИБКА: ' + e.message, 'err');
+                showToast('Ошибка: ' + e.message, 'error');
             } finally {
                 btn.disabled = false;
                 btn.textContent = 'Опубликовать на сайте';
