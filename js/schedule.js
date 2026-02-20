@@ -43,8 +43,8 @@ const KGASU_GAMES = [
 ];
 
 const STANDINGS = [
-    { pos: 1, team: 'Гагарин', games: 17, wins: 12, draws: 2, losses: 3, goals: '61-24', points: 26 },
-    { pos: 2, team: 'Стрела - Дион', games: 18, wins: 12, draws: 2, losses: 4, goals: '71-32', points: 26 },
+    { pos: 1, team: 'Стрела - Дион', games: 18, wins: 12, draws: 2, losses: 4, goals: '71-32', points: 26 },
+    { pos: 2, team: 'Гагарин', games: 17, wins: 12, draws: 2, losses: 3, goals: '61-24', points: 26 },
     { pos: 3, team: 'КГАСУ', games: 16, wins: 12, draws: 1, losses: 3, goals: '78-40', points: 25 },
     { pos: 4, team: 'Пестрецы', games: 18, wins: 10, draws: 3, losses: 5, goals: '45-43', points: 23 },
     { pos: 5, team: 'Ядран - AB', games: 16, wins: 10, draws: 1, losses: 5, goals: '71-51', points: 21 },
@@ -122,6 +122,9 @@ function updateNextGameBlock() {
     }
 
     const imagesPath = getImagesPath();
+    const opponent = game.home === 'КГАСУ' ? game.away : game.home;
+    const opponentLogo = TEAM_LOGOS[opponent] || '';
+    const kgasuLogo = TEAM_LOGOS['КГАСУ'];
 
     dateEl.textContent = formatGameDate(game.date);
 
@@ -183,10 +186,8 @@ function renderSeasonStats() {
 function renderUpcomingGames() {
     const container = document.getElementById('upcomingGamesList');
     if (!container) return;
-
     const imagesPath = getImagesPath();
     const upcoming = KGASU_GAMES.filter(g => g.homeScore === null);
-
     container.innerHTML = upcoming.map(g => {
         const homeLogo = TEAM_LOGOS[g.home] || '';
         const awayLogo = TEAM_LOGOS[g.away] || '';
@@ -212,10 +213,8 @@ function renderUpcomingGames() {
 function renderPastGames() {
     const container = document.getElementById('pastGamesList');
     if (!container) return;
-
     const imagesPath = getImagesPath();
     const played = KGASU_GAMES.filter(g => g.homeScore !== null).slice().reverse();
-
     container.innerHTML = played.map(g => {
         const kgasuScore = g.home === 'КГАСУ' ? g.homeScore : g.awayScore;
         const oppScore = g.home === 'КГАСУ' ? g.awayScore : g.homeScore;
@@ -223,7 +222,6 @@ function renderPastGames() {
         if (kgasuScore > oppScore) { resultClass = 'win'; resultText = 'Победа'; }
         else if (kgasuScore < oppScore) { resultClass = 'loss'; resultText = 'Поражение'; }
         else { resultClass = 'draw'; resultText = 'Ничья'; }
-
         const homeLogo = TEAM_LOGOS[g.home] || '';
         const awayLogo = TEAM_LOGOS[g.away] || '';
         return `
