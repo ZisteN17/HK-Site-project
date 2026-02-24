@@ -13,6 +13,69 @@
 }
 
 /* ============================
+   ЭКРАН ЗАГРУЗКИ
+   ============================ */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--primary-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.6s ease;
+}
+
+.loading-screen.loading-hidden {
+    opacity: 0;
+}
+
+.loading-logo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* ============================
+   ФУТЕР РАЗРАБОТЧИКОВ
+   ============================ */
+.dev-footer {
+    position: fixed;
+    bottom: 1rem;
+    right: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--dark-gray);
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(6px);
+    padding: 0.4rem 0.9rem;
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+}
+
+.dev-link {
+    color: #0088CC;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.dev-link:hover {
+    color: #006699;
+    text-decoration: underline;
+}
+
+/* ============================
    ОБЩИЕ СТИЛИ
    ============================ */
 * {
@@ -400,12 +463,45 @@ body {
 .back-link {
     color: var(--primary-white);
     text-decoration: none;
-    font-size: 1rem;
-    transition: color 0.3s ease;
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 0.5rem 1.1rem;
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    border-radius: 8px;
+    transition: color 0.3s ease, border-color 0.3s ease;
 }
 
 .back-link:hover {
-    color: var(--primary-red);
+    color: #D4AF37;
+    border-color: #D4AF37;
+}
+
+/* ============================
+   НАВИГАЦИЯ МЕЖДУ СТРАНИЦАМИ
+   ============================ */
+.page-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 2rem;
+    background-color: var(--primary-black);
+    margin-top: 2rem;
+}
+
+.page-nav-btn {
+    color: var(--primary-white);
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 0.6rem 1.2rem;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.page-nav-btn:hover {
+    color: #D4AF37;
+    border-color: #D4AF37;
 }
 
 .page-title {
@@ -607,6 +703,12 @@ body {
 .player-years {
     font-size: 0.85rem;
     color: var(--dark-gray);
+}
+
+/* Карточка тренера — как у игроков, выделена рамкой */
+.coach-card {
+    cursor: default;
+    outline: 3px solid var(--primary-red);
 }
 
 /* ============================

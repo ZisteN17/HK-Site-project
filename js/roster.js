@@ -401,11 +401,11 @@ function loadPlayers() {
     coachCard.className = 'player-card coach-card';
     coachCard.innerHTML = `
         <div class="player-photo">
-            <img src="../images/players/player-placeholder.jpg" alt="Тренер">
+            <img src="../images/coach.jpeg" alt="Вадим Вакивович">
         </div>
         <div class="player-info">
             <h3 class="player-name">Вадим Вакивович</h3>
-            <p class="player-position">Тренер</p>
+            <p class="player-position" style="color: var(--primary-red); font-weight: 700;">Тренер</p>
         </div>
     `;
     playersGrid.appendChild(coachCard);
