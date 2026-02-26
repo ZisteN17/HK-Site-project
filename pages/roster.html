@@ -15,6 +15,12 @@
 
     <main class="content-page">
         <div class="content-container">
+            <!-- Переключатель лиг -->
+            <div class="league-tabs">
+                <button class="league-tab active" data-league="plhl">ПЛХЛ</button>
+                <button class="league-tab" data-league="skhl">СХЛ</button>
+            </div>
+
             <!-- Эмблема на фоне -->
             <div class="background-logo"></div>
 
@@ -35,16 +41,8 @@
                     <h2 id="modalPlayerName">Имя игрока</h2>
                     <p class="modal-number">#<span id="modalPlayerNumber">00</span></p>
                     <p class="modal-position"><strong>Позиция:</strong> <span id="modalPlayerPosition"></span></p>
-                    <div class="modal-bio">
-                        <h3>О игроке</h3>
-                        <p id="modalPlayerBio">Информация об игроке...</p>
-                    </div>
-                    <div class="modal-stats">
-                        <h3>Характеристики</h3>
-                        <p><strong>Рост:</strong> <span id="modalPlayerHeight"></span> см</p>
-                        <p><strong>Вес:</strong> <span id="modalPlayerWeight"></span> кг</p>
-                        <p><strong>Возраст:</strong> <span id="modalPlayerAge"></span> лет</p>
-                    </div>
+                    <p class="modal-position"><strong>Хват:</strong> <span id="modalPlayerHand"></span></p>
+                    <p class="modal-position"><strong>Возраст:</strong> <span id="modalPlayerAge"></span> лет</p>
                 </div>
             </div>
         </div>

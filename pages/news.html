@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новости — ХК КГАСУ</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Шапка с навигацией -->
+    <header class="page-header">
+        <a href="../index.html" class="back-link"><span class="nav-arrow">←</span> Главная</a>
+        <h1 class="page-title">Новости</h1>
+    </header>
+
+    <main class="content-page">
+        <div class="content-container">
+            <!-- Лента новостей (загружается из JS) -->
+            <section class="news-feed" id="newsFeed">
+                <!-- Карточки новостей загружаются динамически из news.js -->
+            </section>
+        </div>
+    </main>
+
+    <nav class="page-nav">
+        <a href="calendar.html" class="page-nav-btn"><span class="nav-arrow">←</span> Календарь</a>
+        <a href="stream.html" class="page-nav-btn">Трансляции <span class="nav-arrow">→</span></a>
+    </nav>
+    <div class="dev-credits">
+        Разработано: <a href="https://t.me/Zisten_7" target="_blank" class="dev-link">@Zisten_7</a> &amp; <a href="https://t.me/zarya7_7" target="_blank" class="dev-link">@zarya7_7</a>
+    </div>
+
+    <script src="../js/news.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+</html>

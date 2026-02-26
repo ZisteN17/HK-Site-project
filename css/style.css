@@ -406,14 +406,43 @@ body {
    НАВИГАЦИОННЫЕ КНОПКИ
    ============================ */
 .main-navigation {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
     margin-top: 4rem;
     max-width: 900px;
     margin-left: auto;
     margin-right: auto;
     animation: fadeInUp 1s ease-out 0.9s both;
+}
+
+.nav-group-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--primary-red);
+    margin-top: 0.6rem;
+    margin-bottom: 0.3rem;
+    padding-left: 0.2rem;
+}
+
+/* Разделитель перед второй группой */
+.nav-group + .nav-group-label {
+    margin-top: 1.6rem;
+    padding-top: 1.4rem;
+    border-top: 3px solid rgba(212, 175, 55, 0.6);
+}
+
+.nav-group {
+    display: flex;
+    gap: 0.6rem;
+}
+
+.nav-group .nav-button {
+    flex: 1;
+    min-height: 58px;
+    padding: 0.8rem 1rem;
 }
 
 .nav-button {
@@ -792,6 +821,48 @@ body {
     font-size: 1rem;
     font-weight: 400;
     color: var(--dark-gray);
+}
+
+/* ============================
+   ВКЛАДКИ ЛИГИ (ПЛХЛ / СХЛ)
+   ============================ */
+.league-tabs {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.league-tab {
+    padding: 0.55rem 2rem;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border: 2px solid var(--primary-red);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--primary-red);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.league-tab.active {
+    background: var(--primary-red);
+    color: #fff;
+}
+
+.league-tab:hover:not(.active) {
+    background: rgba(220, 20, 60, 0.1);
+}
+
+.roster-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 4rem 1rem;
+    font-size: 1.2rem;
+    color: var(--dark-gray);
+    font-style: italic;
 }
 
 /* Метка роли (Капитан / Ассистент) */
@@ -1334,9 +1405,19 @@ body {
 
 .manager-buttons {
     display: flex;
-    gap: 1.5rem;
+    flex-direction: row;
+    align-items: center;
     justify-content: center;
+    gap: 1.2rem;
     flex-wrap: wrap;
+}
+
+.manager-qr {
+    width: 220px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid var(--primary-gold);
 }
 
 .join-team-button {
@@ -1390,7 +1471,12 @@ body {
     }
 
     .main-navigation {
-        grid-template-columns: 1fr;
+        gap: 0.3rem;
+    }
+
+    .nav-group {
+        flex-direction: column;
+        gap: 0.4rem;
     }
 
     .page-title {
@@ -1561,4 +1647,163 @@ body {
     .players-grid {
         grid-template-columns: repeat(3, 1fr);
     }
+}
+
+/* ============================
+   СТРАНИЦА НОВОСТЕЙ
+   ============================ */
+.news-feed {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1rem 0;
+}
+
+.news-card {
+    background: var(--primary-white);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px var(--shadow-color);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.news-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px var(--shadow-hover);
+}
+
+.news-photo {
+    width: 100%;
+    max-height: 340px;
+    overflow: hidden;
+}
+
+.news-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.news-body {
+    padding: 1.4rem 1.6rem;
+}
+
+.news-meta {
+    margin-bottom: 0.5rem;
+}
+
+.news-date {
+    font-size: 0.85rem;
+    color: var(--dark-gray);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.news-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary-black);
+    margin: 0 0 0.8rem 0;
+    line-height: 1.35;
+}
+
+.news-text {
+    font-size: 0.97rem;
+    color: #333;
+    line-height: 1.65;
+    white-space: pre-line;
+}
+
+.news-empty {
+    text-align: center;
+    padding: 5rem 1rem;
+    font-size: 1.2rem;
+    color: var(--dark-gray);
+    font-style: italic;
+}
+
+/* ============================
+   СТРАНИЦА ТРАНСЛЯЦИЙ
+   ============================ */
+.stream-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+    padding: 2rem 0;
+}
+
+.stream-inactive {
+    text-align: center;
+    color: var(--dark-gray);
+}
+
+.stream-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.stream-inactive h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-black);
+    margin-bottom: 0.8rem;
+}
+
+.stream-inactive p {
+    font-size: 1rem;
+    max-width: 420px;
+    line-height: 1.6;
+}
+
+.stream-active {
+    text-align: center;
+}
+
+.stream-live-badge {
+    display: inline-block;
+    background: var(--primary-red);
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 0.3rem 1rem;
+    border-radius: 20px;
+    margin-bottom: 1.2rem;
+    animation: livePulse 1.5s infinite;
+}
+
+@keyframes livePulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+.stream-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-black);
+    margin-bottom: 0.8rem;
+}
+
+.stream-description {
+    font-size: 1rem;
+    color: var(--dark-gray);
+    margin-bottom: 2rem;
+}
+
+.stream-btn {
+    display: inline-block;
+    background: var(--primary-red);
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 1rem 2.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.stream-btn:hover {
+    background: #b01030;
+    transform: translateY(-2px);
 }

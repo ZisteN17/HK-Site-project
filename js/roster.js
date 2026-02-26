@@ -1,9 +1,9 @@
 // ============================
 // СТРАНИЦА ОСНОВНОГО СОСТАВА
-// Данные загружены из заявки ПЛХЛ (plhl.ru), турнир 2025/2026
 // ============================
 
-const playersData = [
+// --- ПЛХЛ (plhl.ru, турнир 2025/2026) ---
+const plhlPlayers = [
     // === ВРАТАРИ ===
     {
         id: 1,
@@ -344,6 +344,9 @@ const playersData = [
     }
 ];
 
+// --- СХЛ (Студенческая хоккейная лига) ---
+const skhlPlayers = [];
+
 // Вычисление возраста из даты рождения
 function calculateAge(birthDate) {
     const today = new Date();
@@ -358,15 +361,33 @@ function calculateAge(birthDate) {
 
 // Загрузка игроков на страницу
 document.addEventListener('DOMContentLoaded', function() {
-    loadPlayers();
+    loadPlayers(plhlPlayers);
     setupPlayerCardListeners();
+    setupLeagueTabs();
 });
 
-function loadPlayers() {
+function setupLeagueTabs() {
+    const tabs = document.querySelectorAll('.league-tab');
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            tabs.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            const league = this.dataset.league;
+            loadPlayers(league === 'skhl' ? skhlPlayers : plhlPlayers);
+        });
+    });
+}
+
+function loadPlayers(data) {
     const playersGrid = document.getElementById('playersGrid');
     if (!playersGrid) return;
 
     playersGrid.innerHTML = '';
+
+    if (!data || data.length === 0) {
+        playersGrid.innerHTML = '<div class="roster-empty">Состав скоро будет добавлен</div>';
+        return;
+    }
 
     // Группируем по позициям
     const positions = [
@@ -375,7 +396,7 @@ function loadPlayers() {
         { key: 'Нападающий', plural: 'Нападающие' }
     ];
     positions.forEach(({ key, plural }) => {
-        const positionPlayers = playersData.filter(p => p.position === key);
+        const positionPlayers = data.filter(p => p.position === key);
         if (positionPlayers.length === 0) return;
 
         // Заголовок группы
@@ -437,7 +458,7 @@ function setupPlayerCardListeners() {
         const playerCard = event.target.closest('.player-card');
         if (playerCard) {
             const playerId = parseInt(playerCard.dataset.playerId);
-            const player = playersData.find(p => p.id === playerId);
+            const player = [...plhlPlayers, ...skhlPlayers].find(p => p.id === playerId);
             if (player) {
                 showPlayerModal(player);
             }
@@ -452,13 +473,8 @@ function showPlayerModal(player) {
     document.getElementById('modalPlayerName').textContent = player.name + (player.role ? ` (${player.role})` : '');
     document.getElementById('modalPlayerNumber').textContent = player.number;
     document.getElementById('modalPlayerPosition').textContent = player.position;
-    document.getElementById('modalPlayerHeight').textContent = player.height;
-    document.getElementById('modalPlayerWeight').textContent = player.weight;
+    document.getElementById('modalPlayerHand').textContent = player.hand;
     document.getElementById('modalPlayerAge').textContent = age;
-
-    // Биография
-    const bioText = `${player.position}, ${player.height} см, ${player.weight} кг. Хват: ${player.hand}.`;
-    document.getElementById('modalPlayerBio').textContent = bioText;
 
     openModal('playerModal');
 }
