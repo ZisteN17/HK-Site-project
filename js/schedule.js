@@ -3,7 +3,7 @@
 // Для обновления: используйте admin.html
 
 const TEAM_LOGOS = {
-    'КГАСУ': 'logo.jpeg',
+    'КГАСУ': 'opponents/kgasu.jpg',
     'Гагарин': 'opponents/gagarin.jpg',
     'Стрела - Дион': 'opponents/strela-dion.jpg',
     'Пестрецы': 'opponents/pestrecy.jpg',
@@ -64,7 +64,7 @@ function renderStandings() {
 
     const imagesPath = getImagesPath();
     tbody.innerHTML = STANDINGS.map(s => {
-        const logo = TEAM_LOGOS[s.team] || '';
+        const logo = s.team === 'КГАСУ' ? 'opponents/kgasu.jpg' : (TEAM_LOGOS[s.team] || '');
         const isKgasu = s.team === 'КГАСУ';
         return `<tr${isKgasu ? ' class="highlight-team"' : ''}>
             <td>${s.pos}</td>
@@ -122,10 +122,6 @@ function updateNextGameBlock() {
     }
 
     const imagesPath = getImagesPath();
-    const opponent = game.home === 'КГАСУ' ? game.away : game.home;
-    const opponentLogo = TEAM_LOGOS[opponent] || '';
-    const kgasuLogo = TEAM_LOGOS['КГАСУ'];
-
     dateEl.textContent = formatGameDate(game.date);
 
     // Порядок: хозяева слева, гости справа
