@@ -14,6 +14,20 @@ function getPhotos(post) {
     return [];
 }
 
+function buildVideo(src) {
+    if (!src) return '';
+    return `<div class="news-video">
+        <video src="/${src}" controls playsinline preload="metadata" onloadedmetadata="
+            if(this.videoHeight>this.videoWidth){
+                var w=document.createElement('div');
+                w.className='news-video-wrap';
+                this.parentNode.insertBefore(w,this);
+                w.appendChild(this);
+            }
+        "></video>
+    </div>`;
+}
+
 function buildCarousel(photos, postId) {
     if (photos.length === 0) return '';
     if (photos.length === 1) {
@@ -89,6 +103,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             const photos = getPhotos(post);
             card.innerHTML = `
                 ${buildCarousel(photos, post.id)}
+                ${buildVideo(post.video)}
                 <div class="news-body">
                     <div class="news-meta">
                         <span class="news-date">${formatNewsDate(post.date)}</span>

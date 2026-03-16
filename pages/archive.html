@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Архив сезонов — ХК КГАСУ</title>
+    <meta name="description" content="Архив прошлых сезонов хоккейного клуба КГАСУ — таблицы, результаты, плей-офф.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://hckgasu.ru/pages/archive.html">
+    <meta property="og:title" content="Архив сезонов — ХК КГАСУ">
+    <meta property="og:url" content="https://hckgasu.ru/pages/archive.html">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://hckgasu.ru/images/emblem.png">
+    <link rel="icon" type="image/png" href="../images/favicon.png">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <img src="../images/emblem.png" class="background-logo" alt="">
+
+    <header class="page-header">
+        <a href="../index.html" class="back-link"><span class="nav-arrow">←</span> Главная</a>
+        <h1 class="page-title">Архив сезонов</h1>
+    </header>
+
+    <main class="content-page">
+        <div class="content-container">
+
+            <!-- Список сезонов -->
+            <section id="seasonsList">
+                <div class="archive-loading">Загрузка...</div>
+            </section>
+
+            <!-- Детали сезона -->
+            <section id="seasonDetail" style="display:none">
+                <button class="archive-back-btn" onclick="showSeasonsList()">← Все сезоны</button>
+                <h2 id="seasonDetailTitle"></h2>
+
+                <div class="standings-section">
+                    <h3>Турнирная таблица</h3>
+                    <div class="standings-table-container">
+                        <table class="standings-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th class="team-col">Команда</th>
+                                    <th>И</th>
+                                    <th>В</th>
+                                    <th>Н</th>
+                                    <th>П</th>
+                                    <th>Ш</th>
+                                    <th>О</th>
+                                </tr>
+                            </thead>
+                            <tbody id="archiveStandings"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="past-games-section" id="archiveGamesSection">
+                    <h3>Матчи сезона</h3>
+                    <div class="games-list" id="archiveGames"></div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <nav class="page-nav">
+        <a href="calendar.html" class="page-nav-btn"><span class="nav-arrow">←</span> Календарь</a>
+        <a href="news.html" class="page-nav-btn">Новости <span class="nav-arrow">→</span></a>
+    </nav>
+    <div class="dev-credits">
+        Разработано: <a href="https://t.me/Zisten_7" target="_blank" class="dev-link">@Zisten_7</a> &amp; <a href="https://t.me/zarya7_7" target="_blank" class="dev-link">@zarya7_7</a>
+    </div>
+
+    <button class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Наверх">↑</button>
+
+    <script src="../js/archive.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+</html>
