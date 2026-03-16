@@ -1,61 +1,10 @@
-// Расписание игр КГАСУ — Дивизион АБ ПЛХЛ 2025/2026
-// Данные спарсены с plhl.ru (tournamentId=15651, teamId=1304107)
-// Для обновления: используйте admin.html
+// Расписание игр КГАСУ — данные загружаются из /data/games.json
+// Для обновления используйте панель управления (Telegram Mini App)
 
-const TEAM_LOGOS = {
-    'КГАСУ': 'opponents/kgasu.jpg',
-    'Гагарин': 'opponents/gagarin.jpg',
-    'Стрела - Дион': 'opponents/strela-dion.jpg',
-    'Пестрецы': 'opponents/pestrecy.jpg',
-    'КАИ': 'opponents/kai.jpg',
-    'Ядран - AB': 'opponents/yadran-ab.jpg',
-    'Сигма': 'opponents/sigma.jpg',
-    'Казанские Юлбарсы': 'opponents/yulbarsy.jpg',
-    'Ак Буре': 'opponents/ak-bure.jpg',
-    'Зилант': 'opponents/zilant.jpg',
-    'Тимерхан': 'opponents/timerhan.jpg',
-    'Армеец': 'opponents/armeec.jpg'
-};
+let TEAM_LOGOS = {};
+let KGASU_GAMES = [];
 
-const KGASU_GAMES = [
-    { date: '2025-10-12T18:30', home: 'Ак Буре', away: 'КГАСУ', homeScore: 2, awayScore: 8 },
-    { date: '2025-10-16T22:00', home: 'КГАСУ', away: 'Пестрецы', homeScore: 7, awayScore: 3 },
-    { date: '2025-10-22T21:30', home: 'Зилант', away: 'КГАСУ', homeScore: 0, awayScore: 4 },
-    { date: '2025-11-04T21:30', home: 'КГАСУ', away: 'Сигма', homeScore: 1, awayScore: 0 },
-    { date: '2025-11-14T21:15', home: 'Ядран - AB', away: 'КГАСУ', homeScore: 3, awayScore: 3 },
-    { date: '2025-11-20T21:30', home: 'КГАСУ', away: 'Тимерхан', homeScore: 5, awayScore: 2 },
-    { date: '2025-11-23T21:30', home: 'Гагарин', away: 'КГАСУ', homeScore: 2, awayScore: 1 },
-    { date: '2025-11-26T22:00', home: 'Казанские Юлбарсы', away: 'КГАСУ', homeScore: 6, awayScore: 2 },
-    { date: '2025-12-04T21:45', home: 'КГАСУ', away: 'КАИ', homeScore: 2, awayScore: 1 },
-    { date: '2025-12-09T22:30', home: 'Стрела - Дион', away: 'КГАСУ', homeScore: 4, awayScore: 3 },
-    { date: '2025-12-18T22:30', home: 'КГАСУ', away: 'Армеец', homeScore: 17, awayScore: 2 },
-    { date: '2026-01-15T19:45', home: 'Пестрецы', away: 'КГАСУ', homeScore: 3, awayScore: 5 },
-    { date: '2026-01-24T20:30', home: 'КГАСУ', away: 'Зилант', homeScore: 4, awayScore: 3 },
-    { date: '2026-01-28T22:30', home: 'КГАСУ', away: 'Ак Буре', homeScore: 8, awayScore: 4 },
-    { date: '2026-02-10T22:00', home: 'Сигма', away: 'КГАСУ', homeScore: 1, awayScore: 2 },
-    { date: '2026-02-18T20:15', home: 'Тимерхан', away: 'КГАСУ', homeScore: 4, awayScore: 6 },
-    { date: '2026-02-26T22:00', home: 'КГАСУ', away: 'Гагарин', homeScore: null, awayScore: null },
-    { date: '2026-03-02T21:30', home: 'КГАСУ', away: 'Казанские Юлбарсы', homeScore: 4, awayScore: 1 },
-    { date: '2026-03-04T21:30', home: 'КАИ', away: 'КГАСУ', homeScore: null, awayScore: null },
-    { date: '2026-03-12T21:30', home: 'КГАСУ', away: 'Стрела - Дион', homeScore: null, awayScore: null },
-    { date: '2026-03-16T20:00', home: 'Армеец', away: 'КГАСУ', homeScore: null, awayScore: null },
-    { date: '2026-03-20T21:15', home: 'Ядран - AB', away: 'КГАСУ', homeScore: null, awayScore: null }
-];
-
-const STANDINGS = [
-    { pos: 1, team: 'Гагарин', games: 18, wins: 13, draws: 2, losses: 3, goals: '72-27', points: 28 },
-    { pos: 2, team: 'Стрела - Дион', games: 19, wins: 13, draws: 2, losses: 4, goals: '74-32', points: 28 },
-    { pos: 3, team: 'КГАСУ', games: 17, wins: 13, draws: 1, losses: 3, goals: '82-41', points: 27 },
-    { pos: 4, team: 'Пестрецы', games: 18, wins: 10, draws: 3, losses: 5, goals: '45-43', points: 23 },
-    { pos: 5, team: 'Сигма', games: 18, wins: 10, draws: 1, losses: 7, goals: '61-40', points: 21 },
-    { pos: 6, team: 'Ядран - AB', games: 17, wins: 10, draws: 1, losses: 6, goals: '71-54', points: 21 },
-    { pos: 7, team: 'КАИ', games: 19, wins: 8, draws: 4, losses: 7, goals: '90-53', points: 20 },
-    { pos: 8, team: 'Казанские Юлбарсы', games: 18, wins: 7, draws: 3, losses: 8, goals: '78-61', points: 17 },
-    { pos: 9, team: 'Ак Буре', games: 17, wins: 5, draws: 1, losses: 11, goals: '41-62', points: 11 },
-    { pos: 10, team: 'Зилант', games: 18, wins: 4, draws: 2, losses: 12, goals: '42-73', points: 10 },
-    { pos: 11, team: 'Тимерхан', games: 18, wins: 4, draws: 0, losses: 14, goals: '36-75', points: 8 },
-    { pos: 12, team: 'Армеец', games: 17, wins: 0, draws: 0, losses: 17, goals: '19-150', points: 0 }
-];
+let STANDINGS = [];
 
 // Отрисовка турнирной таблицы из данных STANDINGS
 function renderStandings() {
@@ -126,11 +75,15 @@ function updateNextGameBlock() {
 
     // Порядок: хозяева слева, гости справа
     teamsEl.innerHTML = `
-        <img src="${imagesPath}${TEAM_LOGOS[game.home]}" alt="${game.home}" class="next-game-logo">
-        <span class="team-name${game.home !== 'КГАСУ' ? ' opponent' : ''}">${game.home}</span>
+        <div class="next-game-side">
+            <img src="${imagesPath}${TEAM_LOGOS[game.home]}" alt="${game.home}" class="next-game-logo">
+            <span class="team-name${game.home !== 'КГАСУ' ? ' opponent' : ''}">${game.home}</span>
+        </div>
         <span class="vs">VS</span>
-        <span class="team-name${game.away !== 'КГАСУ' ? ' opponent' : ''}">${game.away}</span>
-        <img src="${imagesPath}${TEAM_LOGOS[game.away]}" alt="${game.away}" class="next-game-logo">
+        <div class="next-game-side">
+            <img src="${imagesPath}${TEAM_LOGOS[game.away]}" alt="${game.away}" class="next-game-logo">
+            <span class="team-name${game.away !== 'КГАСУ' ? ' opponent' : ''}">${game.away}</span>
+        </div>
     `;
 }
 
@@ -241,8 +194,104 @@ function renderPastGames() {
     }).join('');
 }
 
-// Запуск при загрузке страницы
-document.addEventListener('DOMContentLoaded', function() {
+// Плей-офф
+function renderPlayoff(data) {
+    const section = document.getElementById('playoffSection');
+    const bracket = document.getElementById('playoffBracket');
+    if (!section || !bracket) return;
+    if (!data || !data.enabled) { section.style.display = 'none'; return; }
+    section.style.display = '';
+
+    const imagesPath = getImagesPath();
+
+    function teamLogo(name) {
+        if (!name || name === '?') return '';
+        const logo = name === 'КГАСУ' || name === 'ХК КГАСУ'
+            ? 'opponents/kgasu.jpg'
+            : (TEAM_LOGOS[name] || '');
+        return logo ? `<img src="${imagesPath}${logo}" alt="" class="bt-logo">` : '<span class="bt-logo-placeholder"></span>';
+    }
+
+    function matchCard(m) {
+        const s1 = m.score1 !== null && m.score1 !== undefined ? m.score1 : '–';
+        const s2 = m.score2 !== null && m.score2 !== undefined ? m.score2 : '–';
+        const win1 = m.score1 !== null && m.score1 !== undefined && m.score1 > m.score2;
+        const win2 = m.score1 !== null && m.score1 !== undefined && m.score2 > m.score1;
+        const t1 = m.team1 || '?';
+        const t2 = m.team2 || '?';
+        const cls1 = `bt-team${win1 ? ' winner' : ''}${t1 === 'КГАСУ' || t1 === 'ХК КГАСУ' ? ' kgasu' : ''}`;
+        const cls2 = `bt-team${win2 ? ' winner' : ''}${t2 === 'КГАСУ' || t2 === 'ХК КГАСУ' ? ' kgasu' : ''}`;
+        return `<div class="bt-card">
+            <div class="${cls1}">${teamLogo(t1)}<span class="bt-name">${t1}</span><span class="bt-score">${s1}</span></div>
+            <div class="${cls2}">${teamLogo(t2)}<span class="bt-name">${t2}</span><span class="bt-score">${s2}</span></div>
+        </div>`;
+    }
+
+    // Порядок: 1v8 и 4v5 → Полуфинал 1; 2v7 и 3v6 → Полуфинал 2
+    const q = data.quarters; // [1v8, 2v7, 3v6, 4v5]
+    bracket.innerHTML = `
+        <div class="bt-scroll">
+            <div class="bt-tree">
+                <div class="bt-round">
+                    <div class="bt-round-label">1/4 финала</div>
+                    <div class="bt-col">
+                        <div class="bt-group">
+                            <div class="bt-slot">${matchCard(q[0])}</div>
+                            <div class="bt-slot">${matchCard(q[3])}</div>
+                        </div>
+                        <div class="bt-group">
+                            <div class="bt-slot">${matchCard(q[1])}</div>
+                            <div class="bt-slot">${matchCard(q[2])}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bt-round">
+                    <div class="bt-round-label">1/2 финала</div>
+                    <div class="bt-col">
+                        <div class="bt-group">
+                            <div class="bt-slot">${matchCard(data.semis[0])}</div>
+                        </div>
+                        <div class="bt-group">
+                            <div class="bt-slot">${matchCard(data.semis[1])}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bt-round">
+                    <div class="bt-round-label">Финал</div>
+                    <div class="bt-col">
+                        <div class="bt-group bt-group-final">
+                            <div class="bt-slot">${matchCard(data.final)}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+}
+
+// Запуск при загрузке страницы — данные берём из JSON-файлов
+document.addEventListener('DOMContentLoaded', async function () {
+    try {
+        const [gamesRes, standingsRes, playoffRes] = await Promise.all([
+            fetch('/data/games.json'),
+            fetch('/data/standings.json'),
+            fetch('/data/playoff.json')
+        ]);
+        if (gamesRes.ok) {
+            const gamesData = await gamesRes.json();
+            KGASU_GAMES = (gamesData.games || []).sort((a, b) => a.date.localeCompare(b.date));
+            TEAM_LOGOS = gamesData.team_logos || {};
+        }
+        if (standingsRes.ok) {
+            const standingsData = await standingsRes.json();
+            STANDINGS = standingsData.standings || [];
+        }
+        if (playoffRes.ok) {
+            renderPlayoff(await playoffRes.json());
+        }
+    } catch (e) {
+        console.warn('Не удалось загрузить данные:', e);
+    }
+
     updateNextGameBlock();
     renderStandings();
     renderSeasonStats();

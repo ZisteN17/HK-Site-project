@@ -417,11 +417,11 @@ const skhlPlayers = [
     {
         id: 109,
         name: "Данис Мухаметшин",
-        number: "—",
+        number: 75,
         position: "Нападающий",
         photo: "../images/players/player-placeholder.jpg",
         birthDate: "2005-10-15",
-        hand: "—"
+        hand: "Левый"
     },
     {
         id: 110,
@@ -436,19 +436,19 @@ const skhlPlayers = [
         id: 111,
         name: "Данила Никитцов",
         number: "—",
-        position: "Нападающий",
+        position: "Защитник",
         photo: "../images/players/player-placeholder.jpg",
         birthDate: "2007-09-11",
-        hand: "—"
+        hand: "Левый"
     },
     {
         id: 112,
         name: "Самат Зямалов",
         number: "—",
-        position: "Нападающий",
+        position: "Вратарь",
         photo: "../images/players/player-placeholder.jpg",
         birthDate: "2007-06-08",
-        hand: "—"
+        hand: "Левый"
     },
     {
         id: 113,
@@ -471,11 +471,11 @@ const skhlPlayers = [
     {
         id: 115,
         name: "Роман Андреев",
-        number: "—",
-        position: "Нападающий",
+        number: 47,
+        position: "Защитник",
         photo: "../images/players/player-placeholder.jpg",
         birthDate: "2003-01-30",
-        hand: "—"
+        hand: "Правый"
     },
     {
         id: 116,
@@ -502,7 +502,7 @@ const skhlPlayers = [
         position: "Нападающий",
         photo: "../images/players/player-placeholder.jpg",
         birthDate: "2005-05-14",
-        hand: "—"
+        hand: "Правый"
     },
     {
         id: 119,
@@ -526,11 +526,11 @@ const skhlPlayers = [
     {
         id: 121,
         name: "Искандар Габдулхаков",
-        number: "—",
+        number: 4,
         position: "Нападающий",
         photo: "../images/players/player-placeholder.jpg",
         birthDate: "2004-07-15",
-        hand: "—"
+        hand: "Правый"
     },
     {
         id: 122,
@@ -539,7 +539,7 @@ const skhlPlayers = [
         position: "Нападающий",
         photo: "../images/players/player-placeholder.jpg",
         birthDate: "2007-12-05",
-        hand: "—"
+        hand: "Левый"
     },
     {
         id: 123,
@@ -557,15 +557,15 @@ const skhlPlayers = [
         position: "Нападающий",
         photo: "../images/players/player-placeholder.jpg",
         birthDate: "2005-07-15",
-        hand: "—"
+        hand: "Правый"
     },
     {
         id: 125,
         name: "Динар Талипов",
-        number: "—",
-        position: "Нападающий",
+        number: 88,
+        position: "Защитник",
         photo: "../images/players/player-placeholder.jpg",
         birthDate: "2004-07-09",
-        hand: "—"
+        hand: "Левый"
     }
 ];

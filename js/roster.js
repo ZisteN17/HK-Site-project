@@ -1,7 +1,9 @@
 // ============================
 // СТРАНИЦА ОСНОВНОГО СОСТАВА
-// (Данные игроков — в players-data.js)
+// Данные загружаются из /data/roster_plhl.json и /data/roster_skhl.json
 // ============================
+
+let allPlayers = { plhl: [], skhl: [] };
 
 // Вычисление возраста из даты рождения
 function calculateAge(birthDate) {
@@ -16,8 +18,25 @@ function calculateAge(birthDate) {
 }
 
 // Загрузка игроков на страницу
-document.addEventListener('DOMContentLoaded', function() {
-    loadPlayers(plhlPlayers);
+document.addEventListener('DOMContentLoaded', async function() {
+    try {
+        const [plhlRes, skhlRes] = await Promise.all([
+            fetch('/data/roster_plhl.json'),
+            fetch('/data/roster_skhl.json')
+        ]);
+        if (plhlRes.ok) {
+            const data = await plhlRes.json();
+            allPlayers.plhl = data.players || [];
+        }
+        if (skhlRes.ok) {
+            const data = await skhlRes.json();
+            allPlayers.skhl = data.players || [];
+        }
+    } catch (e) {
+        console.warn('Не удалось загрузить состав:', e);
+    }
+
+    loadPlayers(allPlayers.plhl);
     setupPlayerCardListeners();
     setupLeagueTabs();
 });
@@ -29,9 +48,20 @@ function setupLeagueTabs() {
             tabs.forEach(t => t.classList.remove('active'));
             this.classList.add('active');
             const league = this.dataset.league;
-            loadPlayers(league === 'skhl' ? skhlPlayers : plhlPlayers);
+            loadPlayers(league === 'skhl' ? allPlayers.skhl : allPlayers.plhl);
         });
     });
+}
+
+// Нормализация пути к фото (JSON хранит "players/xxx.jpg", нужно "../images/players/xxx.jpg")
+function isPlaceholderPhoto(photo) {
+    return !photo || photo.includes('player-placeholder');
+}
+
+function getPhotoSrc(photo) {
+    if (isPlaceholderPhoto(photo)) return '../images/players/player-placeholder.png';
+    if (photo.startsWith('http') || photo.startsWith('../') || photo.startsWith('/')) return photo;
+    return '../images/' + photo;
 }
 
 function loadPlayers(data) {
@@ -97,10 +127,12 @@ function createPlayerCard(player) {
     card.dataset.playerId = player.id;
 
     const roleLabel = player.role ? `<span class="player-role">${player.role === 'Капитан' ? 'К' : 'А'}</span>` : '';
+    const isPlaceholder = isPlaceholderPhoto(player.photo);
+    const placeholderClass = isPlaceholder ? ' is-placeholder' : '';
 
     card.innerHTML = `
         <div class="player-photo">
-            <img src="${player.photo}" alt="${player.name}" onerror="this.src='../images/players/player-placeholder.jpg'">
+            <img src="${getPhotoSrc(player.photo)}" alt="${player.name}" class="${placeholderClass.trim()}" onerror="this.onerror=null; this.src='../images/players/player-placeholder.png'; this.classList.add('is-placeholder')">
         </div>
         <div class="player-info">
             <h3 class="player-name">${player.name}${roleLabel}</h3>
@@ -117,7 +149,7 @@ function setupPlayerCardListeners() {
         const playerCard = event.target.closest('.player-card');
         if (playerCard) {
             const playerId = parseInt(playerCard.dataset.playerId);
-            const player = [...plhlPlayers, ...skhlPlayers].find(p => p.id === playerId);
+            const player = [...allPlayers.plhl, ...allPlayers.skhl].find(p => p.id === playerId);
             if (player) {
                 showPlayerModal(player);
             }
@@ -126,19 +158,26 @@ function setupPlayerCardListeners() {
 }
 
 function formatBirthDate(birthDate) {
+    if (!birthDate) return '—';
     const [year, month, day] = birthDate.split('-');
     return `${day}.${month}.${year}`;
 }
 
 function showPlayerModal(player) {
-    const age = calculateAge(player.birthDate);
+    const age = player.birthDate ? calculateAge(player.birthDate) : '—';
 
-    document.getElementById('modalPlayerPhoto').src = player.photo;
+    const modalPhoto = document.getElementById('modalPlayerPhoto');
+    modalPhoto.src = getPhotoSrc(player.photo);
+    if (isPlaceholderPhoto(player.photo)) {
+        modalPhoto.classList.add('is-placeholder');
+    } else {
+        modalPhoto.classList.remove('is-placeholder');
+    }
     const roleLabel = player.role ? `<span class="player-role">${player.role === 'Капитан' ? 'К' : 'А'}</span>` : '';
     document.getElementById('modalPlayerName').innerHTML = player.name + roleLabel;
     document.getElementById('modalPlayerNumber').textContent = player.number;
     document.getElementById('modalPlayerPosition').textContent = player.position;
-    document.getElementById('modalPlayerHand').textContent = player.hand;
+    document.getElementById('modalPlayerHand').textContent = player.hand || '—';
     document.getElementById('modalPlayerBirthDate').textContent = formatBirthDate(player.birthDate);
     document.getElementById('modalPlayerAge').textContent = age;
 

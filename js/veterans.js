@@ -1,46 +1,44 @@
 // ============================
 // СТРАНИЦА ВЕТЕРАНОВ
+// Данные загружаются из /api/veterans
 // ============================
 
-// Пример данных ветеранов (в будущем будет загружаться из Supabase)
-const veteransData = [
-    {
-        id: 1,
-        name: "Алексей Алексеев",
-        position: "Нападающий",
-        photo: "../images/veterans/veteran-placeholder.jpg",
-        years: "2018-2022",
-        bio: "Выпускник КГАСУ 2022 года. Провел в команде 4 сезона, стал одним из лучших бомбардиров в истории клуба.",
-        achievements: "Чемпион студенческой лиги 2020, лучший снайпер сезона 2021/2022"
-    },
-    {
-        id: 2,
-        name: "Дмитрий Дмитриев",
-        position: "Вратарь",
-        photo: "../images/veterans/veteran-placeholder.jpg",
-        years: "2015-2019",
-        bio: "Легенда ХК КГАСУ. Первый вратарь команды, который провел более 100 матчей.",
-        achievements: "Лучший вратарь студенческой лиги 2018, 3-кратный чемпион"
-    }
-];
+let veteransData = [];
 
-// Загрузка ветеранов на страницу
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function () {
+    try {
+        const res = await fetch('/api/veterans');
+        if (res.ok) {
+            const data = await res.json();
+            veteransData = data.veterans || [];
+        }
+    } catch (e) {
+        console.warn('Не удалось загрузить ветеранов:', e);
+    }
+
     loadVeterans();
     setupVeteranCardListeners();
 });
+
+function getVeteranPhoto(photo) {
+    if (!photo) return '../images/players/player-placeholder.png';
+    if (photo.startsWith('http') || photo.startsWith('../') || photo.startsWith('/')) return photo;
+    return '/' + photo;
+}
 
 function loadVeterans() {
     const veteransGrid = document.getElementById('veteransGrid');
     if (!veteransGrid) return;
 
-    // Очищаем сетку
     veteransGrid.innerHTML = '';
 
-    // Загружаем ветеранов из данных
+    if (veteransData.length === 0) {
+        veteransGrid.innerHTML = '<div class="roster-empty">Ветераны скоро будут добавлены</div>';
+        return;
+    }
+
     veteransData.forEach(veteran => {
-        const veteranCard = createVeteranCard(veteran);
-        veteransGrid.appendChild(veteranCard);
+        veteransGrid.appendChild(createVeteranCard(veteran));
     });
 }
 
@@ -49,13 +47,16 @@ function createVeteranCard(veteran) {
     card.className = 'player-card veteran-card';
     card.dataset.playerId = veteran.id;
 
+    const isPlaceholder = !veteran.photo;
     card.innerHTML = `
         <div class="player-photo">
-            <img src="${veteran.photo}" alt="${veteran.name}">
+            <img src="${getVeteranPhoto(veteran.photo)}" alt="${veteran.name}"
+                 class="${isPlaceholder ? 'is-placeholder' : ''}"
+                 onerror="this.onerror=null; this.src='../images/players/player-placeholder.png'; this.classList.add('is-placeholder')">
         </div>
         <div class="player-info">
             <h3 class="player-name">${veteran.name}</h3>
-            <p class="player-years">Годы в команде: ${veteran.years}</p>
+            ${veteran.years ? `<p class="player-years">Годы в команде: ${veteran.years}</p>` : ''}
             <p class="player-position">${veteran.position}</p>
         </div>
     `;
@@ -64,27 +65,23 @@ function createVeteranCard(veteran) {
 }
 
 function setupVeteranCardListeners() {
-    document.addEventListener('click', function(event) {
+    document.addEventListener('click', function (event) {
         const veteranCard = event.target.closest('.veteran-card');
         if (veteranCard) {
             const veteranId = parseInt(veteranCard.dataset.playerId);
             const veteran = veteransData.find(v => v.id === veteranId);
-            if (veteran) {
-                showVeteranModal(veteran);
-            }
+            if (veteran) showVeteranModal(veteran);
         }
     });
 }
 
 function showVeteranModal(veteran) {
-    // Заполняем модальное окно данными ветерана
-    document.getElementById('modalVeteranPhoto').src = veteran.photo;
+    document.getElementById('modalVeteranPhoto').src = getVeteranPhoto(veteran.photo);
     document.getElementById('modalVeteranName').textContent = veteran.name;
-    document.getElementById('modalVeteranYears').textContent = veteran.years;
+    document.getElementById('modalVeteranYears').textContent = veteran.years || '—';
     document.getElementById('modalVeteranPosition').textContent = veteran.position;
-    document.getElementById('modalVeteranBio').textContent = veteran.bio;
-    document.getElementById('modalVeteranAchievements').textContent = veteran.achievements;
+    document.getElementById('modalVeteranBio').textContent = veteran.bio || '—';
+    document.getElementById('modalVeteranAchievements').textContent = veteran.achievements || '—';
 
-    // Открываем модальное окно
     openModal('veteranModal');
 }

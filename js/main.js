@@ -71,3 +71,11 @@ document.addEventListener('keydown', function(event) {
         });
     }
 });
+
+// Кнопка "Наверх"
+const scrollTopBtn = document.getElementById('scrollTopBtn');
+if (scrollTopBtn) {
+    window.addEventListener('scroll', function() {
+        scrollTopBtn.classList.toggle('visible', window.scrollY > 300);
+    });
+}

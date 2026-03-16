@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Календарь — ХК КГАСУ</title>
+    <meta name="description" content="Расписание игр хоккейного клуба КГАСУ — календарь матчей сезона.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://hckgasu.ru/pages/calendar.html">
+    <meta property="og:title" content="Календарь — ХК КГАСУ">
+    <meta property="og:description" content="Расписание игр хоккейного клуба КГАСУ — календарь матчей сезона.">
+    <meta property="og:url" content="https://hckgasu.ru/pages/calendar.html">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://hckgasu.ru/images/emblem.png">
+    <link rel="icon" type="image/png" href="../images/favicon.png">
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
@@ -51,6 +60,14 @@
                 </div>
             </section>
 
+            <!-- Плей-офф -->
+            <section class="playoff-section" id="playoffSection" style="display:none">
+                <h2>Плей-офф</h2>
+                <div id="playoffBracket">
+                    <!-- Заполняется из js/schedule.js -->
+                </div>
+            </section>
+
             <!-- Предстоящие игры -->
             <section class="upcoming-games-section">
                 <h2>Предстоящие игры</h2>
@@ -77,6 +94,8 @@
     <div class="dev-credits">
         Разработано: <a href="https://t.me/Zisten_7" target="_blank" class="dev-link">@Zisten_7</a> &amp; <a href="https://t.me/zarya7_7" target="_blank" class="dev-link">@zarya7_7</a>
     </div>
+
+    <button class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Наверх">↑</button>
 
     <script src="../js/schedule.js"></script>
     <script src="../js/main.js"></script>

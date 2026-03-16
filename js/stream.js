@@ -1,28 +1,35 @@
 // ============================
 // ТРАНСЛЯЦИИ ХК КГАСУ
-// Ссылка обновляется СММ-менеджером через бота
+// Данные читаются с сервера через fetch
 // ============================
 
-const streamData = {
-    active: false,       // true — когда идёт трансляция
-    url: '',             // ссылка на ВКонтакте
-    title: '',           // название матча, например "КГАСУ vs КАИ"
-    description: ''      // дополнительный текст
-};
-
-// Загрузка блока трансляции
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function () {
     const section = document.getElementById('streamSection');
     if (!section) return;
+
+    let streamData = { active: false, url: '', title: '' };
+
+    try {
+        const res = await fetch('/data/stream.json');
+        if (res.ok) {
+            const data = await res.json();
+            // Проверяем не истёк ли срок трансляции
+            const notExpired = !data.expires_at || new Date(data.expires_at) > new Date();
+            if (data.active && notExpired) {
+                streamData = data;
+            }
+        }
+    } catch (e) {
+        console.warn('stream.json недоступен:', e);
+    }
 
     if (streamData.active && streamData.url) {
         section.innerHTML = `
             <div class="stream-active">
                 <div class="stream-live-badge">● LIVE</div>
                 <h2 class="stream-title">${streamData.title || 'Прямая трансляция'}</h2>
-                ${streamData.description ? `<p class="stream-description">${streamData.description}</p>` : ''}
                 <a href="${streamData.url}" target="_blank" class="stream-btn">
-                    Смотреть трансляцию ВКонтакте
+                    Смотреть трансляцию
                 </a>
             </div>
         `;
