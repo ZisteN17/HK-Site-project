@@ -72,6 +72,7 @@ function updateNextGameBlock() {
 
     const imagesPath = getImagesPath();
     dateEl.textContent = formatGameDate(game.date);
+    if (game.league) dateEl.textContent += ` · ${game.league}`;
 
     // Порядок: хозяева слева, гости справа
     teamsEl.innerHTML = `
@@ -140,8 +141,10 @@ function renderUpcomingGames() {
     container.innerHTML = upcoming.map(g => {
         const homeLogo = TEAM_LOGOS[g.home] || '';
         const awayLogo = TEAM_LOGOS[g.away] || '';
+        const leagueBadge = g.league ? `<div class="league-badge">${g.league}</div>` : '';
         return `
             <div class="game-card upcoming">
+                ${leagueBadge}
                 <div class="game-date">${formatGameDate(g.date)}</div>
                 <div class="game-teams">
                     <div class="team home-team">
