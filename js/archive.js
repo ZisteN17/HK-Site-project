@@ -40,6 +40,70 @@ async function loadSeasonsList() {
     }
 }
 
+function renderArchivePlayoff(data, teamLogos) {
+    const section = document.getElementById('archivePlayoffSection');
+    const bracket = document.getElementById('archivePlayoffBracket');
+    if (!section || !bracket || !data || !data.enabled) {
+        if (section) section.style.display = 'none';
+        return;
+    }
+    section.style.display = '';
+
+    const imgBase = '/images/';
+    const placeholder = '/images/players/player-placeholder.jpg';
+
+    function teamLogo(name) {
+        if (!name || name === '?') return '<span class="bt-logo-placeholder"></span>';
+        const logo = teamLogos[name];
+        return logo
+            ? `<img src="${imgBase}${logo}" alt="" class="bt-logo">`
+            : '<span class="bt-logo-placeholder"></span>';
+    }
+
+    function matchCard(m) {
+        if (!m) return '';
+        const s1 = m.score1 !== null && m.score1 !== undefined ? m.score1 : '–';
+        const s2 = m.score2 !== null && m.score2 !== undefined ? m.score2 : '–';
+        const win1 = m.score1 !== null && m.score1 !== undefined && m.score1 > m.score2;
+        const win2 = m.score1 !== null && m.score1 !== undefined && m.score2 > m.score1;
+        const t1 = m.team1 || '?', t2 = m.team2 || '?';
+        const cls1 = `bt-team${win1 ? ' winner' : ''}${t1 === 'КГАСУ' ? ' kgasu' : ''}`;
+        const cls2 = `bt-team${win2 ? ' winner' : ''}${t2 === 'КГАСУ' ? ' kgasu' : ''}`;
+        return `<div class="bt-card">
+            <div class="${cls1}">${teamLogo(t1)}<span class="bt-name">${t1}</span><span class="bt-score">${s1}</span></div>
+            <div class="${cls2}">${teamLogo(t2)}<span class="bt-name">${t2}</span><span class="bt-score">${s2}</span></div>
+        </div>`;
+    }
+
+    const q = data.quarters || [];
+    const semis = data.semis || [{}, {}];
+    bracket.innerHTML = `
+        <div class="bt-scroll">
+            <div class="bt-tree">
+                <div class="bt-round">
+                    <div class="bt-round-label">1/4 финала</div>
+                    <div class="bt-col">
+                        <div class="bt-group"><div class="bt-slot">${matchCard(q[0])}</div><div class="bt-slot">${matchCard(q[3])}</div></div>
+                        <div class="bt-group"><div class="bt-slot">${matchCard(q[1])}</div><div class="bt-slot">${matchCard(q[2])}</div></div>
+                    </div>
+                </div>
+                <div class="bt-round">
+                    <div class="bt-round-label">1/2 финала</div>
+                    <div class="bt-col">
+                        <div class="bt-group"><div class="bt-slot">${matchCard(semis[0])}</div></div>
+                        <div class="bt-group"><div class="bt-slot">${matchCard(semis[1])}</div></div>
+                    </div>
+                </div>
+                <div class="bt-round">
+                    <div class="bt-round-label">Финал</div>
+                    <div class="bt-col">
+                        <div class="bt-group bt-group-final"><div class="bt-slot">${matchCard(data.final)}</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+}
+
 async function loadSeason(id, name) {
     document.getElementById('seasonsList').style.display = 'none';
     const detail = document.getElementById('seasonDetail');
@@ -47,6 +111,7 @@ async function loadSeason(id, name) {
     document.getElementById('seasonDetailTitle').textContent = `Сезон ${name}`;
     document.getElementById('archiveStandings').innerHTML = '<tr><td colspan="8">Загрузка...</td></tr>';
     document.getElementById('archiveGames').innerHTML = '';
+    document.getElementById('archivePlayoffSection').style.display = 'none';
 
     try {
         const res = await fetch(API + '/seasons/' + id);
@@ -72,6 +137,9 @@ async function loadSeason(id, name) {
             `).join('');
         }
 
+        // Плей-офф
+        renderArchivePlayoff(data.playoff, data.games?.team_logos || {});
+
         // Матчи
         const games = data.games?.games || [];
         const teamLogos = data.games?.team_logos || {};
@@ -80,7 +148,6 @@ async function loadSeason(id, name) {
             .sort((a, b) => new Date(b.date) - new Date(a.date));
 
         const imgBase = '/images/';
-        const placeholder = '/images/players/player-placeholder.jpg';
 
         if (played.length === 0) {
             gamesEl.innerHTML = '<p style="opacity:.5;text-align:center">Нет данных</p>';
@@ -92,8 +159,8 @@ async function loadSeason(id, name) {
                 if (kgasuScore > oppScore)      { resultClass = 'win';  resultText = 'Победа'; }
                 else if (kgasuScore < oppScore) { resultClass = 'loss'; resultText = 'Поражение'; }
                 else                            { resultClass = 'draw'; resultText = 'Ничья'; }
-                const homeLogo = teamLogos[g.home] ? imgBase + teamLogos[g.home] : placeholder;
-                const awayLogo = teamLogos[g.away] ? imgBase + teamLogos[g.away] : placeholder;
+                const homeLogo = teamLogos[g.home] ? imgBase + teamLogos[g.home] : '';
+                const awayLogo = teamLogos[g.away] ? imgBase + teamLogos[g.away] : '';
                 return `
                     <div class="game-card past ${resultClass}-card">
                         <div class="game-date">${formatGameDate(g.date)}</div>
