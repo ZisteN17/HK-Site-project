@@ -119,22 +119,26 @@ async function loadSeason(id, name) {
 
         // Турнирная таблица
         const standings = data.standings?.standings || [];
+        const logos = data.games?.team_logos || {};
         const tbody = document.getElementById('archiveStandings');
         if (standings.length === 0) {
             tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;opacity:.5">Нет данных</td></tr>';
         } else {
-            tbody.innerHTML = standings.map(row => `
-                <tr>
+            tbody.innerHTML = standings.map(row => {
+                const logo = logos[row.team] ? `<img src="/images/${logos[row.team]}" alt="" class="standings-logo">` : '';
+                const isKgasu = row.team === 'КГАСУ';
+                return `
+                <tr${isKgasu ? ' class="kgasu-row"' : ''}>
                     <td>${row.pos}</td>
-                    <td class="team-col">${row.team}</td>
+                    <td class="team-col">${logo}<span>${row.team}</span></td>
                     <td>${row.games}</td>
                     <td>${row.wins}</td>
                     <td>${row.draws}</td>
                     <td>${row.losses}</td>
                     <td>${row.goals}</td>
                     <td><strong>${row.points}</strong></td>
-                </tr>
-            `).join('');
+                </tr>`;
+            }).join('');
         }
 
         // Плей-офф
