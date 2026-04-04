@@ -74,26 +74,42 @@ async function loadSeason(id, name) {
 
         // Матчи
         const games = data.games?.games || [];
+        const teamLogos = data.games?.team_logos || {};
         const gamesEl = document.getElementById('archiveGames');
         const played = games.filter(g => g.homeScore !== null && g.awayScore !== null)
             .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        const imgBase = '/images/';
+        const placeholder = '/images/players/player-placeholder.jpg';
 
         if (played.length === 0) {
             gamesEl.innerHTML = '<p style="opacity:.5;text-align:center">Нет данных</p>';
         } else {
             gamesEl.innerHTML = played.map(g => {
-                const isHome = g.home === 'КГАСУ';
-                const homeScore = g.homeScore;
-                const awayScore = g.awayScore;
-                const win = isHome ? homeScore > awayScore : awayScore > homeScore;
-                const resultClass = win ? 'win' : 'loss';
+                const kgasuScore = g.home === 'КГАСУ' ? g.homeScore : g.awayScore;
+                const oppScore  = g.home === 'КГАСУ' ? g.awayScore : g.homeScore;
+                let resultClass, resultText;
+                if (kgasuScore > oppScore)      { resultClass = 'win';  resultText = 'Победа'; }
+                else if (kgasuScore < oppScore) { resultClass = 'loss'; resultText = 'Поражение'; }
+                else                            { resultClass = 'draw'; resultText = 'Ничья'; }
+                const homeLogo = teamLogos[g.home] ? imgBase + teamLogos[g.home] : placeholder;
+                const awayLogo = teamLogos[g.away] ? imgBase + teamLogos[g.away] : placeholder;
                 return `
-                    <div class="game-card played">
+                    <div class="game-card past ${resultClass}-card">
                         <div class="game-date">${formatGameDate(g.date)}</div>
                         <div class="game-teams">
-                            <span class="${g.home === 'КГАСУ' ? 'our-team' : ''}">${g.home}</span>
-                            <span class="game-score ${resultClass}">${homeScore} : ${awayScore}</span>
-                            <span class="${g.away === 'КГАСУ' ? 'our-team' : ''}">${g.away}</span>
+                            <div class="team home-team">
+                                <img src="${homeLogo}" alt="${g.home}" class="team-logo-small">
+                                <span class="team-name${g.home === 'КГАСУ' ? '' : ' opponent'}">${g.home}</span>
+                            </div>
+                            <div class="game-score">
+                                <span class="score">${g.homeScore} : ${g.awayScore}</span>
+                                <span class="result ${resultClass}">${resultText}</span>
+                            </div>
+                            <div class="team away-team">
+                                <img src="${awayLogo}" alt="${g.away}" class="team-logo-small">
+                                <span class="team-name${g.away === 'КГАСУ' ? '' : ' opponent'}">${g.away}</span>
+                            </div>
                         </div>
                     </div>
                 `;
