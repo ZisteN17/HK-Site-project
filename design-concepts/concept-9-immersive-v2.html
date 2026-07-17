@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Концепт 9 — ИММЕРСИВ v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#09090B;
+  --panel:#101013;
+  --panel-2:#15151A;
+  --gold:#C9A24B;
+  --gold-bright:#EAC978;
+  --bordeaux:#8E1B2B;
+  --red:#D81E33;
+  --white:#F5F3EE;
+  --dim:#84858D;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:var(--black);scroll-behavior:smooth}
+body{font-family:'Manrope',sans-serif;color:var(--white);background:var(--black);overflow-x:hidden}
+::selection{background:var(--gold);color:var(--black)}
+.wrap{max-width:1300px;margin:0 auto;padding:0 44px}
+
+@keyframes kenburns{0%{transform:scale(1.08) translate(0,0)}100%{transform:scale(1.22) translate(-2%,-3%)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(46px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.35}}
+
+/* reveal on scroll */
+.reveal{opacity:0;transform:translateY(46px);transition:opacity .9s cubic-bezier(.16,.7,.3,1),transform .9s cubic-bezier(.16,.7,.3,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;justify-content:space-between;align-items:center;
+  padding:22px 44px;background:linear-gradient(180deg,rgba(9,9,11,0.85),transparent);transition:background .3s}
+.nav.scrolled{background:rgba(9,9,11,0.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,0.06)}
+.nav .brand{display:flex;align-items:center;gap:12px;font-family:'Bebas Neue',sans-serif;font-size:1.55rem;letter-spacing:0.06em}
+.nav .brand img{width:40px;height:40px;object-fit:contain}
+.nav .links{display:flex;gap:34px;font-size:0.8rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase}
+.nav .links a{color:var(--white);text-decoration:none;opacity:0.7;transition:opacity .2s,color .2s;position:relative}
+.nav .links a::after{content:'';position:absolute;left:0;bottom:-6px;width:0;height:2px;background:var(--gold);transition:width .25s}
+.nav .links a:hover{opacity:1}.nav .links a:hover::after{width:100%}
+.nav .join{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;letter-spacing:0.12em;color:var(--black);
+  background:var(--gold);padding:11px 24px;text-decoration:none;transition:transform .2s,box-shadow .2s}
+.nav .join:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,162,75,0.35)}
+
+/* HERO */
+.hero{position:relative;height:100vh;min-height:680px;overflow:hidden;display:flex;align-items:flex-end}
+.hero .bg{position:absolute;inset:0;z-index:0;background:url('../images/team-4.jpeg') center 30% / cover no-repeat;
+  animation:kenburns 18s ease-out both;will-change:transform}
+.hero .veil{position:absolute;inset:0;z-index:1;background:
+  linear-gradient(90deg,rgba(9,9,11,0.92) 0%,rgba(9,9,11,0.35) 52%,rgba(9,9,11,0.55) 100%),
+  linear-gradient(0deg,rgba(9,9,11,0.95) 2%,transparent 42%)}
+.hero .glow{position:absolute;inset:0;z-index:1;background:radial-gradient(circle at 74% 34%,rgba(201,162,75,0.14),transparent 52%)}
+/* giant watermark emblem */
+.hero .watermark{position:absolute;right:-4%;top:50%;transform:translateY(-50%);z-index:1;
+  width:min(58vw,760px);opacity:0.10;filter:grayscale(1) brightness(2);pointer-events:none;animation:floaty 8s ease-in-out infinite}
+/* vertical side label */
+.side-label{position:absolute;right:26px;top:50%;transform:translateY(-50%) rotate(180deg);z-index:4;
+  writing-mode:vertical-rl;font-family:'Bebas Neue',sans-serif;letter-spacing:0.5em;font-size:0.9rem;color:var(--gold);opacity:0.8}
+.hero-content{position:relative;z-index:3;width:100%;padding-bottom:96px}
+.hero .livechip{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(216,30,51,0.5);
+  background:rgba(216,30,51,0.12);color:#fff;padding:7px 16px;border-radius:40px;font-size:0.74rem;font-weight:700;
+  letter-spacing:0.14em;text-transform:uppercase;margin-bottom:22px;animation:fadeUp .8s ease .15s both}
+.hero .livechip .d{width:8px;height:8px;border-radius:50%;background:var(--red);animation:pulse 1.4s infinite}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-weight:400;line-height:0.8;letter-spacing:0.004em;
+  font-size:clamp(4.6rem,17vw,15rem);text-transform:uppercase;color:var(--white);
+  animation:fadeUp 1s ease .3s both;text-shadow:0 12px 70px rgba(0,0,0,0.55)}
+.hero h1 .out{-webkit-text-stroke:2px var(--gold);color:transparent;display:block;margin-top:-0.09em}
+.hero .lede{max-width:460px;margin-top:26px;color:#D2D1CC;font-size:1.12rem;line-height:1.55;animation:fadeUp 1s ease .45s both}
+.scroll-cue{position:absolute;bottom:28px;left:44px;z-index:4;font-size:0.7rem;letter-spacing:0.32em;
+  text-transform:uppercase;color:var(--dim);animation:floaty 2.4s ease-in-out infinite}
+
+/* COUNTDOWN band */
+.count{background:linear-gradient(180deg,var(--panel),var(--black));border-top:1px solid rgba(201,162,75,0.18);
+  border-bottom:1px solid rgba(255,255,255,0.05)}
+.count-inner{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:40px;padding:34px 0}
+.count .match{display:flex;align-items:center;gap:20px}
+.count .match img{width:64px;height:64px;object-fit:contain;background:#fff;border-radius:50%;padding:5px}
+.count .match .nm{font-family:'Bebas Neue',sans-serif;font-size:2rem;line-height:0.9}
+.count .match .vs{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--gold);margin:0 4px}
+.count .match .opp{color:var(--dim)}
+.count .timer{display:flex;gap:22px;justify-content:center}
+.count .timer .u{text-align:center;min-width:66px}
+.count .timer .u b{font-family:'Bebas Neue',sans-serif;font-size:3rem;line-height:1;color:var(--gold);display:block}
+.count .timer .u span{font-size:0.66rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--dim)}
+.count .cta{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.1em;color:var(--black);
+  background:var(--gold);padding:14px 30px;text-decoration:none;white-space:nowrap;transition:transform .2s}
+.count .cta:hover{transform:translateY(-2px)}
+
+/* TICKER */
+.ticker{background:var(--gold);color:var(--black);overflow:hidden;white-space:nowrap}
+.ticker .track{display:inline-flex;animation:marquee 28s linear infinite;font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:0.08em}
+.ticker .track span{padding:11px 0;display:inline-flex;align-items:center;gap:28px}
+.ticker .track span>i{padding:0 28px;font-style:normal}
+.ticker .track b{color:var(--bordeaux)}
+.ticker .track .sep{color:rgba(0,0,0,0.35)}
+
+/* STATS */
+.stats{padding:120px 0 100px;background:var(--black)}
+.stats .head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:60px;flex-wrap:wrap;gap:20px}
+.stats .head h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.6rem,5.5vw,4.6rem);line-height:0.86}
+.stats .head h2 em{font-style:normal;color:var(--gold)}
+.stats .head p{color:var(--dim);max-width:320px;font-size:0.96rem}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:rgba(255,255,255,0.06)}
+.stat{background:var(--black);padding:40px 32px;position:relative;overflow:hidden;transition:background .3s}
+.stat:hover{background:var(--panel-2)}
+.stat .num{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.2rem,6.5vw,5.6rem);line-height:0.86;color:var(--gold)}
+.stat .lbl{margin-top:10px;font-size:0.8rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--dim)}
+.stat .bar{position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--bordeaux);transition:width .5s}
+.stat:hover .bar{width:100%}
+
+/* FEATURE split */
+.feature{display:grid;grid-template-columns:1.1fr 0.9fr;min-height:82vh;background:var(--panel)}
+.feature .media{position:relative;overflow:hidden}
+.feature .media img{width:100%;height:100%;object-fit:cover;transition:transform 1s ease}
+.feature:hover .media img{transform:scale(1.07)}
+.feature .media::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(16,16,19,0.7))}
+.feature .body{padding:90px 76px;display:flex;flex-direction:column;justify-content:center}
+.feature .tag{font-family:'Bebas Neue',sans-serif;letter-spacing:0.26em;color:var(--red);font-size:1.15rem;margin-bottom:18px}
+.feature h3{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.8rem,4.6vw,4.8rem);line-height:0.9;margin-bottom:22px}
+.feature p{color:#BEBDB8;line-height:1.65;max-width:430px;margin-bottom:34px}
+.feature .cta{align-self:flex-start;font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:0.1em;
+  color:var(--black);background:var(--gold);padding:15px 38px;text-decoration:none;transition:transform .2s}
+.feature .cta:hover{transform:translateY(-2px)}
+
+/* ROSTER WALL */
+.roster{padding:110px 0;background:var(--black)}
+.roster .head{text-align:center;margin-bottom:56px}
+.roster .head .k{font-family:'Bebas Neue',sans-serif;letter-spacing:0.32em;color:var(--gold);font-size:1.05rem}
+.roster .head h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.2rem,7.5vw,6.5rem);line-height:0.88}
+.wall{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.pcard{position:relative;aspect-ratio:3/4;overflow:hidden;background:var(--panel);cursor:pointer}
+.pcard img{width:100%;height:100%;object-fit:cover;transition:transform .6s;filter:saturate(1.02)}
+.pcard .grad{position:absolute;inset:0;background:linear-gradient(180deg,transparent 42%,rgba(9,9,11,0.92));transition:background .4s}
+.pcard .no{position:absolute;top:12px;left:14px;font-family:'Bebas Neue',sans-serif;font-size:2.1rem;color:var(--gold);line-height:1;
+  opacity:0.95;text-shadow:0 2px 8px rgba(0,0,0,0.6)}
+.pcard .info{position:absolute;left:14px;right:14px;bottom:14px;transform:translateY(16px);opacity:0;transition:transform .4s,opacity .4s}
+.pcard .info .name{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;line-height:0.95}
+.pcard .info .pos{font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold)}
+.pcard::after{content:'';position:absolute;inset:0;border:2px solid transparent;transition:border-color .35s}
+.pcard:hover img{transform:scale(1.06)}
+.pcard:hover .grad{background:linear-gradient(180deg,rgba(142,27,43,0.15) 0%,transparent 40%,rgba(9,9,11,0.94))}
+.pcard:hover::after{border-color:var(--gold)}
+.pcard:hover .info{transform:none;opacity:1}
+.roster .all{display:block;text-align:center;margin-top:48px}
+.roster .all a{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:0.12em;color:var(--gold);
+  text-decoration:none;border:1px solid rgba(201,162,75,0.5);padding:15px 44px;transition:all .25s}
+.roster .all a:hover{background:var(--gold);color:var(--black)}
+
+/* CTA band */
+.band{padding:110px 0;text-align:center;background:linear-gradient(120deg,var(--bordeaux),#5A0E18);position:relative;overflow:hidden}
+.band::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 120%,rgba(201,162,75,0.25),transparent 60%)}
+.band .in{position:relative;z-index:1}
+.band h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.2rem,8.5vw,7rem);line-height:0.88;margin-bottom:28px}
+.band a{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.1em;color:var(--bordeaux);background:var(--white);
+  padding:17px 56px;text-decoration:none;display:inline-block;transition:transform .2s}
+.band a:hover{transform:translateY(-3px)}
+.footer{padding:44px;text-align:center;color:var(--dim);font-size:0.85rem;background:var(--black)}
+.footer a{color:var(--gold);text-decoration:none}
+
+@media(max-width:1000px){
+  .nav .links{display:none}
+  .count-inner{grid-template-columns:1fr;gap:26px;text-align:center}
+  .count .match{justify-content:center}
+  .stat-grid{grid-template-columns:repeat(2,1fr)}
+  .feature{grid-template-columns:1fr}.feature .media{min-height:340px}.feature .body{padding:56px 34px}
+  .wall{grid-template-columns:repeat(3,1fr)}
+  .side-label{display:none}
+  .wrap{padding:0 24px}
+}
+</style>
+</head>
+<body>
+<nav class="nav" id="nav">
+  <div class="brand"><img src="../images/emblem.png" alt="">ХК КГАСУ</div>
+  <div class="links"><a href="#">Команда</a><a href="#">Матчи</a><a href="#">Новости</a><a href="#">Медиа</a><a href="#">Клуб</a></div>
+  <a class="join" href="#">Вступить</a>
+</nav>
+
+<header class="hero">
+  <div class="bg"></div>
+  <div class="veil"></div>
+  <div class="glow"></div>
+  <img class="watermark" src="../images/emblem.png" alt="">
+  <div class="side-label">HC KSUAE · KAZAN</div>
+  <div class="wrap hero-content">
+    <div class="livechip"><span class="d"></span>Сезон 2025/26 · ПЛХЛ · Дивизион АБ</div>
+    <h1>Строим<span class="out">будущее</span></h1>
+    <p class="lede">Студенческий хоккейный клуб КГАСУ. Лёд, скорость и характер — каждую смену, до последней секунды.</p>
+  </div>
+  <div class="scroll-cue">Листай ↓</div>
+</header>
+
+<section class="count">
+  <div class="wrap count-inner">
+    <div class="match">
+      <img src="../images/emblem.png" alt="">
+      <div><div class="nm">КГАСУ <span class="vs">VS</span> <span class="opp">Тимерхан</span></div></div>
+    </div>
+    <div class="timer" id="timer">
+      <div class="u"><b id="dd">00</b><span>дней</span></div>
+      <div class="u"><b id="hh">00</b><span>часов</span></div>
+      <div class="u"><b id="mm">00</b><span>минут</span></div>
+      <div class="u"><b id="ss">00</b><span>секунд</span></div>
+    </div>
+    <a class="cta" href="#">Билеты →</a>
+  </div>
+</section>
+
+<div class="ticker">
+  <div class="track">
+    <span><i>СЛЕД. МАТЧ · <b>КГАСУ — ТИМЕРХАН</b> · 18 ФЕВ</i><i class="sep">✦</i><i>РЕЗУЛЬТАТ · <b>КГАСУ 4:2 СИГМА</b></i><i class="sep">✦</i><i>3 МЕСТО В ДИВИЗИОНЕ</i><i class="sep">✦</i></span>
+    <span><i>СЛЕД. МАТЧ · <b>КГАСУ — ТИМЕРХАН</b> · 18 ФЕВ</i><i class="sep">✦</i><i>РЕЗУЛЬТАТ · <b>КГАСУ 4:2 СИГМА</b></i><i class="sep">✦</i><i>3 МЕСТО В ДИВИЗИОНЕ</i><i class="sep">✦</i></span>
+  </div>
+</div>
+
+<section class="stats">
+  <div class="wrap">
+    <div class="head reveal">
+      <h2>Сезон<br><em>2025 / 2026</em></h2>
+      <p>Цифры, за которыми — работа каждого игрока на льду и на скамейке.</p>
+    </div>
+    <div class="stat-grid reveal">
+      <div class="stat"><div class="num" data-to="24">0</div><div class="lbl">Матча</div><div class="bar"></div></div>
+      <div class="stat"><div class="num" data-to="16">0</div><div class="lbl">Победы</div><div class="bar"></div></div>
+      <div class="stat"><div class="num" data-to="98">0</div><div class="lbl">Заброшено</div><div class="bar"></div></div>
+      <div class="stat"><div class="num" data-to="29">0</div><div class="lbl">Игроков</div><div class="bar"></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="feature reveal">
+  <div class="media"><img src="../images/about-1.jpg" alt="Команда"></div>
+  <div class="body">
+    <div class="tag">Клуб</div>
+    <h3>Больше<br>чем игра</h3>
+    <p>ХК КГАСУ — это команда студентов, для которых хоккей стал характером. Мы строим будущее — на льду и за его пределами.</p>
+    <a class="cta" href="#">О команде →</a>
+  </div>
+</section>
+
+<section class="roster">
+  <div class="wrap">
+    <div class="head reveal">
+      <div class="k">Наша сила</div>
+      <h2>Состав</h2>
+    </div>
+    <div class="wall reveal">
+      <div class="pcard"><img src="../images/players/1.jpg" alt=""><div class="grad"></div><span class="no">01</span><div class="info"><div class="name">Мусаев Данила</div><div class="pos">Вратарь</div></div></div>
+      <div class="pcard"><img src="../images/players/10.jpg" alt=""><div class="grad"></div><span class="no">10</span><div class="info"><div class="name">Красин Семен</div><div class="pos">Нападающий</div></div></div>
+      <div class="pcard"><img src="../images/players/13.jpg" alt=""><div class="grad"></div><span class="no">13</span><div class="info"><div class="name">Алтымбаев Тимур</div><div class="pos">Защитник</div></div></div>
+      <div class="pcard"><img src="../images/players/17.jpg" alt=""><div class="grad"></div><span class="no">17</span><div class="info"><div class="name">Красин Семен</div><div class="pos">Нападающий</div></div></div>
+      <div class="pcard"><img src="../images/players/20.jpg" alt=""><div class="grad"></div><span class="no">20</span><div class="info"><div class="name">Лунин Никита</div><div class="pos">Защитник</div></div></div>
+      <div class="pcard"><img src="../images/players/25.jpg" alt=""><div class="grad"></div><span class="no">25</span><div class="info"><div class="name">Сорокин Сергей</div><div class="pos">Нападающий</div></div></div>
+    </div>
+    <div class="all reveal"><a href="#">Весь состав →</a></div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap in">
+    <h2>Стань частью<br>команды</h2>
+    <a href="#">Вступить в клуб</a>
+  </div>
+</section>
+
+<div class="footer">Разработано: <a href="#">@Zisten_7</a> &amp; <a href="#">@zarya7_7</a></div>
+
+<script>
+// nav bg on scroll
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40));
+
+// scroll reveal
+const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:0.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// count-up stats
+function countUp(el){const to=+el.dataset.to;let n=0;const step=Math.max(1,Math.round(to/40));const t=setInterval(()=>{n+=step;if(n>=to){n=to;clearInterval(t)}el.textContent=n},28)}
+const io2=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){countUp(e.target);io2.unobserve(e.target)}}),{threshold:0.6});
+document.querySelectorAll('.num[data-to]').forEach(el=>io2.observe(el));
+
+// countdown to next match (18 Feb next year relative demo)
+const target=new Date();target.setDate(target.getDate()+9);target.setHours(20,15,0,0);
+function tick(){let d=Math.max(0,target-new Date());const D=Math.floor(d/864e5),H=Math.floor(d%864e5/36e5),M=Math.floor(d%36e5/6e4),S=Math.floor(d%6e4/1e3);
+  dd.textContent=String(D).padStart(2,'0');hh.textContent=String(H).padStart(2,'0');mm.textContent=String(M).padStart(2,'0');ss.textContent=String(S).padStart(2,'0')}
+tick();setInterval(tick,1000);
+</script>
+</body>
+</html>

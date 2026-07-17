@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Выбор шрифта</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Saira+Condensed:wght@700;800;900&family=Archivo:wght@800;900&family=Archivo+Expanded:wght@800;900&family=Unbounded:wght@600;700;800&family=Montserrat:wght@800;900&family=Manrope:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--black:#09090B;--panel:#101013;--gold:#C9A24B;--white:#F5F3EE;--dim:#84858D}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--black);color:var(--white);font-family:'Manrope',sans-serif;padding:60px 44px 100px}
+.top{text-align:center;margin-bottom:60px}
+.top h1{font-family:'Manrope';font-weight:800;font-size:1.6rem;margin-bottom:8px}
+.top p{color:var(--dim);font-size:0.95rem}
+.row{border-top:1px solid rgba(255,255,255,0.08);padding:44px 0;max-width:1100px;margin:0 auto}
+.tag{display:flex;align-items:baseline;gap:14px;margin-bottom:18px}
+.tag .n{font-family:'Manrope';font-weight:700;color:var(--gold);letter-spacing:0.14em;text-transform:uppercase;font-size:0.85rem}
+.tag .d{color:var(--dim);font-size:0.8rem}
+.big{line-height:0.82;text-transform:uppercase}
+.big .out{-webkit-text-stroke:1.5px var(--gold);color:transparent}
+.sub{margin-top:14px;font-size:1rem;letter-spacing:0.1em;color:var(--dim);text-transform:uppercase}
+
+.f-oswald .big{font-family:'Oswald';font-weight:700;font-size:6rem;letter-spacing:0.01em}
+.f-saira .big{font-family:'Saira Condensed';font-weight:900;font-size:6.4rem}
+.f-archivo .big{font-family:'Archivo';font-weight:900;font-size:5.2rem;letter-spacing:-0.02em}
+.f-expanded .big{font-family:'Archivo Expanded';font-weight:900;font-size:4.4rem;letter-spacing:-0.02em}
+.f-unbounded .big{font-family:'Unbounded';font-weight:800;font-size:4.6rem;letter-spacing:-0.01em}
+.f-montserrat .big{font-family:'Montserrat';font-weight:900;font-size:4.8rem;letter-spacing:-0.02em}
+.f-oswald .sub{font-family:'Oswald';font-weight:500}
+.f-saira .sub{font-family:'Saira Condensed';font-weight:700}
+.f-archivo .sub,.f-expanded .sub{font-family:'Archivo';font-weight:800}
+.f-unbounded .sub{font-family:'Unbounded';font-weight:600}
+.f-montserrat .sub{font-family:'Montserrat';font-weight:800}
+</style>
+</head>
+<body>
+<div class="top">
+  <h1>Выбор дисплейного шрифта</h1>
+  <p>Все — с полной кириллицей. Ткни в номер, который нравится.</p>
+</div>
+
+<div class="row f-oswald">
+  <div class="tag"><span class="n">1 · Oswald</span><span class="d">узкий, чистый, классика спорт-сайтов</span></div>
+  <div class="big">Строим <span class="out">будущее</span></div>
+  <div class="sub">ХК КГАСУ · Сезон 2025/26</div>
+</div>
+
+<div class="row f-saira">
+  <div class="tag"><span class="n">2 · Saira Condensed</span><span class="d">узкий, чуть техничнее, тяжёлый</span></div>
+  <div class="big">Строим <span class="out">будущее</span></div>
+  <div class="sub">ХК КГАСУ · Сезон 2025/26</div>
+</div>
+
+<div class="row f-archivo">
+  <div class="tag"><span class="n">3 · Archivo Black</span><span class="d">гротеск нормальной ширины, мощный</span></div>
+  <div class="big">Строим <span class="out">будущее</span></div>
+  <div class="sub">ХК КГАСУ · Сезон 2025/26</div>
+</div>
+
+<div class="row f-expanded">
+  <div class="tag"><span class="n">4 · Archivo Expanded</span><span class="d">широкий, современный, «дорогой»</span></div>
+  <div class="big">Строим <span class="out">будущее</span></div>
+  <div class="sub">ХК КГАСУ · Сезон 2025/26</div>
+</div>
+
+<div class="row f-unbounded">
+  <div class="tag"><span class="n">5 · Unbounded</span><span class="d">геометричный, необычный, из вашего референса ФОРТ</span></div>
+  <div class="big">Строим <span class="out">будущее</span></div>
+  <div class="sub">ХК КГАСУ · Сезон 2025/26</div>
+</div>
+
+<div class="row f-montserrat">
+  <div class="tag"><span class="n">6 · Montserrat Black</span><span class="d">широкий, знакомый, универсальный</span></div>
+  <div class="big">Строим <span class="out">будущее</span></div>
+  <div class="sub">ХК КГАСУ · Сезон 2025/26</div>
+</div>
+</body>
+</html>

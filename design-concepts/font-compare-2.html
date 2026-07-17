@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Выбор шрифта — часть 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Exo+2:wght@700;800;900&family=Rubik+Mono+One&family=Alfa+Slab+One&family=Prosto+One&family=Yeseva+One&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--black:#09090B;--gold:#C9A24B;--white:#F5F3EE;--dim:#84858D}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--black);color:var(--white);font-family:'Manrope',sans-serif;padding:60px 44px 100px}
+.top{text-align:center;margin-bottom:60px}
+.top h1{font-weight:800;font-size:1.6rem;margin-bottom:8px}
+.top p{color:var(--dim);font-size:0.95rem}
+.row{border-top:1px solid rgba(255,255,255,0.08);padding:44px 0;max-width:1100px;margin:0 auto}
+.tag{display:flex;align-items:baseline;gap:14px;margin-bottom:18px}
+.tag .n{font-weight:700;color:var(--gold);letter-spacing:0.14em;text-transform:uppercase;font-size:0.85rem}
+.tag .d{color:var(--dim);font-size:0.8rem}
+.big{line-height:0.9;text-transform:uppercase}
+.big .out{-webkit-text-stroke:1.5px var(--gold);color:transparent}
+.sub{margin-top:16px;font-size:1rem;letter-spacing:0.1em;color:var(--dim);text-transform:uppercase}
+
+.f-russo .big{font-family:'Russo One';font-size:4.8rem;letter-spacing:-0.01em}
+.f-exo .big{font-family:'Exo 2';font-weight:900;font-size:5rem;letter-spacing:-0.01em}
+.f-rubik .big{font-family:'Rubik Mono One';font-size:3.6rem;line-height:1.05}
+.f-alfa .big{font-family:'Alfa Slab One';font-size:4.2rem;line-height:1}
+.f-prosto .big{font-family:'Prosto One';font-size:4.6rem}
+.f-yeseva .big{font-family:'Yeseva One';font-size:5.4rem;line-height:0.95}
+.sub{font-family:'Manrope';font-weight:600}
+</style>
+</head>
+<body>
+<div class="top">
+  <h1>Ещё варианты шрифта · часть 2</h1>
+  <p>Другой характер — индустриальные, техно, слэбовые. Все с кириллицей.</p>
+</div>
+
+<div class="row f-russo">
+  <div class="tag"><span class="n">7 · Russo One</span><span class="d">индустриальный, геометричный — «русский спорт»</span></div>
+  <div class="big">Строим <span class="out">будущее</span></div>
+  <div class="sub">ХК КГАСУ · Сезон 2025/26</div>
+</div>
+
+<div class="row f-exo">
+  <div class="tag"><span class="n">8 · Exo 2</span><span class="d">футуристичный, техно, динамичный</span></div>
+  <div class="big">Строим <span class="out">будущее</span></div>
+  <div class="sub">ХК КГАСУ · Сезон 2025/26</div>
+</div>
+
+<div class="row f-rubik">
+  <div class="tag"><span class="n">9 · Rubik Mono One</span><span class="d">моноширинный, необычный, техно</span></div>
+  <div class="big">Строим <span class="out">будущее</span></div>
+  <div class="sub">ХК КГАСУ · Сезон 2025/26</div>
+</div>
+
+<div class="row f-alfa">
+  <div class="tag"><span class="n">10 · Alfa Slab One</span><span class="d">жирный слэб, ударный, «коллеж/варсити»</span></div>
+  <div class="big">Строим <span class="out">будущее</span></div>
+  <div class="sub">ХК КГАСУ · Сезон 2025/26</div>
+</div>
+
+<div class="row f-prosto">
+  <div class="tag"><span class="n">11 · Prosto One</span><span class="d">чистый геометричный, спокойный</span></div>
+  <div class="big">Строим <span class="out">будущее</span></div>
+  <div class="sub">ХК КГАСУ · Сезон 2025/26</div>
+</div>
+
+<div class="row f-yeseva">
+  <div class="tag"><span class="n">12 · Yeseva One</span><span class="d">элегантная антиква — если хочется «дорогой классики»</span></div>
+  <div class="big">Строим <span class="out">будущее</span></div>
+  <div class="sub">ХК КГАСУ · Сезон 2025/26</div>
+</div>
+</body>
+</html>

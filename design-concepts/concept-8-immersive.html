@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Концепт 8 — ИММЕРСИВ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#0A0A0C;
+  --panel:#111114;
+  --gold:#C9A24B;
+  --gold-bright:#E7C874;
+  --bordeaux:#8E1B2B;
+  --red:#D01A2E;
+  --white:#F5F3EE;
+  --dim:#8A8B92;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:var(--black);scroll-behavior:smooth}
+body{font-family:'Manrope',sans-serif;color:var(--white);background:var(--black);overflow-x:hidden}
+::selection{background:var(--gold);color:var(--black)}
+.wrap{max-width:1280px;margin:0 auto;padding:0 40px}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes lightsweep{0%{transform:translateX(-120%) skewX(-20deg)}100%{transform:translateX(220%) skewX(-20deg)}}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;
+  padding:22px 40px;background:linear-gradient(180deg,rgba(10,10,12,0.9),transparent);}
+.nav .brand{display:flex;align-items:center;gap:12px;font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.06em}
+.nav .brand img{width:38px;height:38px;object-fit:contain}
+.nav .links{display:flex;gap:32px;font-size:0.82rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase}
+.nav .links a{color:var(--white);text-decoration:none;opacity:0.75;transition:opacity .2s,color .2s}
+.nav .links a:hover{opacity:1;color:var(--gold)}
+.nav .join{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:0.1em;color:var(--black);
+  background:var(--gold);padding:10px 22px;text-decoration:none;transition:transform .2s}
+.nav .join:hover{transform:translateY(-2px)}
+
+/* HERO */
+.hero{position:relative;height:100vh;min-height:640px;overflow:hidden;display:flex;align-items:flex-end}
+.hero .bg{position:absolute;inset:0;z-index:0;
+  background:linear-gradient(90deg,rgba(10,10,12,0.88) 0%,rgba(10,10,12,0.35) 50%,rgba(10,10,12,0.55) 100%),
+    linear-gradient(0deg,rgba(10,10,12,0.85) 0%,transparent 45%),
+    url('../images/team-4.jpeg') center 32% / cover no-repeat;
+  animation:fadeIn 1.2s ease both;transform:scale(1.05);}
+.hero .grain{position:absolute;inset:0;z-index:1;opacity:0.5;pointer-events:none;
+  background:radial-gradient(circle at 70% 30%,rgba(201,162,75,0.12),transparent 55%)}
+.hero-content{position:relative;z-index:3;width:100%;padding-bottom:90px}
+.hero .kick{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.4em;color:var(--gold);
+  margin-bottom:10px;animation:fadeUp .8s ease .2s both}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-weight:400;line-height:0.82;letter-spacing:0.005em;
+  font-size:clamp(4.5rem,16vw,13rem);text-transform:uppercase;color:var(--white);
+  animation:fadeUp 1s ease .35s both;text-shadow:0 10px 60px rgba(0,0,0,0.5)}
+.hero h1 .out{-webkit-text-stroke:2px var(--gold);color:transparent;display:block;margin-top:-0.08em}
+.hero .lede{max-width:440px;margin-top:22px;color:#CFCEC9;font-size:1.1rem;line-height:1.55;
+  animation:fadeUp 1s ease .5s both}
+.scroll-cue{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:4;
+  font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--dim);animation:float 2.4s ease-in-out infinite}
+
+/* TICKER */
+.ticker{background:var(--gold);color:var(--black);overflow:hidden;white-space:nowrap;position:relative;z-index:5}
+.ticker .track{display:inline-flex;align-items:center;gap:0;animation:marquee 26s linear infinite;font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.08em}
+.ticker .track span{padding:12px 26px;display:inline-flex;align-items:center;gap:26px}
+.ticker .track b{color:var(--bordeaux)}
+.ticker .track .sep{color:rgba(0,0,0,0.35)}
+
+/* STATS */
+.stats{padding:120px 0 90px;position:relative;background:
+  linear-gradient(180deg,var(--black),var(--panel))}
+.stats .head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:56px;flex-wrap:wrap;gap:20px}
+.stats .head h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.4rem,5vw,4rem);line-height:0.9;letter-spacing:0.01em}
+.stats .head h2 em{font-style:normal;color:var(--gold)}
+.stats .head p{color:var(--dim);max-width:320px;font-size:0.95rem}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:rgba(255,255,255,0.06)}
+.stat{background:var(--black);padding:36px 30px;position:relative;overflow:hidden;transition:background .3s}
+.stat:hover{background:#0F0F12}
+.stat .num{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,6vw,5.2rem);line-height:0.9;color:var(--gold)}
+.stat .lbl{margin-top:8px;font-size:0.8rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--dim)}
+.stat .bar{position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--bordeaux);transition:width .5s}
+.stat:hover .bar{width:100%}
+
+/* FEATURE split */
+.feature{display:grid;grid-template-columns:1.1fr 0.9fr;min-height:80vh;background:var(--panel)}
+.feature .media{position:relative;overflow:hidden}
+.feature .media img{width:100%;height:100%;object-fit:cover;transition:transform .8s ease;filter:grayscale(0.1)}
+.feature:hover .media img{transform:scale(1.06)}
+.feature .media::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(17,17,20,0.6))}
+.feature .body{padding:80px 70px;display:flex;flex-direction:column;justify-content:center}
+.feature .tag{font-family:'Bebas Neue',sans-serif;letter-spacing:0.24em;color:var(--red);font-size:1.1rem;margin-bottom:16px}
+.feature h3{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.6rem,4.5vw,4.4rem);line-height:0.92;margin-bottom:20px}
+.feature p{color:#BEBDB8;line-height:1.6;max-width:420px;margin-bottom:30px}
+.feature .cta{align-self:flex-start;font-family:'Bebas Neue',sans-serif;font-size:1.15rem;letter-spacing:0.1em;
+  color:var(--black);background:var(--gold);padding:14px 34px;text-decoration:none;position:relative;overflow:hidden}
+.feature .cta span{position:relative;z-index:1}
+.feature .cta::before{content:'';position:absolute;inset:0;background:var(--white);
+  animation:none;transform:translateX(-120%) skewX(-20deg);transition:none}
+.feature .cta:hover::before{animation:lightsweep .7s ease}
+
+/* ROSTER WALL */
+.roster{padding:100px 0;background:var(--black)}
+.roster .head{text-align:center;margin-bottom:50px}
+.roster .head .k{font-family:'Bebas Neue',sans-serif;letter-spacing:0.3em;color:var(--gold);font-size:1rem}
+.roster .head h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,7vw,6rem);line-height:0.9}
+.wall{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.pcard{position:relative;aspect-ratio:3/4;overflow:hidden;background:var(--panel)}
+.pcard img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05);transition:filter .4s,transform .5s}
+.pcard::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(10,10,12,0.9))}
+.pcard .no{position:absolute;bottom:10px;left:12px;z-index:2;font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--white);line-height:1}
+.pcard:hover img{filter:grayscale(0) contrast(1);transform:scale(1.05)}
+.pcard:hover .no{color:var(--gold)}
+
+/* CTA band */
+.band{padding:90px 0;text-align:center;background:linear-gradient(120deg,var(--bordeaux),#5E0F19);position:relative;overflow:hidden}
+.band h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,8vw,6.5rem);line-height:0.9;margin-bottom:24px}
+.band a{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:0.1em;color:var(--bordeaux);background:var(--white);
+  padding:16px 50px;text-decoration:none;display:inline-block;transition:transform .2s}
+.band a:hover{transform:translateY(-3px)}
+.footer{padding:40px;text-align:center;color:var(--dim);font-size:0.85rem;background:var(--black)}
+.footer a{color:var(--gold);text-decoration:none}
+
+@media(max-width:900px){
+  .nav .links{display:none}
+  .stat-grid{grid-template-columns:repeat(2,1fr)}
+  .feature{grid-template-columns:1fr}
+  .feature .media{min-height:320px}
+  .feature .body{padding:50px 32px}
+  .wall{grid-template-columns:repeat(3,1fr)}
+  .wrap{padding:0 24px}
+}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="brand"><img src="../images/emblem.png" alt="">ХК КГАСУ</div>
+  <div class="links">
+    <a href="#">Команда</a><a href="#">Матчи</a><a href="#">Новости</a><a href="#">Медиа</a><a href="#">Клуб</a>
+  </div>
+  <a class="join" href="#">Вступить</a>
+</nav>
+
+<header class="hero">
+  <div class="bg"></div>
+  <div class="grain"></div>
+  <div class="wrap hero-content">
+    <div class="kick">Хоккейный клуб · Казань · с 2021</div>
+    <h1>Строим<span class="out">будущее</span></h1>
+    <p class="lede">Студенческая команда КГАСУ. Лёд, скорость и характер — каждую смену, до последней секунды.</p>
+  </div>
+  <div class="scroll-cue">Листай ↓</div>
+</header>
+
+<div class="ticker">
+  <div class="track">
+    <span>СЛЕД. МАТЧ · <b>КГАСУ — ТИМЕРХАН</b> · 18 ФЕВ 20:15 <i class="sep">✦</i> ПОСЛЕДНИЙ РЕЗУЛЬТАТ · <b>КГАСУ 4:2 СИГМА</b> <i class="sep">✦</i> ПЛХЛ · ДИВИЗИОН АБ <i class="sep">✦</i></span>
+    <span>СЛЕД. МАТЧ · <b>КГАСУ — ТИМЕРХАН</b> · 18 ФЕВ 20:15 <i class="sep">✦</i> ПОСЛЕДНИЙ РЕЗУЛЬТАТ · <b>КГАСУ 4:2 СИГМА</b> <i class="sep">✦</i> ПЛХЛ · ДИВИЗИОН АБ <i class="sep">✦</i></span>
+  </div>
+</div>
+
+<section class="stats">
+  <div class="wrap">
+    <div class="head">
+      <h2>Сезон<br><em>2025 / 2026</em></h2>
+      <p>Цифры, за которыми стоит работа каждого игрока на льду и на скамейке.</p>
+    </div>
+    <div class="stat-grid">
+      <div class="stat"><div class="num">24</div><div class="lbl">Матча</div><div class="bar"></div></div>
+      <div class="stat"><div class="num">16</div><div class="lbl">Победы</div><div class="bar"></div></div>
+      <div class="stat"><div class="num">98</div><div class="lbl">Заброшено</div><div class="bar"></div></div>
+      <div class="stat"><div class="num">29</div><div class="lbl">Игроков</div><div class="bar"></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="feature">
+  <div class="media"><img src="../images/about-1.jpg" alt="Команда"></div>
+  <div class="body">
+    <div class="tag">Следующий матч</div>
+    <h3>КГАСУ<br>vs Тимерхан</h3>
+    <p>18 февраля, 20:15. Дивизион АБ. Приходи поддержать команду вживую — или смотри трансляцию.</p>
+    <a class="cta" href="#"><span>Календарь игр →</span></a>
+  </div>
+</section>
+
+<section class="roster">
+  <div class="wrap">
+    <div class="head">
+      <div class="k">Наша сила</div>
+      <h2>Состав</h2>
+    </div>
+    <div class="wall">
+      <div class="pcard"><img src="../images/players/1.jpg" alt=""><span class="no">01</span></div>
+      <div class="pcard"><img src="../images/players/10.jpg" alt=""><span class="no">10</span></div>
+      <div class="pcard"><img src="../images/players/13.jpg" alt=""><span class="no">13</span></div>
+      <div class="pcard"><img src="../images/players/17.jpg" alt=""><span class="no">17</span></div>
+      <div class="pcard"><img src="../images/players/20.jpg" alt=""><span class="no">20</span></div>
+      <div class="pcard"><img src="../images/players/25.jpg" alt=""><span class="no">25</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <h2>Стань частью команды</h2>
+    <a href="#">Вступить в клуб</a>
+  </div>
+</section>
+
+<div class="footer">Разработано: <a href="#">@Zisten_7</a> &amp; <a href="#">@zarya7_7</a></div>
+</body>
+</html>
