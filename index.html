@@ -1,122 +1,140 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ХК КГАСУ — Хоккейный клуб</title>
-    <meta name="description" content="Официальный сайт хоккейного клуба КГАСУ. Состав команды, новости, расписание игр и результаты.">
-    <meta name="keywords" content="ХК КГАСУ, хоккей, КГАСУ, хоккейный клуб, Казань, ПЛХЛ, СХЛ">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://hckgasu.ru/">
-    <meta property="og:title" content="ХК КГАСУ — Хоккейный клуб">
-    <meta property="og:description" content="Официальный сайт хоккейного клуба КГАСУ. Состав команды, новости, расписание игр.">
-    <meta property="og:url" content="https://hckgasu.ru/">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://hckgasu.ru/images/emblem.png">
-    <link rel="icon" type="image/png" href="images/favicon.png">
-    <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ХК КГАСУ — Хоккейный клуб</title>
+<meta name="description" content="Официальный сайт хоккейного клуба КГАСУ. Состав команды, новости, расписание игр и результаты.">
+<meta name="keywords" content="ХК КГАСУ, хоккей, КГАСУ, хоккейный клуб, Казань, ПЛХЛ, СХЛ">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://hckgasu.ru/">
+<meta property="og:title" content="ХК КГАСУ — Хоккейный клуб">
+<meta property="og:description" content="Официальный сайт хоккейного клуба КГАСУ. Состав команды, новости, расписание игр.">
+<meta property="og:url" content="https://hckgasu.ru/">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://hckgasu.ru/images/emblem.png">
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Saira+Condensed:wght@600;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/home.css">
 </head>
 <body>
-    <!-- Экран загрузки -->
-    <div id="loadingScreen" class="loading-screen">
-        <div class="loading-content">
-            <img src="images/logo.jpeg" alt="ХК КГАСУ" class="loading-emblem">
-            <div class="loading-title">ХК КГАСУ</div>
-            <div class="loading-bar"><div class="loading-bar-fill"></div></div>
-        </div>
+
+<!-- ЭКРАН ЗАГРУЗКИ -->
+<div id="loadingScreen" class="loading-screen">
+  <div class="loading-content">
+    <img src="images/emblem.png" alt="ХК КГАСУ" class="loading-emblem">
+    <div class="loading-title">ХК КГАСУ</div>
+    <div class="loading-bar"><div class="loading-bar-fill"></div></div>
+  </div>
+</div>
+
+<!-- НАВИГАЦИЯ -->
+<nav class="nav" id="nav">
+  <a class="brand" href="index.html"><img src="images/emblem.png" alt="Эмблема ХК КГАСУ">ХК КГАСУ</a>
+  <div class="links">
+    <a href="pages/roster.html">Команда</a>
+    <a href="pages/calendar.html">Матчи</a>
+    <a href="pages/news.html">Новости</a>
+    <a href="pages/social.html">Медиа</a>
+    <a href="pages/about.html">Клуб</a>
+  </div>
+  <a class="join" href="pages/social.html">Вступить</a>
+  <button class="burger" id="burger" aria-label="Меню"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- ГЕРОЙ -->
+<header class="hero">
+  <div class="bg"></div>
+  <div class="veil"></div>
+  <div class="glow"></div>
+  <img class="watermark" src="images/emblem.png" alt="">
+  <div class="side-label">HC KSUAE · KAZAN</div>
+  <div class="wrap hero-content">
+    <div class="livechip"><span class="d"></span>Сезон 2025/26 · ПЛХЛ · Дивизион АБ</div>
+    <h1>Строим<span class="out">будущее</span></h1>
+    <p class="lede">Студенческий хоккейный клуб КГАСУ. Лёд, скорость и характер — каждую смену, до последней секунды.</p>
+  </div>
+  <div class="scroll-cue">Листай ↓</div>
+</header>
+
+<!-- БЛОК МАТЧА / ИТОГ СЕЗОНА (заполняется JS) -->
+<section class="count" id="countBlock"></section>
+
+<!-- БЕГУЩАЯ СТРОКА (заполняется JS) -->
+<div class="ticker"><div class="track" id="tickerTrack"></div></div>
+
+<!-- ЦИФРЫ СЕЗОНА -->
+<section class="stats">
+  <div class="wrap">
+    <div class="head reveal">
+      <h2>Сезон<br><em>2025 / 2026</em></h2>
+      <p>Цифры, за которыми — работа каждого игрока на льду и на скамейке.</p>
     </div>
+    <div class="stat-grid reveal">
+      <div class="stat"><div class="num" data-key="games">0</div><div class="lbl">Матчей</div><div class="bar"></div></div>
+      <div class="stat"><div class="num" data-key="wins">0</div><div class="lbl">Побед</div><div class="bar"></div></div>
+      <div class="stat"><div class="num" data-key="scored">0</div><div class="lbl">Заброшено</div><div class="bar"></div></div>
+      <div class="stat"><div class="num" data-key="players">0</div><div class="lbl">Игроков</div><div class="bar"></div></div>
+    </div>
+  </div>
+</section>
 
-    <!-- Главная страница -->
-    <main class="hero-section">
-        <div class="hero-content">
-            <!-- Две эмблемы рядом -->
-            <div class="dual-emblems">
-                <div class="emblem-item">
-                    <img src="images/logo.jpeg" alt="Эмблема ХК КГАСУ" class="emblem-img">
-                </div>
-                <div class="emblem-item">
-                    <img src="images/institute.jpeg" alt="КГАСУ" class="emblem-img">
-                </div>
-            </div>
+<!-- НОВОСТИ -->
+<section class="news">
+  <div class="wrap">
+    <div class="head reveal">
+      <div>
+        <div class="k">Что нового</div>
+        <h2>Новости клуба</h2>
+      </div>
+      <a class="all" href="pages/news.html">Все новости →</a>
+    </div>
+    <div class="news-grid reveal" id="newsGrid"></div>
+  </div>
+</section>
 
-            <!-- Слоган -->
-            <h1 class="slogan">ХК КГАСУ — мы строим будущее</h1>
+<!-- СЕКЦИЯ О КЛУБЕ -->
+<section class="feature reveal">
+  <div class="media"><img src="images/about-1.jpg" alt="Команда ХК КГАСУ"></div>
+  <div class="body">
+    <div class="tag">Клуб</div>
+    <h3>Больше чем игра</h3>
+    <p>ХК КГАСУ — это команда студентов, для которых хоккей стал характером. Мы строим будущее — на льду и за его пределами.</p>
+    <a class="cta" href="pages/about.html">О команде →</a>
+  </div>
+</section>
 
-            <!-- Блок следующей игры -->
-            <div class="next-game-card">
-                <div class="next-game-header">СЛЕДУЮЩИЙ МАТЧ</div>
-                <div class="next-game-date">18 февраля 2026, 20:15</div>
-                <div class="next-game-teams">
-                    <div class="next-game-side">
-                        <img src="images/opponents/timerhan.jpg" alt="Тимерхан" class="next-game-logo">
-                        <span class="team-name">Тимерхан</span>
-                    </div>
-                    <span class="vs">VS</span>
-                    <div class="next-game-side">
-                        <img src="images/logo.jpeg" alt="КГАСУ" class="next-game-logo">
-                        <span class="team-name opponent">КГАСУ</span>
-                    </div>
-                </div>
-            </div>
+<!-- СТЕНА СОСТАВА -->
+<section class="roster">
+  <div class="wrap">
+    <div class="head reveal"><div class="k">Наша сила</div><h2>Состав</h2></div>
+    <div class="wall reveal" id="rosterWall"></div>
+    <div class="all reveal"><a href="pages/roster.html">Весь состав →</a></div>
+  </div>
+</section>
 
-            <!-- Навигационные кнопки -->
-            <nav class="main-navigation">
-                <div class="nav-group-label">Команда</div>
-                <div class="nav-group">
-                    <a href="pages/about.html" class="nav-button">
-                        <span class="button-text">О команде</span>
-                    </a>
-                    <a href="pages/roster.html" class="nav-button">
-                        <span class="button-text">Основной состав</span>
-                    </a>
-                    <a href="pages/veterans.html" class="nav-button">
-                        <span class="button-text">Ветераны</span>
-                    </a>
-                </div>
+<!-- ПРИЗЫВ -->
+<section class="band">
+  <div class="wrap in">
+    <h2>Стань частью команды</h2>
+    <a href="pages/social.html">Вступить в клуб</a>
+  </div>
+</section>
 
-                <div class="nav-group-label">Матчи и медиа</div>
-                <div class="nav-group">
-                    <a href="pages/calendar.html" class="nav-button">
-                        <span class="button-text">Календарь</span>
-                    </a>
-                    <a href="pages/archive.html" class="nav-button">
-                        <span class="button-text">Архив сезонов</span>
-                    </a>
-                    <a href="pages/news.html" class="nav-button">
-                        <span class="button-text">Новости</span>
-                    </a>
-                    <a href="pages/stream.html" class="nav-button">
-                        <span class="button-text">Трансляции</span>
-                    </a>
-                    <a href="pages/social.html" class="nav-button">
-                        <span class="button-text">Социальные сети</span>
-                    </a>
-                </div>
+<!-- ПОДВАЛ -->
+<div class="footer">Разработано: <a href="https://t.me/Zisten_7" target="_blank" rel="noopener">@Zisten_7</a> &amp; <a href="https://t.me/zarya7_7" target="_blank" rel="noopener">@zarya7_7</a></div>
 
-                <a href="pages/social.html#join-team" class="nav-button join-button">
-                    <span class="button-text">Вступить в команду</span>
-                </a>
-            </nav>
-
-            <!-- Разработчики -->
-            <div class="dev-credits-home">
-                Разработано: <a href="https://t.me/Zisten_7" target="_blank" class="dev-link">@Zisten_7</a> &amp; <a href="https://t.me/zarya7_7" target="_blank" class="dev-link">@zarya7_7</a>
-            </div>
-        </div>
-    </main>
-
-    <script>
-        window.addEventListener('load', function() {
-            const screen = document.getElementById('loadingScreen');
-            setTimeout(function() {
-                screen.classList.add('loading-hidden');
-                setTimeout(function() { screen.style.display = 'none'; }, 600);
-            }, 800);
-        });
-    </script>
-    <script src="js/players-data.js"></script>
-    <script src="js/birthday.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/schedule.js"></script>
+<script>
+window.addEventListener('load', function () {
+  var s = document.getElementById('loadingScreen');
+  setTimeout(function () {
+    s.classList.add('loading-hidden');
+    setTimeout(function () { s.style.display = 'none'; }, 600);
+  }, 800);
+});
+</script>
+<script src="js/home.js?v=4"></script>
 </body>
 </html>

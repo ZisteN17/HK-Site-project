@@ -1,46 +1,61 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Новости — ХК КГАСУ</title>
-    <meta name="description" content="Новости хоккейного клуба КГАСУ — последние события, матчи и анонсы.">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://hckgasu.ru/pages/news.html">
-    <meta property="og:title" content="Новости — ХК КГАСУ">
-    <meta property="og:description" content="Новости хоккейного клуба КГАСУ — последние события, матчи и анонсы.">
-    <meta property="og:url" content="https://hckgasu.ru/pages/news.html">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://hckgasu.ru/images/emblem.png">
-    <link rel="icon" type="image/png" href="../images/favicon.png">
-    <link rel="stylesheet" href="../css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Новости — ХК КГАСУ</title>
+<meta name="description" content="Новости хоккейного клуба КГАСУ — последние события, матчи и анонсы.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://hckgasu.ru/pages/news.html">
+<meta property="og:title" content="Новости — ХК КГАСУ">
+<meta property="og:description" content="Новости хоккейного клуба КГАСУ — последние события, матчи и анонсы.">
+<meta property="og:url" content="https://hckgasu.ru/pages/news.html">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://hckgasu.ru/images/emblem.png">
+<link rel="icon" type="image/png" href="../images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Saira+Condensed:wght@600;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/home.css?v=4">
+<link rel="stylesheet" href="../css/pages.css?v=4">
 </head>
 <body>
-    <img src="../images/emblem.png" class="background-logo" alt="">
-    <!-- Шапка с навигацией -->
-    <header class="page-header">
-        <a href="../index.html" class="back-link"><span class="nav-arrow">←</span> Главная</a>
-        <h1 class="page-title">Новости</h1>
-    </header>
 
-    <main class="content-page">
-        <div class="content-container">
-            <!-- Лента новостей (загружается из JS) -->
-            <section class="news-feed" id="newsFeed">
-                <!-- Карточки новостей загружаются динамически из news.js -->
-            </section>
-        </div>
-    </main>
+<nav class="nav scrolled" id="nav">
+  <a class="brand" href="../index.html"><img src="../images/emblem.png" alt="Эмблема ХК КГАСУ">ХК КГАСУ</a>
+  <div class="links">
+    <a href="roster.html">Команда</a><a href="calendar.html">Матчи</a><a href="news.html">Новости</a><a href="social.html">Медиа</a><a href="about.html">Клуб</a>
+  </div>
+  <a class="join" href="social.html">Вступить</a>
+  <button class="burger" id="burger" aria-label="Меню"><span></span><span></span><span></span></button>
+</nav>
 
-    <nav class="page-nav">
-        <a href="calendar.html" class="page-nav-btn"><span class="nav-arrow">←</span> Календарь</a>
-        <a href="stream.html" class="page-nav-btn">Трансляции <span class="nav-arrow">→</span></a>
-    </nav>
-    <div class="dev-credits">
-        Разработано: <a href="https://t.me/Zisten_7" target="_blank" class="dev-link">@Zisten_7</a> &amp; <a href="https://t.me/zarya7_7" target="_blank" class="dev-link">@zarya7_7</a>
-    </div>
+<header class="page-hero">
+  <img class="wm" src="../images/emblem.png" alt="">
+  <div class="wrap inner">
+    <div class="crumbs"><a href="../index.html">Главная</a> · Новости</div>
+    <h1>Новости клуба</h1>
+    <p class="sub">Последние события, поздравления, анонсы и жизнь команды ХК КГАСУ.</p>
+  </div>
+</header>
 
-    <script src="../js/news.js"></script>
-    <script src="../js/main.js"></script>
+<main class="page-section">
+  <div class="wrap">
+    <section class="news-feed" id="newsFeed"></section>
+  </div>
+</main>
+
+<nav class="page-nav">
+  <a href="calendar.html" class="page-nav-btn"><span class="nav-arrow">←</span> Календарь</a>
+  <a href="stream.html" class="page-nav-btn">Трансляции <span class="nav-arrow">→</span></a>
+</nav>
+
+<div class="footer">Разработано: <a href="https://t.me/Zisten_7" target="_blank" rel="noopener">@Zisten_7</a> &amp; <a href="https://t.me/zarya7_7" target="_blank" rel="noopener">@zarya7_7</a></div>
+
+<script>
+(function(){var n=document.getElementById('nav'),b=document.getElementById('burger');if(b)b.addEventListener('click',function(){n.classList.toggle('open')});})();
+</script>
+<script src="../js/news.js?v=4"></script>
+<script src="../js/main.js?v=4"></script>
 </body>
 </html>

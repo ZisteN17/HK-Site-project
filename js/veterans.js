@@ -40,24 +40,31 @@ function loadVeterans() {
     veteransData.forEach(veteran => {
         veteransGrid.appendChild(createVeteranCard(veteran));
     });
+
+    // показать карточки (они стартуют скрытыми)
+    requestAnimationFrame(() => {
+        veteransGrid.querySelectorAll('.rcard').forEach((c, i) => {
+            c.style.transitionDelay = Math.min(i, 5) * 55 + 'ms';
+            c.classList.add('in');
+        });
+    });
 }
 
 function createVeteranCard(veteran) {
     const card = document.createElement('div');
-    card.className = 'player-card veteran-card';
+    const isPlaceholder = !veteran.photo;
+    card.className = 'rcard veteran-card' + (isPlaceholder ? ' is-placeholder' : '');
     card.dataset.playerId = veteran.id;
 
-    const isPlaceholder = !veteran.photo;
+    const years = veteran.years ? `<div class="pos" style="color:var(--dim);border:0;padding:0;margin-top:2px">${veteran.years}</div>` : '';
     card.innerHTML = `
-        <div class="player-photo">
-            <img src="${getVeteranPhoto(veteran.photo)}" alt="${veteran.name}"
-                 class="${isPlaceholder ? 'is-placeholder' : ''}"
-                 onerror="this.onerror=null; this.src='../images/players/player-placeholder.png'; this.classList.add('is-placeholder')">
-        </div>
-        <div class="player-info">
-            <h3 class="player-name">${veteran.name}</h3>
-            ${veteran.years ? `<p class="player-years">Годы в команде: ${veteran.years}</p>` : ''}
-            <p class="player-position">${veteran.position}</p>
+        <img src="${getVeteranPhoto(veteran.photo)}" alt="${veteran.name}" loading="lazy"
+             onerror="this.onerror=null; this.src='../images/players/player-placeholder.png'; this.closest('.rcard').classList.add('is-placeholder')">
+        <div class="grad"></div>
+        <div class="info">
+            <div class="name">${veteran.name}</div>
+            <div class="pos">${veteran.position}</div>
+            ${years}
         </div>
     `;
 

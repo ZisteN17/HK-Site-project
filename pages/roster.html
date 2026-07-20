@@ -1,74 +1,92 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Основной состав — ХК КГАСУ</title>
-    <meta name="description" content="Основной состав хоккейного клуба КГАСУ — игроки ПЛХЛ и СХЛ.">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://hckgasu.ru/pages/roster.html">
-    <meta property="og:title" content="Основной состав — ХК КГАСУ">
-    <meta property="og:description" content="Основной состав хоккейного клуба КГАСУ — игроки ПЛХЛ и СХЛ.">
-    <meta property="og:url" content="https://hckgasu.ru/pages/roster.html">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://hckgasu.ru/images/emblem.png">
-    <link rel="icon" type="image/png" href="../images/favicon.png">
-    <link rel="stylesheet" href="../css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Основной состав — ХК КГАСУ</title>
+<meta name="description" content="Основной состав хоккейного клуба КГАСУ — игроки ПЛХЛ и СХЛ.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://hckgasu.ru/pages/roster.html">
+<meta property="og:title" content="Основной состав — ХК КГАСУ">
+<meta property="og:description" content="Основной состав хоккейного клуба КГАСУ — игроки ПЛХЛ и СХЛ.">
+<meta property="og:url" content="https://hckgasu.ru/pages/roster.html">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://hckgasu.ru/images/emblem.png">
+<link rel="icon" type="image/png" href="../images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Saira+Condensed:wght@600;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/home.css?v=4">
+<link rel="stylesheet" href="../css/pages.css?v=4">
 </head>
 <body>
-    <img src="../images/emblem.png" class="background-logo" alt="">
-    <!-- Шапка с навигацией -->
-    <header class="page-header">
-        <a href="../index.html" class="back-link"><span class="nav-arrow">←</span> Главная</a>
-        <h1 class="page-title">Основной состав</h1>
-    </header>
 
-    <main class="content-page">
-        <div class="content-container">
-            <!-- Переключатель лиг -->
-            <div class="league-tabs">
-                <button class="league-tab active" data-league="plhl">ПЛХЛ</button>
-                <button class="league-tab" data-league="skhl">СХЛ</button>
-            </div>
+<!-- НАВИГАЦИЯ -->
+<nav class="nav scrolled" id="nav">
+  <a class="brand" href="../index.html"><img src="../images/emblem.png" alt="Эмблема ХК КГАСУ">ХК КГАСУ</a>
+  <div class="links">
+    <a href="roster.html">Команда</a>
+    <a href="calendar.html">Матчи</a>
+    <a href="news.html">Новости</a>
+    <a href="social.html">Медиа</a>
+    <a href="about.html">Клуб</a>
+  </div>
+  <a class="join" href="social.html">Вступить</a>
+  <button class="burger" id="burger" aria-label="Меню"><span></span><span></span><span></span></button>
+</nav>
 
-            <!-- Эмблема на фоне -->
+<!-- ГЕРОЙ СТРАНИЦЫ -->
+<header class="page-hero">
+  <img class="wm" src="../images/emblem.png" alt="">
+  <div class="wrap inner">
+    <div class="crumbs"><a href="../index.html">Главная</a> · Команда</div>
+    <h1>Основной состав</h1>
+    <p class="sub">Игроки ХК КГАСУ в сезоне 2025/26 — Поволжская любительская лига (ПЛХЛ) и Студенческая лига (СХЛ).</p>
+  </div>
+</header>
 
-            <!-- Сетка игроков (загружается из JS) -->
-            <section class="players-grid" id="playersGrid">
-                <!-- Карточки игроков загружаются динамически из roster.js -->
-            </section>
-        </div>
-    </main>
-
-    <!-- Модальное окно для биографии игрока -->
-    <div id="playerModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <div class="modal-player-info">
-                <img id="modalPlayerPhoto" src="" alt="Фото игрока" class="modal-photo">
-                <div class="modal-details">
-                    <h2 id="modalPlayerName">Имя игрока</h2>
-                    <p class="modal-number">#<span id="modalPlayerNumber">00</span></p>
-                    <p class="modal-position"><strong>Позиция:</strong> <span id="modalPlayerPosition"></span></p>
-                    <p class="modal-position"><strong>Хват:</strong> <span id="modalPlayerHand"></span></p>
-                    <p class="modal-position"><strong>Дата рождения:</strong> <span id="modalPlayerBirthDate"></span></p>
-                    <p class="modal-position"><strong>Возраст:</strong> <span id="modalPlayerAge"></span> лет</p>
-                </div>
-            </div>
-        </div>
+<!-- СОСТАВ -->
+<main class="page-section">
+  <div class="wrap">
+    <div class="league-tabs">
+      <button class="league-tab active" data-league="plhl">ПЛХЛ</button>
+      <button class="league-tab" data-league="skhl">СХЛ</button>
     </div>
+    <section class="roster-grid" id="playersGrid"></section>
+  </div>
+</main>
 
-    <nav class="page-nav">
-        <a href="about.html" class="page-nav-btn"><span class="nav-arrow">←</span> О команде</a>
-        <a href="veterans.html" class="page-nav-btn">Ветераны <span class="nav-arrow">→</span></a>
-    </nav>
-    <div class="dev-credits">
-        Разработано: <a href="https://t.me/Zisten_7" target="_blank" class="dev-link">@Zisten_7</a> &amp; <a href="https://t.me/zarya7_7" target="_blank" class="dev-link">@zarya7_7</a>
+<!-- МОДАЛКА ИГРОКА -->
+<div id="playerModal" class="modal">
+  <div class="modal-content">
+    <span class="close-modal">&times;</span>
+    <div class="modal-player-info">
+      <img id="modalPlayerPhoto" src="" alt="Фото игрока" class="modal-photo">
+      <div class="modal-details">
+        <h2 id="modalPlayerName">Имя игрока</h2>
+        <p class="modal-number">#<span id="modalPlayerNumber">00</span></p>
+        <p class="modal-position"><strong>Позиция</strong> <span id="modalPlayerPosition"></span></p>
+        <p class="modal-position"><strong>Хват</strong> <span id="modalPlayerHand"></span></p>
+        <p class="modal-position"><strong>Дата рождения</strong> <span id="modalPlayerBirthDate"></span></p>
+        <p class="modal-position"><strong>Возраст</strong> <span id="modalPlayerAge"></span> лет</p>
+      </div>
     </div>
+  </div>
+</div>
 
-    <script src="../js/players-data.js"></script>
-    <script src="../js/roster.js"></script>
-    <script src="../js/birthday.js"></script>
-    <script src="../js/main.js"></script>
+<!-- НАВИГАЦИЯ СТРАНИЦ -->
+<nav class="page-nav">
+  <a href="about.html" class="page-nav-btn"><span class="nav-arrow">←</span> О команде</a>
+  <a href="veterans.html" class="page-nav-btn">Ветераны <span class="nav-arrow">→</span></a>
+</nav>
+
+<div class="footer">Разработано: <a href="https://t.me/Zisten_7" target="_blank" rel="noopener">@Zisten_7</a> &amp; <a href="https://t.me/zarya7_7" target="_blank" rel="noopener">@zarya7_7</a></div>
+
+<script>
+// бургер-меню
+(function(){var n=document.getElementById('nav'),b=document.getElementById('burger');if(b)b.addEventListener('click',function(){n.classList.toggle('open')});})();
+</script>
+<script src="../js/main.js?v=4"></script>
+<script src="../js/roster.js?v=4"></script>
 </body>
 </html>

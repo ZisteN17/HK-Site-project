@@ -88,26 +88,26 @@ function updateNextGameBlock() {
     `;
 }
 
-// Подсчёт голов КГАСУ за сезон из сыгранных матчей
+// Статистика КГАСУ за сезон — из турнирной таблицы (надёжно и в межсезонье),
+// с откатом на подсчёт по сыгранным матчам, если таблицы нет.
 function renderSeasonStats() {
     const container = document.getElementById('season-stats');
     if (!container) return;
 
-    let scored = 0;
-    let conceded = 0;
-    let played = 0;
+    let scored = 0, conceded = 0, played = 0;
 
-    KGASU_GAMES.forEach(g => {
-        if (g.homeScore === null) return;
-        played++;
-        if (g.home === 'КГАСУ') {
-            scored += g.homeScore;
-            conceded += g.awayScore;
-        } else {
-            scored += g.awayScore;
-            conceded += g.homeScore;
-        }
-    });
+    const us = STANDINGS.find(s => s.team === 'КГАСУ');
+    if (us && us.goals) {
+        const [sc, co] = String(us.goals).split('-').map(n => parseInt(n, 10) || 0);
+        scored = sc; conceded = co; played = us.games || 0;
+    } else {
+        KGASU_GAMES.forEach(g => {
+            if (g.homeScore === null) return;
+            played++;
+            if (g.home === 'КГАСУ') { scored += g.homeScore; conceded += g.awayScore; }
+            else { scored += g.awayScore; conceded += g.homeScore; }
+        });
+    }
 
     const diff = scored - conceded;
     const diffStr = diff > 0 ? `+${diff}` : `${diff}`;
@@ -138,6 +138,10 @@ function renderUpcomingGames() {
     if (!container) return;
     const imagesPath = getImagesPath();
     const upcoming = KGASU_GAMES.filter(g => g.homeScore === null);
+    if (!upcoming.length) {
+        container.innerHTML = '<div class="games-empty">Расписание нового сезона скоро появится.</div>';
+        return;
+    }
     container.innerHTML = upcoming.map(g => {
         const homeLogo = TEAM_LOGOS[g.home] || '';
         const awayLogo = TEAM_LOGOS[g.away] || '';
@@ -167,6 +171,10 @@ function renderPastGames() {
     if (!container) return;
     const imagesPath = getImagesPath();
     const played = KGASU_GAMES.filter(g => g.homeScore !== null).slice().reverse();
+    if (!played.length) {
+        container.innerHTML = '<div class="games-empty">Результаты матчей появятся с началом сезона.</div>';
+        return;
+    }
     container.innerHTML = played.map(g => {
         const kgasuScore = g.home === 'КГАСУ' ? g.homeScore : g.awayScore;
         const oppScore = g.home === 'КГАСУ' ? g.awayScore : g.homeScore;

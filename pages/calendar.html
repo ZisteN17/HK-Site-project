@@ -1,103 +1,111 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Календарь — ХК КГАСУ</title>
-    <meta name="description" content="Расписание игр хоккейного клуба КГАСУ — календарь матчей сезона.">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://hckgasu.ru/pages/calendar.html">
-    <meta property="og:title" content="Календарь — ХК КГАСУ">
-    <meta property="og:description" content="Расписание игр хоккейного клуба КГАСУ — календарь матчей сезона.">
-    <meta property="og:url" content="https://hckgasu.ru/pages/calendar.html">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://hckgasu.ru/images/emblem.png">
-    <link rel="icon" type="image/png" href="../images/favicon.png">
-    <link rel="stylesheet" href="../css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Календарь и результаты — ХК КГАСУ</title>
+<meta name="description" content="Расписание игр, результаты и турнирная таблица хоккейного клуба КГАСУ.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://hckgasu.ru/pages/calendar.html">
+<meta property="og:title" content="Календарь и результаты — ХК КГАСУ">
+<meta property="og:description" content="Расписание игр, результаты и турнирная таблица ХК КГАСУ.">
+<meta property="og:url" content="https://hckgasu.ru/pages/calendar.html">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://hckgasu.ru/images/emblem.png">
+<link rel="icon" type="image/png" href="../images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Saira+Condensed:wght@600;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/home.css?v=4">
+<link rel="stylesheet" href="../css/pages.css?v=4">
 </head>
 <body>
-    <img src="../images/emblem.png" class="background-logo" alt="">
-    <!-- Шапка с навигацией -->
-    <header class="page-header">
-        <a href="../index.html" class="back-link"><span class="nav-arrow">←</span> Главная</a>
-        <h1 class="page-title">Календарь и результаты</h1>
-    </header>
 
-    <main class="content-page calendar-page">
-        <div class="content-container">
+<nav class="nav scrolled" id="nav">
+  <a class="brand" href="../index.html"><img src="../images/emblem.png" alt="Эмблема ХК КГАСУ">ХК КГАСУ</a>
+  <div class="links">
+    <a href="roster.html">Команда</a><a href="calendar.html">Матчи</a><a href="news.html">Новости</a><a href="social.html">Медиа</a><a href="about.html">Клуб</a>
+  </div>
+  <a class="join" href="social.html">Вступить</a>
+  <button class="burger" id="burger" aria-label="Меню"><span></span><span></span><span></span></button>
+</nav>
 
-            <!-- Статистика сезона -->
-            <section class="season-stats-section">
-                <h2>Статистика сезона</h2>
-                <div id="season-stats" class="season-stats">
-                    <!-- Заполняется из js/schedule.js -->
-                </div>
-            </section>
+<header class="page-hero">
+  <img class="wm" src="../images/emblem.png" alt="">
+  <div class="wrap inner">
+    <div class="crumbs"><a href="../index.html">Главная</a> · Матчи</div>
+    <h1>Календарь и результаты</h1>
+    <p class="sub">Турнирная таблица, статистика сезона и расписание матчей ХК КГАСУ.</p>
+  </div>
+</header>
 
-            <!-- Турнирная таблица -->
-            <section class="standings-section">
-                <h2>Турнирная таблица — Дивизион АБ ПЛХЛ 2025/2026</h2>
-                <p class="standings-subtitle">Регулярный чемпионат</p>
-                <div class="standings-table-container">
-                    <table class="standings-table">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th></th>
-                                <th class="team-col">Команда</th>
-                                <th>И</th>
-                                <th>В</th>
-                                <th>Н</th>
-                                <th>П</th>
-                                <th>Ш</th>
-                                <th>О</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Заполняется из js/schedule.js -->
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- Плей-офф -->
-            <section class="playoff-section" id="playoffSection" style="display:none">
-                <h2>Плей-офф</h2>
-                <div id="playoffBracket">
-                    <!-- Заполняется из js/schedule.js -->
-                </div>
-            </section>
-
-            <!-- Предстоящие игры -->
-            <section class="upcoming-games-section">
-                <h2>Предстоящие игры</h2>
-                <div class="games-list" id="upcomingGamesList">
-                    <!-- Заполняется из js/schedule.js -->
-                </div>
-            </section>
-
-            <!-- Сыгранные матчи -->
-            <section class="past-games-section">
-                <h2>Сыгранные матчи</h2>
-                <div class="games-list" id="pastGamesList">
-                    <!-- Заполняется из js/schedule.js -->
-                </div>
-            </section>
-
-        </div>
-    </main>
-
-    <nav class="page-nav">
-        <a href="veterans.html" class="page-nav-btn"><span class="nav-arrow">←</span> Ветераны</a>
-        <a href="news.html" class="page-nav-btn">Новости <span class="nav-arrow">→</span></a>
-    </nav>
-    <div class="dev-credits">
-        Разработано: <a href="https://t.me/Zisten_7" target="_blank" class="dev-link">@Zisten_7</a> &amp; <a href="https://t.me/zarya7_7" target="_blank" class="dev-link">@zarya7_7</a>
+<main>
+  <!-- Статистика сезона -->
+  <section class="page-section">
+    <div class="wrap">
+      <div class="head reveal" style="margin-bottom:28px">
+        <h2 style="font-family:var(--disp);font-size:clamp(1.6rem,3.6vw,2.4rem);text-transform:uppercase">Статистика сезона</h2>
+      </div>
+      <div id="season-stats" class="season-stats reveal"></div>
     </div>
+  </section>
 
-    <button class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Наверх">↑</button>
+  <!-- Турнирная таблица -->
+  <section class="page-section alt">
+    <div class="wrap">
+      <h2 style="font-family:var(--disp);font-size:clamp(1.6rem,3.6vw,2.4rem);text-transform:uppercase;margin-bottom:8px">Турнирная таблица</h2>
+      <p class="standings-subtitle">Дивизион АБ ПЛХЛ · Регулярный чемпионат 2025/2026</p>
+      <div class="standings-table-container reveal">
+        <table class="standings-table">
+          <thead>
+            <tr><th>#</th><th></th><th class="team-col">Команда</th><th>И</th><th>В</th><th>Н</th><th>П</th><th>Ш</th><th>О</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
 
-    <script src="../js/schedule.js"></script>
-    <script src="../js/main.js"></script>
+  <!-- Плей-офф -->
+  <section class="page-section playoff-section" id="playoffSection" style="display:none">
+    <div class="wrap">
+      <h2 style="font-family:var(--disp);font-size:clamp(1.6rem,3.6vw,2.4rem);text-transform:uppercase;margin-bottom:22px">Плей-офф</h2>
+      <div id="playoffBracket"></div>
+    </div>
+  </section>
+
+  <!-- Предстоящие игры -->
+  <section class="page-section">
+    <div class="wrap">
+      <h2 style="font-family:var(--disp);font-size:clamp(1.6rem,3.6vw,2.4rem);text-transform:uppercase;margin-bottom:22px">Предстоящие игры</h2>
+      <div class="games-list" id="upcomingGamesList"></div>
+    </div>
+  </section>
+
+  <!-- Сыгранные матчи -->
+  <section class="page-section alt">
+    <div class="wrap">
+      <h2 style="font-family:var(--disp);font-size:clamp(1.6rem,3.6vw,2.4rem);text-transform:uppercase;margin-bottom:22px">Сыгранные матчи</h2>
+      <div class="games-list" id="pastGamesList"></div>
+    </div>
+  </section>
+</main>
+
+<nav class="page-nav">
+  <a href="veterans.html" class="page-nav-btn"><span class="nav-arrow">←</span> Ветераны</a>
+  <a href="news.html" class="page-nav-btn">Новости <span class="nav-arrow">→</span></a>
+</nav>
+
+<div class="footer">Разработано: <a href="https://t.me/Zisten_7" target="_blank" rel="noopener">@Zisten_7</a> &amp; <a href="https://t.me/zarya7_7" target="_blank" rel="noopener">@zarya7_7</a></div>
+
+<button class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Наверх">↑</button>
+
+<script>
+(function(){var n=document.getElementById('nav'),b=document.getElementById('burger');if(b)b.addEventListener('click',function(){n.classList.toggle('open')});
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});})();
+</script>
+<script src="../js/schedule.js?v=4"></script>
+<script src="../js/main.js?v=4"></script>
 </body>
 </html>
