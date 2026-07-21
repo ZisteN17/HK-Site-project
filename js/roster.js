@@ -20,6 +20,15 @@ function roleShort(role) {
   if (!role) return '';
   return role === 'Капитан' ? 'К' : 'А';
 }
+function isBirthdayToday(p) {
+  if (!p.birthDate) return false;
+  const now = new Date();
+  let m = now.getMonth() + 1, day = now.getDate();
+  const demo = new URLSearchParams(location.search).get('bday'); // демо: ?bday=ММ-ДД
+  if (demo && /^\d{1,2}-\d{1,2}$/.test(demo)) { const q = demo.split('-'); m = +q[0]; day = +q[1]; }
+  const x = p.birthDate.split('-');
+  return (+x[1]) === m && (+x[2]) === day;
+}
 
 document.addEventListener('DOMContentLoaded', async function () {
   try {
@@ -96,15 +105,17 @@ function revealCards() {
 function createPlayerCard(p) {
   const card = document.createElement('div');
   const ph = isPlaceholderPhoto(p.photo);
-  card.className = 'rcard' + (ph ? ' is-placeholder' : '');
+  const bd = isBirthdayToday(p);
+  card.className = 'rcard' + (ph ? ' is-placeholder' : '') + (bd ? ' birthday-card' : '');
   card.dataset.playerId = p.id;
   const role = p.role ? `<span class="role">${roleShort(p.role)}</span>` : '';
+  const bdBadge = bd ? '<span class="bd-badge">ДР</span>' : '';
   card.innerHTML = `
     <img src="${getPhotoSrc(p.photo)}" alt="${p.name}" loading="lazy"
          onerror="this.onerror=null;this.src='../images/players/player-placeholder.png';this.closest('.rcard').classList.add('is-placeholder')">
     <div class="grad"></div>
     <span class="no">${p.number}</span>
-    ${role}
+    ${role}${bdBadge}
     <div class="info"><div class="name">${p.name}</div><div class="pos">${p.position}</div></div>`;
   return card;
 }
