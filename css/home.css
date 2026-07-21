@@ -194,7 +194,7 @@ img{display:block;max-width:100%}
   .nav{padding:12px 18px;background:rgba(9,9,11,.92);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,.07)}
   .nav .brand{font-size:1.05rem;gap:10px}
   .nav .brand img{width:46px;height:46px}
-  .count-inner{padding:28px 0 72px}
+  .count .count-inner{padding:28px 22px 72px}
   .count.season-over .summary .big{font-size:1.4rem}
   .nav .links{display:none}
   .nav .join{display:none}
