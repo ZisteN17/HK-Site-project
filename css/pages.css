@@ -271,7 +271,10 @@
   .archive-grid{grid-template-columns:1fr}
   .games-list{grid-template-columns:1fr}
   .season-stats{grid-template-columns:repeat(2,1fr)}
-  .page-hero{padding:120px 0 46px}
+  .page-hero{padding:120px 0 44px;min-height:300px}
+  .page-hero h1{font-size:clamp(2rem,9vw,3rem)}
+  .page-hero .sub{font-size:.98rem}
+  .page-hero .wm{width:min(34vw,190px)}
   .social-links-grid{grid-template-columns:1fr}
   .roster-grid{grid-template-columns:repeat(3,1fr)}
   .achievements{grid-template-columns:1fr}
