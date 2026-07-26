@@ -8,7 +8,8 @@
 
   const get = async (u) => { try { const r = await fetch(u); return r.ok ? await r.json() : null; } catch (e) { return null; } };
   const [a, b] = await Promise.all([get('/data/roster_plhl.json'), get('/data/roster_skhl.json')]);
-  const all = [ ...((a && a.players) || []), ...((b && b.players) || []) ];
+  const coaches = [ { name: 'Вадим Вакивович', birthDate: '1966-03-23' } ];
+  const all = [ ...coaches, ...((a && a.players) || []), ...((b && b.players) || []) ];
 
   // уникальные по имени
   const seen = new Set();

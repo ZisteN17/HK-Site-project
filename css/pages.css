@@ -73,6 +73,7 @@
 .coach-card img{width:96px;height:96px;object-fit:cover;border-radius:50%;border:2px solid var(--gold)}
 .coach-card .cn{font-family:var(--disp);font-size:1.4rem;text-transform:uppercase}
 .coach-card .cr{font-family:var(--cond);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-size:.85rem;margin-top:4px}
+.coach-card .cr-year{color:var(--dim);font-size:.8rem}
 
 /* ── Модалка игрока ────────────────────────────────────────── */
 .modal{position:fixed;inset:0;z-index:200;background:rgba(6,6,8,.82);backdrop-filter:blur(6px);
@@ -201,6 +202,8 @@
 .bt-logo-placeholder{width:26px;height:26px;border-radius:50%;background:var(--panel-2)}
 .bt-name{flex:1;font-family:var(--cond);font-weight:700;font-size:.9rem;text-transform:uppercase}
 .bt-score{font-family:var(--cond);font-weight:900;font-size:1.1rem;color:var(--gold)}
+.bt-group-third{margin-top:26px}
+.bt-third-label{color:var(--dim);font-size:.7rem;margin-bottom:10px}
 
 /* Кнопка наверх */
 .scroll-top-btn{position:fixed;right:24px;bottom:24px;z-index:80;width:48px;height:48px;border:0;cursor:pointer;

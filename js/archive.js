@@ -98,6 +98,7 @@ function renderArchivePlayoff(data, teamLogos) {
                     <div class="bt-round-label">Финал</div>
                     <div class="bt-col">
                         <div class="bt-group bt-group-final"><div class="bt-slot">${matchCard(data.final)}</div></div>
+                        ${data.third_place && data.third_place.team1 ? `<div class="bt-group bt-group-third"><div class="bt-round-label bt-third-label">За 3-е место</div><div class="bt-slot">${matchCard(data.third_place)}</div></div>` : ''}
                     </div>
                 </div>
             </div>

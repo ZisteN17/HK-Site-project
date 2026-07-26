@@ -79,8 +79,8 @@ function loadPlayers(data) {
   grid.appendChild(ch);
   const coach = document.createElement('div');
   coach.className = 'coach-card';
-  coach.innerHTML = `<img src="../images/coach.jpeg" alt="Вадим Вакивович">
-    <div><div class="cn">Вадим Вакивович</div><div class="cr">Главный тренер</div></div>`;
+  coach.innerHTML = `<img src="../images/players/coach_vadim.jpg?v=2" alt="Вадим Вакивович">
+    <div><div class="cn">Вадим Вакивович</div><div class="cr">Главный тренер</div><div class="cr cr-year">1966 г.р.</div></div>`;
   grid.appendChild(coach);
 
   revealCards();
