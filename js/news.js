@@ -37,7 +37,7 @@ function buildCarousel(photos, postId) {
     }
     const slides = photos.map((src, i) =>
         `<div class="carousel-slide${i === 0 ? ' active' : ''}">
-            <img src="/${src}" alt="">
+            <img src="/${src}" alt="" onload="if(this.naturalHeight>this.naturalWidth)this.classList.add('portrait')">
         </div>`
     ).join('');
     const dots = photos.map((_, i) =>
