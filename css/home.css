@@ -148,6 +148,7 @@ img{display:block;max-width:100%}
 .ncard:hover{transform:translateY(-6px);border-color:rgba(201,162,75,.4)}
 .ncard .ph{aspect-ratio:16/10;overflow:hidden;background:var(--panel-2)}
 .ncard .ph img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.ncard .ph img.portrait{object-fit:contain}
 .ncard:hover .ph img{transform:scale(1.06)}
 .ncard .body{padding:22px 24px 26px;display:flex;flex-direction:column;gap:10px;flex:1}
 .ncard .date{font-family:var(--cond);font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-size:.78rem}

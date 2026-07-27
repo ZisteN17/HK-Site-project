@@ -120,7 +120,7 @@ function renderNews(d) {
   if (!posts.length) { grid.innerHTML = '<p style="color:var(--dim)">Новости скоро появятся.</p>'; return; }
   grid.innerHTML = posts.map(p => {
     const photo = (p.photos && p.photos[0]) || p.photo || '';
-    const img = photo ? `<div class="ph"><img src="/${esc(photo)}" alt="" loading="lazy"></div>` : '';
+    const img = photo ? `<div class="ph"><img src="/${esc(photo)}" alt="" loading="lazy" onload="if(this.naturalHeight>this.naturalWidth)this.classList.add('portrait')"></div>` : '';
     const date = new Date(p.date);
     const dstr = `${date.getDate()} ${MONTHS[date.getMonth()]} ${date.getFullYear()}`;
     return `<a class="ncard" href="pages/news.html">
