@@ -95,7 +95,8 @@
 /* ── Нижняя навигация страниц ──────────────────────────────── */
 .page-nav{display:flex;justify-content:space-between;gap:14px;max-width:1300px;margin:0 auto;padding:40px 44px}
 .page-nav-btn{font-family:var(--cond);font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--white);
-  border:1px solid rgba(255,255,255,.12);padding:16px 28px;transition:all .25s;display:inline-flex;align-items:center;gap:10px}
+  border:1px solid rgba(255,255,255,.12);padding:16px 28px;transition:all .25s;display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  flex:1 1 0;min-width:0;text-align:center}
 .page-nav-btn:hover{border-color:var(--gold);color:var(--gold)}
 .page-nav-btn .nav-arrow{color:var(--gold)}
 
